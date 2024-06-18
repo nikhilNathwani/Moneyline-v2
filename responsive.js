@@ -25,25 +25,12 @@ const filterReturnButton = document.getElementById("return-to-filters");
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
-/*     UI TWEAK                                             */
-/*                                                          */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-// Shift filter container in initial state to account for scrollbar width when centering it
-const scrollbarWidth = appContainer.offsetWidth - appContainer.clientWidth;
-filterContainer.style.paddingRight = scrollbarWidth + "px";
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/*                                                          */
 /*     EVENT HANDLING                                         */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 // Handle submit
 submitButton.addEventListener("click", function () {
-	// Undo the UI tweak (adjusting css left property of filterContainer in initial state)
-	filterContainer.style.left = "0px";
-	filterContainer.style.paddingRight = "0px";
-
 	if (window.innerWidth < minWidthAdjacentMode) {
 		setAppState(APP_STATE.STACKED);
 		resultContainer.scrollIntoView({

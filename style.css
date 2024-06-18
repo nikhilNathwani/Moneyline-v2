@@ -1,7 +1,7 @@
 :root {
-	--width-filterContainer: 400px;
-	--color-accent: rgb(106, 88, 117);
-	--color-dark: hsl(277, 14%, 20%);
+	--width-filterContent: 400px;
+	--color-accent: hsl(10, 29%, 42%);
+	--color-dark: hsl(10, 29%, 20%);
 	--color-bg: gainsboro;
 }
 
@@ -12,12 +12,13 @@
 
 body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-	/* background-color: var(--color-accent); */
 }
 
 #app {
 	display: grid;
 	grid-template-columns: var(--width-filterContainer) 1fr;
+	/* Note: --width-filterContainer is set within the 'initial mode' and 'adjacent mode' classes */
+	transition: grid-template-columns 0.6s ease;
 	background-color: var(--color-accent);
 }
 
@@ -35,12 +36,10 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-
-	transition: left 0.6s ease;
 }
 
 #filter-content {
-	width: var(--width-filterContainer);
+	width: var(--width-filterContent);
 	padding-inline: 2rem;
 	display: flex;
 	flex-direction: column;
@@ -53,6 +52,10 @@ body {
 	flex-direction: column;
 	text-align: center;
 	gap: 0.5rem;
+	padding: 1rem;
+
+	margin: auto;
+	transition: margin 0.5s ease;
 }
 
 #filter-header h1 {
@@ -105,7 +108,7 @@ button:active {
 }
 
 select {
-	/* height: 2rem; */
+	height: 2rem;
 	/* margin: 0 5px; */
 	padding: 0.25rem 0;
 	/* position: relative;
@@ -150,14 +153,8 @@ button#return-to-filters {
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #app.initialMode {
+	--width-filterContainer: 100%;
 	overflow-y: scroll;
-}
-
-.initialMode #filter-container {
-	position: relative;
-	left: calc((100vw - var(--width-filterContainer)) / 2);
-	/* The -14px is a manual adjustment for scrollbar gutter */
-	transition: none;
 }
 
 .initialMode #result-container {
@@ -174,10 +171,6 @@ button#return-to-filters {
 	flex-flow: column nowrap;
 }
 
-.stackedMode #filter-container {
-	/* width: 100%; */
-}
-
 .stackedMode #result-container {
 	height: fit-content;
 }
@@ -188,12 +181,8 @@ button#return-to-filters {
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #app.adjacentMode {
+	--width-filterContainer: 400px;
 	overflow-y: hidden;
-}
-
-.adjacentMode #filter-container {
-	position: relative;
-	left: 0;
 }
 
 .adjacentMode #result-container {
@@ -201,8 +190,3 @@ button#return-to-filters {
 	height: 100dvh;
 	overflow-y: scroll;
 }
-
-/* .adjacentMode button#return-to-filters {
-	display: none;
-} 
-*/
