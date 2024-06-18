@@ -1,0 +1,208 @@
+:root {
+	--width-filterContainer: 400px;
+	--color-accent: rgb(106, 88, 117);
+	--color-dark: hsl(277, 14%, 20%);
+	--color-bg: gainsboro;
+}
+
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	/* background-color: var(--color-accent); */
+}
+
+#app {
+	display: grid;
+	grid-template-columns: var(--width-filterContainer) 1fr;
+	background-color: var(--color-accent);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     FILTER AREA                                          */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#filter-container {
+	height: 100vh;
+	height: 100dvh;
+	background-color: var(--color-accent);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	transition: left 0.6s ease;
+}
+
+#filter-content {
+	width: var(--width-filterContainer);
+	padding-inline: 2rem;
+	display: flex;
+	flex-direction: column;
+}
+
+#filter-header {
+	color: var(--color-bg);
+
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	gap: 0.5rem;
+}
+
+#filter-header h1 {
+	font-family: "Paytone One", sans-serif;
+	font-size: 2.5rem;
+}
+
+#filter-paragraph {
+	width: 100%;
+	padding: 1rem;
+
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	gap: 1.5rem;
+
+	font-size: 1rem;
+	color: var(--color-bg);
+}
+
+#filter-row {
+	width: 100%;
+}
+
+button {
+	/* width: 5rem; */
+	height: 3.5rem;
+	padding-inline: 1ch;
+	border-radius: 6px;
+	background-color: var(--color-accent);
+	border: 2px solid var(--color-bg);
+	border-top: 3px solid var(--color-bg);
+	border-left: 3px solid var(--color-bg);
+	font-size: 1rem;
+	font-weight: bold;
+	color: var(--color-bg);
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+	background-color: var(--color-bg);
+	color: var(--color-accent);
+}
+
+button:active {
+	transform: translateY(2px);
+	background-color: var(--color-bg);
+	color: var(--color-accent);
+}
+
+select {
+	/* height: 2rem; */
+	/* margin: 0 5px; */
+	padding: 0.25rem 0;
+	/* position: relative;
+	bottom: 9px; */
+	width: 100%;
+	background-color: var(--color-bg);
+	font-size: 1rem;
+	font-weight: bold;
+	color: var(--color-accent);
+	/* text-align: center; */
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     RESULT AREA                                          */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#result-container {
+	background-color: var(--color-bg);
+	/* width: 100%; */
+	height: fit-content;
+}
+
+button#return-to-filters {
+	width: 90%;
+	margin-inline: 5%;
+	height: 3rem;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+
+	position: fixed;
+	bottom: 1rem;
+	z-index: 999;
+
+	color: white;
+	background-color: var(--color-accent);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     INITIAL MODE                                         */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#app.initialMode {
+	overflow-y: scroll;
+}
+
+.initialMode #filter-container {
+	position: relative;
+	left: calc((100vw - var(--width-filterContainer)) / 2);
+	/* The -14px is a manual adjustment for scrollbar gutter */
+	transition: none;
+}
+
+.initialMode #result-container {
+	display: none;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     STACKED MODE                                         */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#app.stackedMode {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.stackedMode #filter-container {
+	/* width: 100%; */
+}
+
+.stackedMode #result-container {
+	height: fit-content;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     ADJACENT MODE                                        */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#app.adjacentMode {
+	overflow-y: hidden;
+}
+
+.adjacentMode #filter-container {
+	position: relative;
+	left: 0;
+}
+
+.adjacentMode #result-container {
+	height: 100vh;
+	height: 100dvh;
+	overflow-y: scroll;
+}
+
+/* .adjacentMode button#return-to-filters {
+	display: none;
+} 
+*/
