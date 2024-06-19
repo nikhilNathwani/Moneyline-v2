@@ -33,7 +33,7 @@ body {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #filter-container {
 	height: 100vh;
-	height: 100dvh;
+	/* height: 100dvh; */
 	min-height: var(--minHeight-app);
 	background-color: var(--color-accent);
 
@@ -150,6 +150,10 @@ button#return-to-filters {
 #app.initialMode {
 	--width-filterContainer: 100%;
 	overflow-y: scroll;
+}
+
+.initialMode #filter-container {
+	height: 100dvh;
 }
 
 .initialMode #result-container {
