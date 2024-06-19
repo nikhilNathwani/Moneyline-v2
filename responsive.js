@@ -6,6 +6,7 @@
 
 // Breakpoint
 const minWidthAdjacentMode = 1000; //px
+const minHeight = 600; //px
 
 // App states
 const APP_STATE = {
@@ -38,8 +39,10 @@ submitButton.addEventListener("click", function () {
 			block: "start",
 		});
 	} else {
-		setAppState(APP_STATE.ADJACENT);
-		resultContainer.scrollTo({ top: 0, behavior: "smooth" });
+		if (window.innerHeight >= minHeight) {
+			setAppState(APP_STATE.ADJACENT);
+			resultContainer.scrollTo({ top: 0, behavior: "smooth" });
+		}
 	}
 });
 
@@ -49,7 +52,8 @@ window.addEventListener("resize", function () {
 		return;
 	}
 	if (
-		window.innerWidth < minWidthAdjacentMode &&
+		(window.innerWidth < minWidthAdjacentMode ||
+			window.innerHeight < minHeight) &&
 		!appContainer.classList.contains(APP_STATE.STACKED)
 	) {
 		setAppState(APP_STATE.STACKED);
@@ -58,6 +62,7 @@ window.addEventListener("resize", function () {
 	}
 	if (
 		window.innerWidth >= minWidthAdjacentMode &&
+		window.innerHeight >= minHeight &&
 		!appContainer.classList.contains(APP_STATE.ADJACENT)
 	) {
 		setAppState(APP_STATE.ADJACENT);
@@ -83,8 +88,8 @@ const observer = new IntersectionObserver(
 		});
 	},
 	{
-		threshold: 0.5, // Trigger when 50% of the element is out of view
-		rootMargin: "-50px 0px 0px 0px", // Adjust this value as needed
+		threshold: 0.0, // Trigger when 0% of the element is out of view
+		rootMargin: "-20% 0px 0px 0px", // Adjust this value as needed
 	}
 );
 observer.observe(filterContainer);
