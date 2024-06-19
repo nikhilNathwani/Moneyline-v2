@@ -60,7 +60,6 @@ body {
 	gap: 0.5rem;
 
 	margin: auto;
-	transition: margin 0.5s ease;
 }
 
 #filter-header h1 {
@@ -100,16 +99,9 @@ button {
 	transition: background-color 0.3s, color 0.3s;
 }
 
-button:hover {
-	/* background-color: var(--color-bg); */
-	/* color: var(--color-accent); */
-}
-
 button:active {
 	transform: translateY(2px);
 	border-bottom-width: 2px;
-	/* background-color: var(--color-bg);
-	color: var(--color-accent); */
 }
 
 select {
@@ -121,7 +113,6 @@ select {
 	font-size: 1rem;
 	font-weight: bold;
 	color: var(--color-accent);
-	/* text-align: center; */
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
