@@ -101,14 +101,15 @@ button {
 }
 
 button:hover {
-	background-color: var(--color-bg);
-	color: var(--color-accent);
+	/* background-color: var(--color-bg); */
+	/* color: var(--color-accent); */
 }
 
 button:active {
 	transform: translateY(2px);
-	background-color: var(--color-bg);
-	color: var(--color-accent);
+	border-bottom-width: 2px;
+	/* background-color: var(--color-bg);
+	color: var(--color-accent); */
 }
 
 select {
@@ -147,7 +148,7 @@ button#return-to-filters {
 	bottom: 1rem;
 	z-index: 999;
 
-	color: white;
+	color: var(--color-bg);
 	background-color: var(--color-accent);
 }
 
