@@ -1,8 +1,10 @@
 :root {
 	--minHeight-app: 600px;
 	--width-filterContent: 400px;
-	--color-accent: hsl(10, 29%, 42%);
-	--color-dark: hsl(10, 29%, 20%);
+	/* --color-accent: hsl(10, 29%, 42%);
+	--color-dark: hsl(10, 29%, 20%); */
+	--color-accent: hsl(252, 13%, 38%);
+	--color-dark: hsl(252, 13%, 20%);
 	--color-bg: gainsboro;
 }
 
@@ -137,6 +139,7 @@ button#return-to-filters {
 	width: 90%;
 	margin-inline: 5%;
 	height: 3rem;
+	border-width: 1px;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 
