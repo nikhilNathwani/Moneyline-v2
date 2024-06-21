@@ -30,7 +30,7 @@ const filterReturnButton = document.getElementById("return-to-filters");
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Handle submit
+// Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
 	if (window.innerWidth < minWidthAdjacentMode) {
 		setAppState(APP_STATE.STACKED);
@@ -69,27 +69,27 @@ window.addEventListener("resize", function () {
 	}
 });
 
-// Handle 'return to filters' button (only shown in stacked mode)
+// Handle 'Return to filters' button (only shown in stacked mode when filters are out of view)
 filterReturnButton.addEventListener("click", function () {
 	filterContainer.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
-// Show 'return to filters' button (when filters are out of view)
+// Show 'Return to filters' button (when filters are out of view)
 const observer = new IntersectionObserver(
 	(entries) => {
 		entries.forEach((entry) => {
 			if (!entry.isIntersecting) {
-				// Element is out of view
+				// filterContainer is out of view
 				filterReturnButton.style.display = "block";
 			} else {
-				// Element is in view
+				// filterContainer is in view
 				filterReturnButton.style.display = "none";
 			}
 		});
 	},
 	{
-		threshold: 0.0, // Trigger when 0% of the element is out of view
-		rootMargin: "-20% 0px 0px 0px", // Adjust this value as needed
+		threshold: 0.2, // Trigger when <=20% of the element is in view
+		// rootMargin: "0% 0px 0px 0px",
 	}
 );
 observer.observe(filterContainer);
@@ -102,6 +102,6 @@ observer.observe(filterContainer);
 function setAppState(state) {
 	Object.values(APP_STATE).forEach((state) =>
 		appContainer.classList.remove(state)
-	); // Remove all possible states
-	appContainer.classList.add(state); // Add the desired state
+	);
+	appContainer.classList.add(state);
 }
