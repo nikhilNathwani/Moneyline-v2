@@ -298,6 +298,11 @@ button#return-to-filters {
 	overflow-y: hidden;
 }
 
+.adjacentMode #filter-container {
+	z-index: 2;
+	box-shadow: 10px 0px 6px rgba(0, 0, 0, 0.3);
+}
+
 .adjacentMode #result-container {
 	height: 100vh;
 	height: 100dvh;
