@@ -32,17 +32,18 @@ const filterReturnButton = document.getElementById("return-to-filters");
 
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
-	if (window.innerWidth < minWidthAdjacentMode) {
+	if (
+		window.innerWidth < minWidthAdjacentMode ||
+		window.innerHeight < minHeight
+	) {
 		setAppState(APP_STATE.STACKED);
 		resultContainer.scrollIntoView({
 			behavior: "smooth",
 			block: "start",
 		});
 	} else {
-		if (window.innerHeight >= minHeight) {
-			setAppState(APP_STATE.ADJACENT);
-			resultContainer.scrollTo({ top: 0, behavior: "smooth" });
-		}
+		setAppState(APP_STATE.ADJACENT);
+		resultContainer.scrollTo({ top: 0, behavior: "smooth" });
 	}
 });
 
