@@ -3,8 +3,12 @@
 	--width-filterContent: 400px;
 	/* --color-accent: hsl(10, 29%, 42%);
 	--color-dark: hsl(10, 29%, 20%); */
+	/* --color-light: hsl(252, 13%, 80%);
 	--color-accent: hsl(252, 13%, 38%);
-	--color-dark: hsl(252, 13%, 20%);
+	--color-dark: hsl(252, 13%, 20%); */
+	--color-accent: hsl(212, 26%, 29%);
+	/* --color-mid: hsl(212, 43%, 64%); */
+	--color-light: hsl(212, 43%, 89%);
 	--color-bg: gainsboro;
 }
 
@@ -125,8 +129,104 @@ button#submit-button:active {
 #result-container {
 	height: fit-content;
 	min-height: var(--minHeight-app);
+	/* padding-block: 3rem; */
 
-	background-color: var(--color-bg);
+	background-color: white;
+}
+
+.result {
+	width: min(80vw, 64ch);
+	margin: 3rem auto 6rem auto;
+
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	gap: 1rem;
+}
+
+.result-banner {
+	width: 100%;
+	font-size: 2.5rem;
+	border: 3px solid var(--color-light);
+	border-bottom: 6px solid var(--color-light);
+	border-radius: 8px;
+	/* background-color: var(--color-light);; */
+	background-image: linear-gradient(45deg, var(--color-light), white);
+	color: hsl(212, 26%, 29%);
+	text-align: center;
+	padding-block: 2rem;
+}
+
+.result-banner#total-profit-banner {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	padding-block: 3rem;
+}
+
+.result-text {
+	font-weight: bold;
+	color: hsl(150, 42%, 32%);
+}
+
+.result-banner#total-profit-banner .result-text {
+	font-size: 4.5rem;
+}
+
+.result-details {
+	width: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	/* grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); */
+	/* gap: 1rem; */
+}
+
+.result-detail-row {
+	display: grid;
+	grid-template-columns: repeat(2, 16ch);
+}
+
+.result-chip {
+	min-width: 25%;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	gap: 0.375rem;
+	/* justify-content: center; */
+}
+
+.result-chip-title {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.hero {
+	width: 500px;
+	height: 100px;
+	margin: 3rem auto 0 auto;
+
+	/* background: linear-gradient(to bottom right, white, var(--color-light)); */
+	background-color: white;
+
+	box-shadow: 10px 10px 15px hsla(252, 13%, 20%, 0.3);
+}
+
+.sub {
+	width: 500px;
+	height: 300px;
+	margin: 0 auto 3rem auto;
+
+	background: linear-gradient(to bottom right, var(--color-light), white);
+	/* background-color: white; */
+
+	box-shadow: 10px 10px 15px hsla(252, 13%, 20%, 0.3);
+
+	/* border-right: 6px solid var(--color-accent);
+	border-bottom: 6px solid var(--color-dark); */
 }
 
 button#return-to-filters {

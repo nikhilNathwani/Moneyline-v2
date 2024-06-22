@@ -26,22 +26,22 @@
 					</div>
 					<div id="filter-paragraph">
 						<div class="filter-row">
-							<div>Team:</div>
+							<div>Team</div>
 							<select id="team-input" class="dropdown"></select>
 						</div>
 						<div class="filter-row">
-							<div>Season:</div>
+							<div>Season</div>
 							<select id="season-input" class="dropdown"></select>
 						</div>
 						<div class="filter-row">
-							<div>Prediction:</div>
+							<div>Prediction</div>
 							<select
 								id="outcome-input"
 								class="dropdown"
 							></select>
 						</div>
 						<div class="filter-row">
-							<div>Bet amount per game:</div>
+							<div>Bet amount per game</div>
 							<select id="bet-input" class="dropdown"></select>
 						</div>
 					</div>
@@ -50,6 +50,151 @@
 			</div>
 			<div id="result-container">
 				<button id="return-to-filters">⬆ Return to filters</button>
+				<div class="result" id="total-profit-result">
+					<div class="result-banner" id="total-profit-banner">
+						<p>You would have won</p>
+						<span class="result-text">$423.00</span>
+						<p>at the end of the season.</p>
+					</div>
+				</div>
+				<div class="result" id="roi-result">
+					<div class="result-banner" id="roi-banner">
+						That's a
+						<span
+							class="result-banner-positive"
+							id="percentReturnBanner"
+							>+15.2%</span
+						>
+						return on investment.
+					</div>
+					<div class="result-details" id="roi-details">
+						<div class="result-detail-row">
+							<div class="result-chip">
+								<div class="result-chip-title">
+									Total wagered
+								</div>
+								<div
+									class="result-chip-value"
+									id="totalWagered"
+								>
+									$8200
+								</div>
+							</div>
+							<div class="result-chip">
+								<div class="result-chip-title">
+									Total payout
+								</div>
+								<div class="result-chip-value" id="totalPayout">
+									$9600.50
+								</div>
+							</div>
+						</div>
+						<div class="result-detail-row">
+							<div class="result-chip">
+								<div class="result-chip-title">Profit</div>
+								<div
+									class="result-chip-value result-chip-value-positive"
+									id="profit"
+								>
+									+$1400.50
+								</div>
+							</div>
+							<div class="result-chip">
+								<div class="result-chip-title">% Return</div>
+								<div
+									class="result-chip-value result-chip-value-positive"
+									id="percentReturn"
+								>
+									+15.2%
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="result" id="win-loss-result">
+					<div class="result-banner" id="win-loss-banner">
+						The Hawks
+						<span class="result-text">lost 36 games</span> that
+						season.
+					</div>
+					<div class="result-details" id="win-loss-details">
+						<div class="result-detail-row">
+							<div class="result-chip">
+								<div class="result-chip-title">
+									Lost as Underdog
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-gameCount"
+								>
+									29 games
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-payout result-chip-value-positive"
+								>
+									+$450.30
+								</div>
+							</div>
+							<div class="result-chip">
+								<div class="result-chip-title">
+									Lost as Favorite
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-gameCount"
+								>
+									7 games
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-payout result-chip-value-positive"
+								>
+									+$1530.20
+								</div>
+							</div>
+						</div>
+						<div class="result-detail-row">
+							<div class="result-chip">
+								<div class="result-chip-title">
+									Won as Underdog
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-gameCount"
+								>
+									26 games
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-payout result-chip-value-negative"
+								>
+									-$2600
+								</div>
+							</div>
+							<div class="result-chip">
+								<div class="result-chip-title">
+									Won as Favorite
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-gameCount"
+								>
+									20 games
+								</div>
+								<div
+									class="result-chip-value result-chip-winLoss-payout result-chip-value-negative"
+								>
+									-$2000
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="result-collection" id="per-game-div">
+					<div class="result-banner">Here's the full breakdown:</div>
+					<div id="raw-data-box" class="raw-data-container"></div>
+				</div>
+
+				<div class="hero"></div>
+				<div class="sub"></div>
+
+				<div class="hero"></div>
+				<div class="hero"></div>
+				<div class="hero"></div>
 				<p>
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 					Perspiciatis quia quisquam consequatur quas doloribus amet
@@ -72,184 +217,6 @@
 					Magni sint ex sunt inventore itaque amet, quam temporibus
 					similique nulla distinctio, dolore cupiditate repellat fugit
 					quis quidem? Soluta quam quos pariatur tenetur laudantium
-					recusandae ex iste libero suscipit dolores! Reiciendis
-					repellat necessitatibus eum quis magnam consequuntur eveniet
-					corrupti, quisquam enim distinctio cum a debitis voluptates
-					sequi quaerat. Consectetur accusamus repudiandae obcaecati
-					quae! Sunt id magnam enim consequuntur debitis, quibusdam
-					atque vero suscipit totam quae consectetur amet perferendis
-					iure eum asperiores, itaque alias repellendus odio
-					voluptates autem similique. Exercitationem, magnam!
-					Praesentium aperiam minima doloremque! Dolor, iusto velit?
-					Perferendis est dolor quaerat voluptas eaque! Vero,
-					excepturi obcaecati maiores ea corrupti, officiis officia,
-					est eius aliquam adipisci nihil mollitia hic? Aperiam, hic
-					ratione incidunt sed ea eum expedita similique repellendus
-					fugit officia sequi iure, veniam officiis dolore excepturi
-					ducimus magni, qui ab in aspernatur nesciunt facilis? Eaque,
-					aliquid! Maiores, aperiam. Architecto atque ratione, minima
-					iste iure amet quod vel aut hic, repellat autem dolorem
-					ipsam consequatur dicta maiores quisquam harum dolorum
-					asperiores tempore maxime doloremque perferendis sint vitae!
-					Aspernatur, iste. Porro expedita nobis corporis assumenda
-					atque, veritatis odit tempore, autem ab asperiores,
-					repudiandae ipsum consequatur error totam eaque in quidem
-					quasi quia deserunt excepturi modi tenetur. Eligendi totam
-					vitae architecto. Eveniet explicabo aliquid non ex optio?
-					Magni ipsa libero quas accusamus. Perferendis est inventore,
-					architecto vero obcaecati dolor ea, porro modi dolores harum
-					maiores laborum quo vitae, ab officiis soluta. Omnis
-					voluptates exercitationem eos voluptatem dolor porro sed,
-					placeat quidem tenetur, impedit molestias cupiditate? Sint
-					praesentium ut eligendi sunt enim mollitia voluptatibus
-					numquam porro eum temporibus, iusto veritatis modi tenetur.
-					Esse fuga possimus hic iusto eligendi voluptate quibusdam
-					veritatis facere, rerum ipsa voluptates velit error
-					exercitationem maiores voluptatem dignissimos non molestias
-					distinctio, qui amet similique cum cumque. Ut, similique
-					quae? Cumque ut nesciunt exercitationem. Quam aliquid at,
-					mollitia quia distinctio magnam voluptates culpa optio sint?
-					Eius, consequatur. Molestiae, error magnam id pariatur omnis
-					odit dicta tenetur voluptate, voluptatem minus quia.
-					Cupiditate nemo sit excepturi asperiores, rerum alias ut
-					explicabo vero at assumenda, atque laborum, doloremque cum
-					numquam officia quasi maxime aliquid adipisci fugit itaque
-					consectetur error. Ab excepturi ea placeat? Soluta qui
-					fugiat fugit ratione esse asperiores labore mollitia, et
-					facere nisi nam corrupti debitis eligendi saepe dicta
-					commodi possimus. Animi aspernatur magni, incidunt quasi
-					error hic facilis magnam totam. Minus quibusdam officia est
-					quas eveniet. Aliquam dolore at fugiat, aperiam debitis quis
-					sit voluptates suscipit, impedit tempora aliquid molestias
-					laboriosam, exercitationem veniam fugit. Facilis molestias
-					molestiae iusto similique laborum! Incidunt impedit
-					dignissimos aspernatur provident optio ducimus esse rem
-					ratione commodi molestiae repellendus, ea praesentium
-					excepturi, vitae magni et dolorem in non voluptates nostrum!
-					Cumque magnam dolorum dolores veritatis commodi. Minima
-					incidunt quae porro tenetur, dolor dicta dolorem mollitia
-					doloremque sapiente laborum? Saepe, unde ipsum corrupti ipsa
-					natus eaque numquam? Maiores voluptatem, voluptatibus
-					exercitationem debitis laboriosam voluptas ut nulla illum!
-					Animi sit temporibus quia a accusantium explicabo hic, atque
-					magni odio! Vel illum quidem earum, deleniti omnis mollitia
-					numquam, dicta voluptas perspiciatis ex laudantium aliquam
-					quibusdam ut, soluta ratione consequatur! Quas sunt maxime
-					consequatur quos culpa dicta quia sit blanditiis eligendi
-					nesciunt impedit voluptates ducimus repellat, tempora saepe,
-					quae est, doloribus quis distinctio? Eaque in voluptatum
-					consequuntur inventore commodi dignissimos? Eveniet dolor
-					ipsum porro sunt. Enim ex vero eius aperiam perferendis rem
-					vel at reprehenderit delectus quis ea rerum quas omnis,
-					blanditiis ad quos corrupti inventore officiis similique
-					accusamus sequi. Deleniti, eaque perferendis optio
-					architecto aperiam impedit consectetur, nisi magni fugiat,
-					totam quam esse odio cumque? Debitis placeat corrupti
-					repudiandae earum itaque similique tempora adipisci
-					doloribus at incidunt, voluptas natus. Expedita recusandae
-					voluptatum, iste rerum distinctio ratione harum voluptate
-					assumenda perspiciatis veritatis error ut cumque sequi
-					sapiente, quaerat quasi? Nihil necessitatibus nulla autem
-					dignissimos adipisci cum ipsa, dolorum vero deleniti. Eaque,
-					quasi fugiat exercitationem tempora ea iste libero totam
-					molestiae cum maxime porro impedit hic. Atque, nemo culpa
-					labore illo, quae vitae corporis veritatis repellendus
-					deserunt officiis vel. Ullam, accusamus? Quos, at!
-					Voluptatem, laudantium hic consequuntur, ipsa ut corrupti
-					reiciendis fugit saepe commodi similique unde error iste,
-					impedit dolorem? Fugit officia est repudiandae aspernatur
-					laborum blanditiis nam nisi ullam quod! Adipisci fuga magnam
-					inventore porro illum architecto, exercitationem, officiis
-					maxime quisquam harum nisi ratione provident repellendus
-					natus omnis hic minima facere aliquid non ea fugit
-					perferendis tempore. Deserunt, libero mollitia. Dolore et
-					placeat fugiat tempora incidunt ratione sed perspiciatis
-					deleniti adipisci rerum nam aperiam, vel ut, labore quidem
-					quasi voluptatem debitis quae sint cupiditate impedit
-					dolores natus quis. Culpa, voluptatibus? Quia natus aliquam,
-					recusandae, cumque fugit laudantium eius exercitationem quos
-					cupiditate, repellat ipsum sint perspiciatis quis nam nihil
-					dolorum! Accusantium reiciendis molestiae eos neque atque
-					corporis commodi dolore necessitatibus dolorem? Autem
-					aperiam est provident id, temporibus dolor saepe possimus
-					obcaecati quae. Ipsam, dolore nam accusantium velit quisquam
-					nisi voluptas sapiente expedita error. Dicta vero porro
-					voluptatibus quos, nam omnis ab. Totam id iste autem atque
-					optio et aspernatur nam, nemo sunt ullam repellendus
-					reiciendis harum aliquid porro ipsum quam animi, adipisci
-					dolor. Esse assumenda repellat maxime in, quis nihil iure!
-					Iste, commodi voluptatum consequatur architecto maiores
-					corrupti perspiciatis, eius id quisquam consectetur dolorem
-					aspernatur libero officia nemo neque. Veritatis iure
-					possimus facilis quaerat suscipit fugiat, ullam ipsa eveniet
-					architecto rerum. Eos inventore nemo earum distinctio saepe
-					qui, velit aspernatur porro commodi aliquam? Ratione minus
-					veritatis veniam incidunt, consectetur quasi blanditiis
-					neque. At beatae maxime eaque ea aperiam ducimus pariatur
-					ab. Eius totam reiciendis impedit praesentium eum dolores
-					facere aspernatur sed illum quam, earum saepe magnam
-					repudiandae eveniet sit aut tempora maiores ea dicta
-					consectetur nostrum minima nobis a. Vitae, possimus!
-					Perspiciatis provident placeat dicta atque incidunt quas,
-					eos sint molestiae voluptatem labore amet, ut delectus ea in
-					ipsa! Similique facilis ullam debitis expedita fuga sapiente
-					reiciendis explicabo iure natus. Cupiditate! Quae mollitia
-					temporibus harum similique laborum molestiae amet, eius
-					facilis aut fuga quas ullam dolor, esse autem eveniet magni!
-					Commodi cumque unde eum temporibus. Aut consequatur eligendi
-					atque accusamus quam. Eligendi qui libero dolores
-					distinctio, quibusdam suscipit tempora voluptate harum sunt
-					deleniti ipsam quas, odit placeat, ab aliquam rem veniam.
-					Asperiores sapiente voluptatem iusto cumque vitae quisquam
-					reprehenderit maxime quaerat! Minima rem fugiat perspiciatis
-					sit consequuntur accusamus quaerat dignissimos maxime
-					delectus ipsum, praesentium aut maiores. Quasi magni vel,
-					eius, omnis ab aspernatur officiis repellendus architecto
-					voluptatum consectetur tenetur voluptatibus alias. Autem
-					libero quia quas eum vero ipsam odio expedita nesciunt
-					obcaecati earum, doloremque ex illo et aliquid hic suscipit
-					quibusdam excepturi minus a harum numquam eligendi quidem
-					iste amet. Ullam! Cum at aperiam vitae, exercitationem ea
-					natus omnis possimus voluptatem maiores quo dolor corporis
-					alias. Libero error voluptates est? Dolor voluptatibus quo,
-					assumenda distinctio sequi provident beatae dignissimos.
-					Corrupti, ratione! Aliquam molestias corporis eaque
-					assumenda. Earum fugiat, a atque quisquam alias quia esse
-					reiciendis qui laudantium doloribus, dolorum quod architecto
-					blanditiis aliquid veritatis? Rem ipsa necessitatibus
-					laborum et accusamus placeat. Hic quidem, rerum consequatur
-					accusamus culpa vel, minima exercitationem optio aliquid
-					error aut nulla! Debitis nihil perferendis fugit, officia
-					voluptatum commodi adipisci, quo eum reiciendis iure facilis
-					ducimus animi eaque! Tenetur vitae nobis quas itaque.
-					Inventore quibusdam quia nam voluptates corrupti obcaecati
-					saepe, maiores at quidem non iure eum nostrum, delectus
-					illum hic eaque mollitia? Facilis suscipit necessitatibus
-					eos ipsa. Cupiditate fugiat accusamus libero cumque
-					necessitatibus, quibusdam laudantium corrupti delectus,
-					molestiae ipsam quidem! Placeat facere minus et similique
-					laudantium consequatur, in ex reiciendis ullam, animi totam
-					doloremque. Esse, voluptatum blanditiis. Dolorum vitae,
-					illum maiores quisquam sit aspernatur! Dolor veritatis
-					dolore quis corrupti autem cum fuga, vitae, magnam excepturi
-					consequuntur id a maxime praesentium nulla ex laudantium
-					consectetur dignissimos vero sunt. Deserunt qui soluta
-					ducimus necessitatibus vitae molestias quo, provident,
-					aliquid unde saepe autem mollitia nulla sit magni dolores
-					velit suscipit magnam nisi possimus assumenda vero. Sint
-					consequuntur vel quo temporibus! Numquam cum commodi,
-					officiis nisi rerum error, consectetur repudiandae molestias
-					totam doloremque nam vel odio repellendus aliquam sequi
-					alias dolor maiores possimus consequatur, voluptas quibusdam
-					omnis doloribus sint. Laboriosam, est? Voluptatibus nesciunt
-					dolor consequuntur sunt mollitia vitae, vel numquam
-					similique aliquam dicta in esse magnam rerum officiis
-					voluptatum illo praesentium eos maiores velit dolorum fugit
-					quia ipsam harum. Quibusdam, asperiores. Nihil, amet animi
-					itaque commodi officia, et sed sunt quod quibusdam at enim
-					minima facere aliquam iusto magni molestias tempore nostrum
-					praesentium ipsa suscipit inventore debitis sapiente
-					similique voluptatibus. Error?
 				</p>
 			</div>
 		</div>
