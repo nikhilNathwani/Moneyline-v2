@@ -12,13 +12,13 @@
 	--color-bg: gainsboro;
 }
 
-* {
+*,
+*::after,
+*::before {
 	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
-}
-
-body {
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 #app {
@@ -146,32 +146,37 @@ button#submit-button:active {
 
 .result-banner {
 	width: 100%;
-	font-size: 2.5rem;
+	padding: 2rem 1rem;
+
 	border: 3px solid var(--color-light);
 	border-bottom: 6px solid var(--color-light);
 	border-radius: 8px;
-	/* background-color: var(--color-light);; */
-	background-image: linear-gradient(45deg, var(--color-light), white);
-	color: hsl(212, 26%, 29%);
+
+	font-size: 2.5rem;
 	text-align: center;
-	padding-block: 2rem;
+
+	color: hsl(212, 26%, 29%);
+	background-image: linear-gradient(45deg, var(--color-light), white);
+}
+
+.result-banner-positive {
+	font-weight: bold;
+	color: hsl(150, 42%, 32%);
+}
+
+.result-banner-negative {
+	font-weight: bold;
+	color: darkred;
 }
 
 .result-banner#total-profit-banner {
 	display: flex;
 	flex-flow: column nowrap;
-	align-items: center;
-	justify-content: center;
 	gap: 2rem;
 	padding-block: 3rem;
 }
 
-.result-text {
-	font-weight: bold;
-	color: hsl(150, 42%, 32%);
-}
-
-.result-banner#total-profit-banner .result-text {
+.result-banner#total-profit-banner span {
 	font-size: 4.5rem;
 }
 
