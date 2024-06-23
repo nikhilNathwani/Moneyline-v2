@@ -198,6 +198,8 @@ button#return-to-filters {
 #total-profit-banner {
 	display: flex;
 	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
 	gap: 2rem;
 	padding-block: 3rem;
 	margin-bottom: 1.5rem;
