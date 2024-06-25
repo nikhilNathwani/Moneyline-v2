@@ -1,5 +1,3 @@
-console.log("hi 1");
-
 const express = require("express");
 const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
@@ -17,9 +15,7 @@ const db = new sqlite3.Database("./moneyline.db", (err) => {
 });
 
 // Serve static files from the root directory
-console.log(__dirname);
 app.use(express.static(path.join(__dirname, "public")));
-console.log("hi");
 
 // Define a route to fetch data from the database
 app.get("/api/games", (req, res) => {
