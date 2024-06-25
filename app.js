@@ -18,7 +18,7 @@ const db = new sqlite3.Database("./moneyline.db", (err) => {
 
 // Serve static files from the root directory
 console.log(__dirname);
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "public")));
 console.log("hi");
 
 // Define a route to fetch data from the database
@@ -41,7 +41,7 @@ app.get("/api/games", (req, res) => {
 
 // Fallback to serve index.html for any other route
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "index.html"));
+	res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Start the server
