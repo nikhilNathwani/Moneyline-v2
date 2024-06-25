@@ -1,6 +1,4 @@
-# Ignore vscode files
-/.vscode
-
-# Ignore .DS_Store
 .DS_Store
-.vercel
+/.vscode
+/.vercel
+/node_modules
