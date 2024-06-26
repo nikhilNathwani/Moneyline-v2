@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Define a route to fetch data from the database
 app.get("/api/games", (req, res) => {
 	console.log("app " + getFilterValues(req));
-	res.send({"Nikhil Logging to the console"});
+	res.json({ message: "Nikhil Logging to the console" });
 	db.all(
 		"SELECT seasonStartYear, team, gameNumber FROM games",
 		[],
