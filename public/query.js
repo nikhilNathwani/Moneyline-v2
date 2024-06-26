@@ -10,6 +10,10 @@ function queryGames() {
 			: "loss";
 	const seasonStartYear = document.getElementById("season-input").value;
 
+	console.log(
+		`/api/games?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`
+	);
+
 	fetch(
 		`/api/games?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`
 	)
