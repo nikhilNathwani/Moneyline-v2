@@ -8,25 +8,21 @@ const PORT = process.env.PORT || 3000;
 console.log("here in app.js");
 
 const pool = new Pool({
-	user: "default",
-	host: "ep-delicate-meadow-a4wuy0ik-pooler.us-east-1.aws.neon.tech",
-	database: "verceldb",
-	password: "7Da6VYcqOsrn",
-	port: "5432",
-	ssl: {
-		rejectUnauthorized: false, // Only if using self-signed certificates
-	},
+	connectionString: process.env.POSTGRES_URL,
 });
 
 // Example query using the pool
-pool.query("SELECT NOW()", (err, res) => {
-	console.log("in pool");
-	if (err) {
-		console.error("Error executing query:", err);
-	} else {
-		console.log("Current database time:", res.rows[0].now);
+pool.query(
+	"SELECT seasonStartYear, team, gameNumber FROM games",
+	(err, res) => {
+		console.log("in pool");
+		if (err) {
+			console.error("Error executing query:", err);
+		} else {
+			console.log("First row:", res.rows[0]);
+		}
 	}
-});
+);
 
 // Connect to SQLite database
 // const db = new sqlite3.Database("./moneyline.db", (err) => {
