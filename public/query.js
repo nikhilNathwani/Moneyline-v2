@@ -1,5 +1,20 @@
 function queryGames() {
 	console.log("here");
+
+	// Get the values of the Div filters
+	const bet = document.getElementById("bet-input").value;
+	const team = document.getElementById("team-input").value;
+	const outcome =
+		document.getElementById("outcome-input").value == "Win every game"
+			? "win"
+			: "loss";
+	const seasonStartYear = document.getElementById("season-input").value;
+
+	fetch(
+		`/api/games?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`
+	)
+		.then((response) => response.json())
+		.then((response) => console.log(response));
 }
 
 function queryGames2() {

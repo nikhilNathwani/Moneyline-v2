@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Define a route to fetch data from the database
 app.get("/api/games", (req, res) => {
+	console.log("app " + getFilterValues(req));
 	db.all(
 		"SELECT seasonStartYear, team, gameNumber FROM games",
 		[],
@@ -44,3 +45,11 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
+
+function getFilterValues(req) {
+	const bet = parseInt(req.query.bet, 10);
+	const team = req.query.team;
+	const outcome = req.query.outcome;
+	const seasonStartYear = parseInt(req.query.seasonStart, 10);
+	return { bet, team, outcome, seasonStartYear };
+}
