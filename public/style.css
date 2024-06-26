@@ -41,6 +41,7 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #filter-container {
 	height: 100vh;
+	height: 100svh;
 	/* height: 100dvh; */
 	/* ^I use dvh in initial mode only, because it causes
 	    jitteriness on mobile when URL bar minimizes */
@@ -274,7 +275,7 @@ button#return-to-filters {
 }
 
 .initialMode #filter-container {
-	height: 100dvh;
+	/* height: 100dvh; */
 }
 
 .initialMode #result-container {

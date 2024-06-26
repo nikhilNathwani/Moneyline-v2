@@ -14,7 +14,7 @@ const db = new sqlite3.Database("./moneyline.db", (err) => {
 	}
 });
 
-// Serve static files from the root directory
+// Serve static files from public directory (like css/js files)
 app.use(express.static(path.join(__dirname, "public")));
 
 // Define a route to fetch data from the database
