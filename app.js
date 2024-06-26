@@ -19,7 +19,7 @@ pool.query(
 		if (err) {
 			console.error("Error executing query:", err);
 		} else {
-			console.log("First row data:", res.rows[0]);
+			console.log("First row:", res.rows[0]);
 		}
 	}
 );
