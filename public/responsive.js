@@ -32,6 +32,7 @@ const filterReturnButton = document.getElementById("return-to-filters");
 
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
+	queryGames();
 	if (
 		window.innerWidth < minWidthAdjacentMode ||
 		window.innerHeight < minHeight
