@@ -5,6 +5,8 @@ const sqlite3 = require("sqlite3").verbose();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+console.log("here in app.js");
+
 // Connect to SQLite database
 const db = new sqlite3.Database("./moneyline.db", (err) => {
 	if (err) {
@@ -20,6 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Define a route to fetch data from the database
 app.get("/api/games", (req, res) => {
 	console.log("app " + getFilterValues(req));
+	res.send("Nikhil Logging to the console");
 	db.all(
 		"SELECT seasonStartYear, team, gameNumber FROM games",
 		[],
