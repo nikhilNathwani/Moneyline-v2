@@ -1,11 +1,31 @@
 const express = require("express");
 const path = require("path");
-const sqlite3 = require("sqlite3").verbose();
+const { Pool } = require("pg");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 console.log("here in app.js");
+
+const pool = new Pool({
+	user: "default",
+	host: "ep-delicate-meadow-a4wuy0ik-pooler.us-east-1.aws.neon.tech",
+	database: "verceldb",
+	password: "7Da6VYcqOsrn",
+	port: "5432",
+	ssl: {
+		rejectUnauthorized: false, // Only if using self-signed certificates
+	},
+});
+
+// Example query using the pool
+pool.query("SELECT NOW()", (err, res) => {
+	if (err) {
+		console.error("Error executing query:", err);
+	} else {
+		console.log("Current database time:", res.rows[0].now);
+	}
+});
 
 // Connect to SQLite database
 const db = new sqlite3.Database("./moneyline.db", (err) => {
