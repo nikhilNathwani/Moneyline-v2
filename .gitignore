@@ -2,4 +2,4 @@
 /.vscode
 /.vercel
 /node_modules
-.vercel
+.env.developement.local

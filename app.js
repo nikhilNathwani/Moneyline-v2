@@ -20,6 +20,7 @@ const pool = new Pool({
 
 // Example query using the pool
 pool.query("SELECT NOW()", (err, res) => {
+	console.log("in pool");
 	if (err) {
 		console.error("Error executing query:", err);
 	} else {
