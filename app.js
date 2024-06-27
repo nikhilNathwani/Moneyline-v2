@@ -13,7 +13,7 @@ const pool = new Pool({
 
 // Example query using the pool
 pool.query(
-	"SELECT seasonStartYear, team, gameNumber FROM games",
+	"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
 	(err, res) => {
 		console.log("in pool");
 		if (err) {
