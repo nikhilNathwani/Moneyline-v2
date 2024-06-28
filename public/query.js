@@ -13,7 +13,7 @@ function queryGames() {
 
 	fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
-		.then((games) => generateResults(games, outcome, wager))
+		.then((games) => generateResults(games.data, outcome, wager))
 		.catch((error) => console.error("Error fetching data:", error));
 }
 
