@@ -26,7 +26,7 @@ function generateResults(games, outcome, wager) {
 		numFavoriteLosses,
 		profitUnderdogWins,
 		profitUnderdogLosses,
-		profitFavoriteWin,
+		profitFavoriteWins,
 		profitFavoriteLosses,
 	} = calcBetResults(games, outcome, wager);
 	const numWins = numUnderdogWins + numFavoriteWins;
@@ -35,7 +35,7 @@ function generateResults(games, outcome, wager) {
 	const totalProfit =
 		profitUnderdogWins +
 		profitUnderdogLosses +
-		profitFavoriteWin +
+		profitFavoriteWins +
 		profitFavoriteLosses;
 	makeTotalProfitDiv(totalProfit);
 	makeROIDiv(totalProfit, numGames, wager);
@@ -46,7 +46,7 @@ function generateResults(games, outcome, wager) {
 		numFavoriteLosses,
 		profitUnderdogWins,
 		profitUnderdogLosses,
-		profitFavoriteWin,
+		profitFavoriteWins,
 		profitFavoriteLosses
 	);
 	// makePerGameDiv();
