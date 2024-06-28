@@ -61,7 +61,7 @@ function calcBetResults() {
 		numFavoriteWins: 123,
 		favoriteWinProfit: 123,
 		numFavoriteLosses: 123,
-		favoriteLossProfit: 123,
+		favoriteLossProfit: 12,
 	};
 }
 
