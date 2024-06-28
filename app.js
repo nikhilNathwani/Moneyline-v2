@@ -5,8 +5,6 @@ const { Pool } = require("pg");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-console.log("here in app.js");
-
 const pool = new Pool({
 	connectionString: process.env.POSTGRES_URL,
 });
@@ -24,37 +22,52 @@ pool.query(
 	}
 );
 
-// Connect to SQLite database
-// const db = new sqlite3.Database("./moneyline.db", (err) => {
-// 	if (err) {
-// 		console.error("Could not connect to database", err);
-// 	} else {
-// 		console.log("Connected to SQLite database");
-// 	}
-// });
+app.get("/api/games", (req, res) => {
+	console.log("app " + getFilterValues(req));
+
+	pool.query(
+		"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
+		(err, result) => {
+			if (err) {
+				console.error("Error executing query:", err);
+				res.status(500).json({ error: err.message });
+				return;
+			}
+			res.json({
+				message: "success",
+				data: result.rows,
+			});
+		}
+	);
+});
+
+const getFilterValues = (req) => {
+	// Define your function to get filter values from req
+	return req.query; // Example: assuming filters are sent as query parameters
+};
 
 // Serve static files from public directory (like css/js files)
 app.use(express.static(path.join(__dirname, "public")));
 
 // Define a route to fetch data from the database
-// app.get("/api/games", (req, res) => {
-// 	console.log("app " + getFilterValues(req));
-// 	res.json({ message: "Nikhil Logging to the console" });
-// 	db.all(
-// 		"SELECT seasonStartYear, team, gameNumber FROM games",
-// 		[],
-// 		(err, rows) => {
-// 			if (err) {
-// 				res.status(500).json({ error: err.message });
-// 				return;
-// 			}
-// 			res.json({
-// 				message: "success",
-// 				data: rows,
-// 			});
-// 		}
-// 	);
-// });
+app.get("/api/games", (req, res) => {
+	console.log("app " + getFilterValues(req));
+	res.json({ message: "Nikhil Logging to the console" });
+	db.all(
+		"SELECT seasonStartYear, team, gameNumber FROM games",
+		[],
+		(err, rows) => {
+			if (err) {
+				res.status(500).json({ error: err.message });
+				return;
+			}
+			res.json({
+				message: "success",
+				data: rows,
+			});
+		}
+	);
+});
 
 // Fallback to serve index.html for any other route
 app.get("*", (req, res) => {
