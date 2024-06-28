@@ -7,10 +7,11 @@ function queryGames() {
 			? "win"
 			: "loss";
 	const seasonStartYear = document.getElementById("season-input").value;
+	console.log(seasonStartYear, typeof seasonStartYear);
 
-	// console.log(
-	// 	`/api/games?bet=seasonStart=${seasonStartYear}&team=${team}&outcome=${outcome}&${bet}`
-	// );
+	console.log(
+		`/api/games?bet=seasonStart=${seasonStartYear}&team=${team}&outcome=${outcome}&${bet}`
+	);
 
 	fetch(`/api/games?bet=seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
