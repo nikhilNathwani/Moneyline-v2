@@ -91,6 +91,7 @@ function calcBetResults(games, prediction, wager) {
 				(odds > 0 ? "Underdog" : "Favorite") +
 				(game.outcome ? "Wins" : "Losses"),
 		};
+		console.log(prediction, game.outcome, odds, wager);
 		results[resultToUpdate.gameCount]++;
 		results[resultToUpdate.profitSum] += calcProfit(
 			prediction,
