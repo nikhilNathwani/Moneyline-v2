@@ -52,3 +52,19 @@ function generateResults(games, outcome, wager) {
 	);
 	// makePerGameDiv();
 }
+
+function calcBetResults() {
+	return;
+}
+
+function makeTotalProfitDiv() {
+	return;
+}
+
+function makeROIDiv() {
+	return;
+}
+
+function makeWinLossDivs() {
+	return;
+}

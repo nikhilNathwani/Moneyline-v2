@@ -80,24 +80,24 @@ const getFilterValues = (req) => {
 app.use(express.static(path.join(__dirname, "public")));
 
 // Define a route to fetch data from the database
-app.get("/api/games", (req, res) => {
-	console.log("app " + getFilterValues(req));
-	res.json({ message: "Nikhil Logging to the console" });
-	db.all(
-		"SELECT seasonStartYear, team, gameNumber FROM games",
-		[],
-		(err, rows) => {
-			if (err) {
-				res.status(500).json({ error: err.message });
-				return;
-			}
-			res.json({
-				message: "success",
-				data: rows,
-			});
-		}
-	);
-});
+// app.get("/api/games", (req, res) => {
+// 	console.log("app " + getFilterValues(req));
+// 	res.json({ message: "Nikhil Logging to the console" });
+// 	db.all(
+// 		"SELECT seasonStartYear, team, gameNumber FROM games",
+// 		[],
+// 		(err, rows) => {
+// 			if (err) {
+// 				res.status(500).json({ error: err.message });
+// 				return;
+// 			}
+// 			res.json({
+// 				message: "success",
+// 				data: rows,
+// 			});
+// 		}
+// 	);
+// });
 
 // Fallback to serve index.html for any other route
 app.get("*", (req, res) => {
