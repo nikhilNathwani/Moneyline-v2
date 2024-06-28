@@ -9,37 +9,68 @@ const pool = new Pool({
 	connectionString: process.env.POSTGRES_URL,
 });
 
-// Example query using the pool
-pool.query(
-	"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
-	(err, res) => {
-		console.log("in pool");
+app.get("/api/games", (req, res) => {
+	const { seasonStart, team, outcome } = req.query;
+
+	const query = `
+    SELECT gameNumber, outcome, winOdds, loseOdds 
+    FROM games 
+    WHERE seasonStartYear = $1 
+      AND team = $2 
+      AND outcome = $3 
+  `;
+
+	// Params array to securely pass values into the query
+	const params = [
+		parseInt(seasonStart, 10), // Converts seasonStart to an integer
+		team, // team as a string
+		outcome === "win", // Converts outcome to a boolean (true for "win", false otherwise)
+	];
+
+	pool.query(query, params, (err, result) => {
 		if (err) {
 			console.error("Error executing query:", err);
-		} else {
-			console.log("Data:", res);
+			res.status(500).json({ error: err.message });
+			return;
 		}
-	}
-);
-
-app.get("/api/games", (req, res) => {
-	console.log("app " + getFilterValues(req));
-
-	pool.query(
-		"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
-		(err, result) => {
-			if (err) {
-				console.error("Error executing query:", err);
-				res.status(500).json({ error: err.message });
-				return;
-			}
-			res.json({
-				message: "success",
-				data: result.rows,
-			});
-		}
-	);
+		res.json({
+			message: "success",
+			data: result.rows,
+		});
+	});
 });
+
+// Example query using the pool
+// pool.query(
+// 	"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
+// 	(err, res) => {
+// 		console.log("in pool");
+// 		if (err) {
+// 			console.error("Error executing query:", err);
+// 		} else {
+// 			console.log("Data:", res);
+// 		}
+// 	}
+// );
+
+// app.get("/api/games", (req, res) => {
+// 	console.log("app " + getFilterValues(req));
+
+// 	pool.query(
+// 		"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
+// 		(err, result) => {
+// 			if (err) {
+// 				console.error("Error executing query:", err);
+// 				res.status(500).json({ error: err.message });
+// 				return;
+// 			}
+// 			res.json({
+// 				message: "success",
+// 				data: result.rows,
+// 			});
+// 		}
+// 	);
+// });
 
 const getFilterValues = (req) => {
 	// Define your function to get filter values from req

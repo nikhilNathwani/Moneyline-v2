@@ -11,11 +11,11 @@ function queryGames() {
 	const seasonStartYear = document.getElementById("season-input").value;
 
 	console.log(
-		`/api/games?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`
+		`/api/games?bet=seasonStart=${seasonStartYear}&team=${team}&outcome=${outcome}&${bet}`
 	);
 
 	fetch(
-		`/api/games?bet=${bet}&team=${team}&outcome=${outcome}&seasonStart=${seasonStartYear}`
+		`/api/games?bet=seasonStart=${seasonStartYear}&team=${team}&outcome=${outcome}&${bet}`
 	)
 		.then((response) => response.json())
 		.then((response) => console.log(response));
