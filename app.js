@@ -10,21 +10,20 @@ const pool = new Pool({
 });
 
 app.get("/api/games", (req, res) => {
-	const { seasonStart, team, outcome } = req.query;
+	const { seasonStart, team } = req.query;
 
 	const query = `
     SELECT gameNumber, outcome, winOdds, loseOdds 
     FROM games 
     WHERE seasonStartYear = $1 
       AND team = $2 
-      AND outcome = $3 
   `;
 
 	// Params array to securely pass values into the query
 	const params = [
 		parseInt(seasonStart, 10), // Converts seasonStart to an integer
 		team, // team as a string
-		outcome === "win", // Converts outcome to a boolean (true for "win", false otherwise)
+		//outcome === "win", // Converts outcome to a boolean (true for "win", false otherwise)
 	];
 
 	pool.query(query, params, (err, result) => {
