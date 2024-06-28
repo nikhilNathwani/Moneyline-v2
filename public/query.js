@@ -72,7 +72,7 @@ function calcBetResults(games, prediction, wager) {
 		numFavoriteLosses: 0,
 		profitUnderdogWins: 0,
 		profitUnderdogLosses: 0,
-		profitFavoriteWin: 0,
+		profitFavoriteWins: 0,
 		profitFavoriteLosses: 0,
 	};
 
@@ -99,7 +99,7 @@ function calcBetResults(games, prediction, wager) {
 			wager
 		);
 	});
-	console.log(results);
+	console.log("Results:", results);
 	return results;
 }
 
