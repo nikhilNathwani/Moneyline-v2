@@ -21,48 +21,86 @@ function generateResults(games, outcome, wager) {
 	console.log("Games:", games);
 	const {
 		numUnderdogWins,
-		underdogWinProfit,
 		numUnderdogLosses,
-		underdogLossProfit,
 		numFavoriteWins,
-		favoriteWinProfit,
 		numFavoriteLosses,
-		favoriteLossProfit,
+		profitUnderdogWins,
+		profitUnderdogLosses,
+		profitFavoriteWin,
+		profitFavoriteLosses,
 	} = calcBetResults(games, outcome, wager);
 	const numWins = numUnderdogWins + numFavoriteWins;
 	const numLosses = numUnderdogLosses + numFavoriteLosses;
 	const numGames = numWins + numLosses;
 	const totalProfit =
-		underdogWinProfit +
-		underdogLossProfit +
-		favoriteWinProfit +
-		favoriteLossProfit;
+		profitUnderdogWins +
+		profitUnderdogLosses +
+		profitFavoriteWin +
+		profitFavoriteLosses;
 	makeTotalProfitDiv(totalProfit);
 	makeROIDiv(totalProfit, numGames, wager);
 	makeWinLossDiv(
 		numUnderdogWins,
-		underdogWinProfit,
 		numUnderdogLosses,
-		underdogLossProfit,
 		numFavoriteWins,
-		favoriteWinProfit,
 		numFavoriteLosses,
-		favoriteLossProfit
+		profitUnderdogWins,
+		profitUnderdogLosses,
+		profitFavoriteWin,
+		profitFavoriteLosses
 	);
 	// makePerGameDiv();
 }
 
-function calcBetResults() {
-	return {
-		numUnderdogWins: 123,
-		underdogWinProfit: 123,
-		numUnderdogLosses: 123,
-		underdogLossProfit: 123,
-		numFavoriteWins: 123,
-		favoriteWinProfit: 123,
-		numFavoriteLosses: 123,
-		favoriteLossProfit: 12,
+function calcProfit(prediction, outcome, odds, wager) {
+	if (prediction !== outcome) {
+		return wager * -1;
+	} else {
+		if (odds > 0) {
+			return odds * (wager / 100);
+		} else {
+			return (wager / odds) * 100;
+		}
+	}
+}
+
+function calcBetResults(games, prediction, wager) {
+	let results = {
+		numUnderdogWins: 0,
+		numUnderdogLosses: 0,
+		numFavoriteWins: 0,
+		numFavoriteLosses: 0,
+		profitUnderdogWins: 0,
+		profitUnderdogLosses: 0,
+		profitFavoriteWin: 0,
+		profitFavoriteLosses: 0,
 	};
+
+	games.forEach((game) => {
+		const odds = prediction
+			? parseFloat(game.winodds)
+			: parseFloat(game.loseodds);
+
+		let resultToUpdate = {
+			gameCount:
+				"num" +
+				(odds > 0 ? "Underdog" : "Favorite") +
+				(game.outcome ? "Wins" : "Losses"),
+			profitSum:
+				"profit" +
+				(odds > 0 ? "Underdog" : "Favorite") +
+				(game.outcome ? "Wins" : "Losses"),
+		};
+		results[resultToUpdate.gameCount]++;
+		results[resultToUpdate.profitSum] += calcProfit(
+			prediction,
+			game.outcome,
+			odds,
+			wager
+		);
+	});
+	console.log(results);
+	return results;
 }
 
 function makeTotalProfitDiv() {

@@ -35,26 +35,12 @@ app.get("/api/games", (req, res) => {
 			res.status(500).json({ error: err.message });
 			return;
 		}
-		console.log("Success executing query:", result.rows, "hi");
 		res.json({
 			message: "success",
 			data: result.rows,
 		});
 	});
 });
-
-// Example query using the pool
-// pool.query(
-// 	"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
-// 	(err, res) => {
-// 		console.log("in pool");
-// 		if (err) {
-// 			console.error("Error executing query:", err);
-// 		} else {
-// 			console.log("Data:", res);
-// 		}
-// 	}
-// );
 
 // Serve static files from public directory (like css/js files)
 app.use(express.static(path.join(__dirname, "public")));
@@ -68,11 +54,3 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });
-
-// function getFilterValues(req) {
-// 	const bet = parseInt(req.query.bet, 10);
-// 	const team = req.query.team;
-// 	const outcome = req.query.outcome;
-// 	const seasonStartYear = parseInt(req.query.seasonStart, 10);
-// 	return { bet, team, outcome, seasonStartYear };
-// }
