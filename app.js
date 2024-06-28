@@ -43,41 +43,17 @@ app.get("/api/games", (req, res) => {
 });
 
 // Example query using the pool
-// pool.query(
-// 	"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
-// 	(err, res) => {
-// 		console.log("in pool");
-// 		if (err) {
-// 			console.error("Error executing query:", err);
-// 		} else {
-// 			console.log("Data:", res);
-// 		}
-// 	}
-// );
-
-// app.get("/api/games", (req, res) => {
-// 	console.log("app " + getFilterValues(req));
-
-// 	pool.query(
-// 		"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
-// 		(err, result) => {
-// 			if (err) {
-// 				console.error("Error executing query:", err);
-// 				res.status(500).json({ error: err.message });
-// 				return;
-// 			}
-// 			res.json({
-// 				message: "success",
-// 				data: result.rows,
-// 			});
-// 		}
-// 	);
-// });
-
-const getFilterValues = (req) => {
-	// Define your function to get filter values from req
-	return req.query; // Example: assuming filters are sent as query parameters
-};
+pool.query(
+	"SELECT seasonStartYear, team, gameNumber, outcome, winOdds, loseOdds FROM games",
+	(err, res) => {
+		console.log("in pool");
+		if (err) {
+			console.error("Error executing query:", err);
+		} else {
+			console.log("Data:", res);
+		}
+	}
+);
 
 // Serve static files from public directory (like css/js files)
 app.use(express.static(path.join(__dirname, "public")));
