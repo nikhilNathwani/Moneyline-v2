@@ -73,6 +73,6 @@ function makeROIDiv() {
 	return;
 }
 
-function makeWinLossDivs() {
+function makeWinLossDiv() {
 	return;
 }
