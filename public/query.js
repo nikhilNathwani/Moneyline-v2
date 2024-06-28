@@ -9,9 +9,9 @@ function queryGames() {
 	const seasonStartYear = document.getElementById("season-input").value;
 	console.log(seasonStartYear, typeof seasonStartYear);
 
-	console.log(`/api/games?bet=seasonStart=${seasonStartYear}&team=${team}`);
+	console.log(`/api/games?seasonStart=${seasonStartYear}&team=${team}`);
 
-	fetch(`/api/games?bet=seasonStart=${seasonStartYear}&team=${team}`)
+	fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
 		.then((games) => generateResults(games, outcome, wager))
 		.catch((error) => console.error("Error fetching data:", error));
