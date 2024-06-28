@@ -26,6 +26,8 @@ app.get("/api/games", (req, res) => {
 		//outcome === "win", // Converts outcome to a boolean (true for "win", false otherwise)
 	];
 
+	console.log("Params: ", params, typeof params);
+
 	pool.query(query, params, (err, result) => {
 		if (err) {
 			console.error("Error executing query:", err);
