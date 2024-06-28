@@ -59,7 +59,7 @@ function calcProfit(prediction, outcome, odds, wager) {
 		if (odds > 0) {
 			return odds * (wager / 100);
 		} else {
-			return (wager / odds) * 100;
+			return (wager / odds) * -100;
 		}
 	}
 }
