@@ -21,8 +21,8 @@ app.get("/api/games", (req, res) => {
 
 	// Params array to securely pass values into the query
 	const params = [
-		parseInt(seasonStart, 10), // Converts seasonStart to an integer
-		team, // team as a string
+		parseInt(seasonStart, 10),
+		team,
 		//outcome === "win", // Converts outcome to a boolean (true for "win", false otherwise)
 	];
 
@@ -34,6 +34,7 @@ app.get("/api/games", (req, res) => {
 			res.status(500).json({ error: err.message });
 			return;
 		}
+		console.log("Success executing query");
 		res.json({
 			message: "success",
 			data: result.rows,

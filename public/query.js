@@ -53,7 +53,16 @@ function generateResults(games, outcome, wager) {
 }
 
 function calcBetResults() {
-	return;
+	return {
+		numUnderdogWins: 123,
+		underdogWinProfit: 123,
+		numUnderdogLosses: 123,
+		underdogLossProfit: 123,
+		numFavoriteWins: 123,
+		favoriteWinProfit: 123,
+		numFavoriteLosses: 123,
+		favoriteLossProfit: 123,
+	};
 }
 
 function makeTotalProfitDiv() {
