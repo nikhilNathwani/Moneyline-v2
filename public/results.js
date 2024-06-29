@@ -42,7 +42,9 @@ function makeROIDiv(totalProfit, numGames, wager) {
 	roiProfit.className = `result-chip-value result-chip-value-${
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
-	roiProfit.textContent = `${formatCurrency(totalProfit)}`;
+	roiProfit.textContent = `${totalProfit >= 0 ? "+" : ""}${formatCurrency(
+		totalProfit
+	)}`;
 	//
 	const roiPercentReturn = roiDetails.querySelector("#percentReturn");
 	roiPercentReturn.className = `result-chip-value result-chip-value-${
