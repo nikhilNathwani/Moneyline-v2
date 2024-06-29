@@ -30,21 +30,21 @@ function makeROIDiv(totalProfit, numGames, wager) {
 	//Make ROI div details
 	const roiDetails = document.getElementById("roi-details");
 	//
-	const roiTotalWagered = roiDetails.querySelector("totalWagered");
+	const roiTotalWagered = roiDetails.querySelector("#totalWagered");
 	roiTotalWagered.textContent = `${formatCurrency(numGames * wager)}`;
 	//
-	const roiTotalPayout = roiDetails.querySelector("totalPayout");
+	const roiTotalPayout = roiDetails.querySelector("#totalPayout");
 	roiTotalPayout.textContent = `${formatCurrency(
 		totalProfit + numGames * wager
 	)}`;
 	//
-	const roiProfit = roiDetails.querySelector("profit");
+	const roiProfit = roiDetails.querySelector("#profit");
 	roiProfit.className = `result-chip-value-${
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
 	roiProfit.textContent = `${formatCurrency(totalProfit)}`;
 	//
-	const roiPercentReturn = roiDetails.querySelector("percentReturn");
+	const roiPercentReturn = roiDetails.querySelector("#percentReturn");
 	roiPercentReturn.className = `result-chip-value result-chip-value-${
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
