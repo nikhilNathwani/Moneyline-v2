@@ -7,27 +7,48 @@ function makeTotalProfitDiv(totalProfit) {
 		totalProfit >= 0 ? "won" : "lost"
 	}`;
 
-	totalProfitSpan.className =
-		totalProfit >= 0 ? "result-banner-positive" : "result-banner-negative";
+	totalProfitSpan.className = `result-banner-${
+		totalProfit >= 0 ? "positive" : "negative"
+	}`;
+
 	totalProfitSpan.textContent = `${
 		totalProfit >= 0 ? "+" : ""
 	}${formatCurrency(totalProfit)}`;
 }
 
 function makeROIDiv(totalProfit, numGames, wager) {
+	const roi = (totalProfit * 100) / (numGames * wager);
+
 	//Make ROI div banner
 	const roiBanner = document.getElementById("roi-banner");
 	const roiSpan = roiBanner.querySelector("span");
-
-	const roi = (totalProfit * 100) / (numGames * wager);
-	roiSpan.className =
-		totalProfit >= 0 ? "result-banner-positive" : "result-banner-negative";
-	roiSpan.textContent = `${totalProfit >= 0 ? "+" : ""}${roi.toPrecision(
-		3
-	)}%`;
+	roiSpan.className = `result-banner-${
+		totalProfit >= 0 ? "positive" : "negative"
+	}`;
+	roiSpan.textContent = `${formatPercent(roi)}`;
 
 	//Make ROI div details
-	return;
+	const roiDetails = document.getElementById("roi-details");
+	//
+	const roiTotalWagered = roiDetails.getElementById("totalWagered");
+	roiTotalWagered.textContent = `${formatCurrency(numGames * wager)}`;
+	//
+	const roiTotalPayout = roiDetails.getElementById("totalPayout");
+	roiTotalPayout.textContent = `${formatCurrency(
+		totalProfit + numGames * wager
+	)}`;
+	//
+	const roiProfit = roiDetails.getElementById("profit");
+	roiProfit.className = `result-chip-value-${
+		totalProfit >= 0 ? "positive" : "negative"
+	}`;
+	roiProfit.textContent = `${formatCurrency(totalProfit)}`;
+	//
+	const roiPercentReturn = roiDetails.getElementById("percentReturn");
+	roiPercentReturn.className = `result-chip-value-${
+		totalProfit >= 0 ? "positive" : "negative"
+	}`;
+	roiPercentReturn.textContent = `${formatPercent(roi)}`;
 }
 
 function makeWinLossDiv(
@@ -55,4 +76,8 @@ function formatCurrency(number) {
 
 	let formatter = new Intl.NumberFormat("en-US", options);
 	return formatter.format(number);
+}
+
+function formatPercent(number) {
+	return `${number >= 0 ? "+" : ""}${number.toPrecision(3)}%`;
 }
