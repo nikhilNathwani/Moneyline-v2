@@ -53,11 +53,13 @@ function calcProfit(prediction, outcome, odds, wager) {
 	if (prediction !== outcome) {
 		return wager * -1;
 	} else {
+		let profit = 0;
 		if (odds > 0) {
-			return odds * (wager / 100);
+			profit = odds * (wager / 100);
 		} else {
-			return (wager / odds) * -100;
+			profit = (wager / odds) * -100;
 		}
+		return Math.floor(profit * 100) / 100; //truncate to 2 decimal places
 	}
 }
 
