@@ -15,6 +15,10 @@ function makeTotalProfitDiv(totalProfit) {
 }
 
 function makeROIDiv(totalProfit, numGames, wager) {
+	//Make ROI div banner
+	const roiBanner = document.getElementById("roi-banner");
+
+	//Make ROI div details
 	return;
 }
 
