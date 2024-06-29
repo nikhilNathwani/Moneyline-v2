@@ -69,8 +69,12 @@ function makeWinLossDiv(
 	const winLossBanner = document.getElementById("win-loss-banner");
 	const winLossCount = winLossBanner.querySelector("span");
 	winLossCount.textContent = prediction
-		? numUnderdogWins + numFavoriteWins
-		: numUnderdogLosses + numFavoriteLosses;
+		? totalProfit >= 0
+			? numUnderdogWins + numFavoriteWins
+			: numUnderdogLosses + numFavoriteLosses
+		: totalProfit >= 0
+		? numUnderdogLosses + numFavoriteLosses
+		: numUnderdogWins + numFavoriteWins;
 	winLossCount.className = `result-banner-${
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
