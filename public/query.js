@@ -109,15 +109,3 @@ function calcBetResults(games, prediction, wager) {
 	console.log("Results:", results);
 	return results;
 }
-
-function makeTotalProfitDiv() {
-	return;
-}
-
-function makeROIDiv() {
-	return;
-}
-
-function makeWinLossDiv() {
-	return;
-}
