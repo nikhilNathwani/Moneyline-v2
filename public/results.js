@@ -78,6 +78,32 @@ function makeWinLossDiv(
 	winLossLabel.textContent = `${
 		totalProfit >= 0 ? "correct" : "incorrect"
 	} bets.`;
+
+	//Make win-loss details
+	const chipValues = {
+		"underdog-win-gameCount": numUnderdogWins,
+		"underdog-loss-gameCount": numUnderdogLosses,
+		"favorite-win-gameCount": numFavoriteWins,
+		"favorite-loss-gameCount": numFavoriteLosses,
+		"underdog-win-payout": profitUnderdogWins,
+		"underdog-loss-payout": profitUnderdogLosses,
+		"favorite-win-payout": profitFavoriteWins,
+		"favorite-loss-payout": profitFavoriteLosses,
+	};
+	["underdog", "favorite"].forEach((teamState) => {
+		["win", "loss"].forEach((outcome) => {
+			const prefix = teamState + "-" + outcome + "-";
+			const gameCount_chip = document.getElementById(
+				prefix + "gameCount"
+			);
+			gameCount_chip.textContent = chipValues[prefix + "gameCount"];
+			const payout_chip = document.getElementById(prefix + "payout");
+			payout_chip.textContent = chipValues[prefix + "payout"];
+			payout_chip.className = `result-chip-value result-chip-value-${
+				chipValues[prefix + "payout"] >= 0 ? "positive" : "negative"
+			}`;
+		});
+	});
 }
 
 function formatCurrency(number) {
