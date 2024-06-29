@@ -93,12 +93,17 @@ function makeWinLossDiv(
 	["underdog", "favorite"].forEach((teamState) => {
 		["win", "loss"].forEach((outcome) => {
 			const prefix = teamState + "-" + outcome + "-";
+
 			const gameCount_chip = document.getElementById(
 				prefix + "gameCount"
 			);
-			gameCount_chip.textContent = chipValues[prefix + "gameCount"];
+			gameCount_chip.textContent =
+				chipValues[prefix + "gameCount"] + " games";
+
 			const payout_chip = document.getElementById(prefix + "payout");
-			payout_chip.textContent = chipValues[prefix + "payout"];
+			payout_chip.textContent = formatCurrency(
+				chipValues[prefix + "payout"]
+			);
 			payout_chip.className = `result-chip-value result-chip-value-${
 				chipValues[prefix + "payout"] >= 0 ? "positive" : "negative"
 			}`;
