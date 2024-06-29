@@ -39,7 +39,7 @@ function makeROIDiv(totalProfit, numGames, wager) {
 	)}`;
 	//
 	const roiProfit = roiDetails.querySelector("#profit");
-	roiProfit.className = `result-chip-value-${
+	roiProfit.className = `result-chip-value result-chip-value-${
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
 	roiProfit.textContent = `${formatCurrency(totalProfit)}`;
