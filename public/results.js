@@ -101,9 +101,9 @@ function makeWinLossDiv(
 				chipValues[prefix + "gameCount"] + " games";
 
 			const payout_chip = document.getElementById(prefix + "payout");
-			payout_chip.textContent = formatCurrency(
-				chipValues[prefix + "payout"]
-			);
+			payout_chip.textContent = `${
+				chipValues[prefix + "payout"] >= 0 ? "+" : ""
+			}${formatCurrency(chipValues[prefix + "payout"])}`;
 			payout_chip.className = `result-chip-value result-chip-value-${
 				chipValues[prefix + "payout"] >= 0 ? "positive" : "negative"
 			}`;
