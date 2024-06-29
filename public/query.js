@@ -14,7 +14,8 @@ function queryGames() {
 		.catch((error) => console.error("Error fetching data:", error));
 }
 
-function generateResults(games, outcome, wager) {
+function generateResults(games, prediction, wager) {
+	prediction = prediction === "win";
 	console.log("Games:", games);
 	const {
 		numUnderdogWins,
@@ -25,7 +26,7 @@ function generateResults(games, outcome, wager) {
 		profitUnderdogLosses,
 		profitFavoriteWins,
 		profitFavoriteLosses,
-	} = calcBetResults(games, outcome, wager);
+	} = calcBetResults(games, prediction, wager);
 	const numWins = numUnderdogWins + numFavoriteWins;
 	const numLosses = numUnderdogLosses + numFavoriteLosses;
 	const numGames = numWins + numLosses;
@@ -37,6 +38,8 @@ function generateResults(games, outcome, wager) {
 	makeTotalProfitDiv(totalProfit);
 	makeROIDiv(totalProfit, numGames, wager);
 	makeWinLossDiv(
+		totalProfit,
+		prediction,
 		numUnderdogWins,
 		numUnderdogLosses,
 		numFavoriteWins,
@@ -64,7 +67,6 @@ function calcProfit(prediction, outcome, odds, wager) {
 }
 
 function calcBetResults(games, prediction, wager) {
-	prediction = prediction === "win";
 	let results = {
 		numUnderdogWins: 0,
 		numUnderdogLosses: 0,

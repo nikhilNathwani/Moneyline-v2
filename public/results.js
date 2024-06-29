@@ -54,6 +54,8 @@ function makeROIDiv(totalProfit, numGames, wager) {
 }
 
 function makeWinLossDiv(
+	totalProfit,
+	prediction,
 	numUnderdogWins,
 	numUnderdogLosses,
 	numFavoriteWins,
@@ -63,7 +65,19 @@ function makeWinLossDiv(
 	profitFavoriteWins,
 	profitFavoriteLosses
 ) {
-	return;
+	//Make win-loss banner
+	const winLossBanner = document.getElementById("win-loss-banner");
+	const winLossCount = winLossBanner.querySelector("span");
+	winLossCount.textContent = prediction
+		? numUnderdogWins + numFavoriteWins
+		: numUnderdogLosses + numFavoriteLosses;
+	winLossCount.className = `result-banner-${
+		totalProfit >= 0 ? "positive" : "negative"
+	}`;
+	const winLossLabel = winLossBanner.querySelector("span:last-child");
+	winLossLabel.textContent = `${
+		totalProfit >= 0 ? "correct" : "incorrect"
+	} bets.`;
 }
 
 function formatCurrency(number) {
