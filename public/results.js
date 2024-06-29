@@ -4,19 +4,27 @@ function makeTotalProfitDiv(totalProfit) {
 	const totalProfitSpan = totalProfitBanner.querySelector("span");
 
 	totalProfitHeader.textContent = `You would've ${
-		totalProfit > 0 ? "won" : "lost"
+		totalProfit >= 0 ? "won" : "lost"
 	}`;
 
 	totalProfitSpan.className =
-		totalProfit > 0 ? "result-banner-positive" : "result-banner-negative";
+		totalProfit >= 0 ? "result-banner-positive" : "result-banner-negative";
 	totalProfitSpan.textContent = `${
-		totalProfit > 0 ? "+" : ""
+		totalProfit >= 0 ? "+" : ""
 	}${formatCurrency(totalProfit)}`;
 }
 
 function makeROIDiv(totalProfit, numGames, wager) {
 	//Make ROI div banner
 	const roiBanner = document.getElementById("roi-banner");
+	const roiSpan = roiBanner.querySelector("span");
+
+	const roi = (totalProfit * 100) / (numGames * wager);
+	roiSpan.className =
+		totalProfit >= 0 ? "result-banner-positive" : "result-banner-negative";
+	roiSpan.textContent = `${totalProfit >= 0 ? "+" : ""}${roi.toPrecision(
+		3
+	)}%`;
 
 	//Make ROI div details
 	return;
