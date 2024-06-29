@@ -7,9 +7,6 @@ function queryGames() {
 			? "win"
 			: "loss";
 	const seasonStartYear = document.getElementById("season-input").value;
-	console.log(seasonStartYear, typeof seasonStartYear);
-
-	console.log(`/api/games?seasonStart=${seasonStartYear}&team=${team}`);
 
 	fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
@@ -65,6 +62,7 @@ function calcProfit(prediction, outcome, odds, wager) {
 }
 
 function calcBetResults(games, prediction, wager) {
+	prediction = prediction === "win";
 	let results = {
 		numUnderdogWins: 0,
 		numUnderdogLosses: 0,
