@@ -1,8 +1,17 @@
 function makeTotalProfitDiv(totalProfit) {
-	const totalProfitSpan = document.querySelector("#total-profit-banner span");
+	const totalProfitBanner = document.getElementById("total-profit-banner");
+	const totalProfitHeader = totalProfitBanner.querySelector("p");
+	const totalProfitSpan = totalProfitBanner.querySelector("span");
+
+	totalProfitHeader.textContent = `You would've ${
+		totalProfit > 0 ? "won" : "lost"
+	}`;
+
 	totalProfitSpan.className =
 		totalProfit > 0 ? "result-banner-positive" : "result-banner-negative";
-	totalProfitSpan.textContent = `${formatCurrency(totalProfit)}`;
+	totalProfitSpan.textContent = `${
+		totalProfit > 0 ? "+" : ""
+	}${formatCurrency(totalProfit)}`;
 }
 
 function makeROIDiv(totalProfit, numGames, wager) {
