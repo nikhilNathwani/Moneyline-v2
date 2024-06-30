@@ -130,7 +130,10 @@ function formatCurrency(number) {
 }
 
 function formatPercent(number) {
-	return `${number >= 0 ? "+" : ""}${Number(
-		Number(number.toPrecision(3)).toFixed(2)
-	)}%`;
+	return `${number >= 0 ? "+" : ""}${number.toPrecision(3)}%`;
+
+	// *This version converts 0.805 to 0.81 instead of keeping 0.805
+	// return `${number >= 0 ? "+" : ""}${Number(
+	// 	Number(number.toPrecision(3)).toFixed(2)
+	// )}%`;
 }
