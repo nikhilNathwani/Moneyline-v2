@@ -86,11 +86,23 @@ function calcBetResults(games, prediction, wager) {
 		let resultToUpdate = {
 			gameCount:
 				"num" +
-				(odds > 0 ? "Underdog" : "Favorite") +
+				(prediction
+					? odds >= 0
+						? "Underdog"
+						: "Favorite"
+					: odds >= 0
+					? "Favorite"
+					: "Underdog") +
 				(game.outcome ? "Wins" : "Losses"),
 			profitSum:
 				"profit" +
-				(odds > 0 ? "Underdog" : "Favorite") +
+				(prediction
+					? odds >= 0
+						? "Underdog"
+						: "Favorite"
+					: odds >= 0
+					? "Favorite"
+					: "Underdog") +
 				(game.outcome ? "Wins" : "Losses"),
 		};
 		console.log(
