@@ -1,11 +1,6 @@
 :root {
 	--minHeight-app: 600px;
 	--width-filterContent: 400px;
-	/* --color-accent: hsl(10, 29%, 42%);
-	--color-dark: hsl(10, 29%, 20%); */
-	/* --color-light: hsl(252, 13%, 80%);
-	--color-accent: hsl(252, 13%, 38%);
-	--color-dark: hsl(252, 13%, 20%); */
 	--color-accent: hsl(212, 26%, 29%);
 	/* --color-mid: hsl(212, 43%, 64%); */
 	--color-light: hsl(212, 43%, 89%);
