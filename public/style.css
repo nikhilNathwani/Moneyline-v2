@@ -6,12 +6,10 @@
 	/* --color-mid: hsl(212, 43%, 64%); */
 	--color-light: hsl(0, 0%, 89%);
 	--color-bg: hsl(0, 0%, 86%);
-	--color-positive: hsl(158, 100%, 33%);
-	--color-positive-light: hsl(158, 80%, 79%);
-	--color-positive-dark: hsl(158, 100%, 13%);
-	--color-negative: hsl(0, 100%, 30%);
-	--color-negative-light: hsl(0, 80%, 79%);
-	--color-negative-dark: hsl(0, 100%, 13%);
+	--color-positive: hsl(147, 44%, 35%);
+	--color-positive-light: hsl(147, 44%, 90%);
+	--color-negative: hsl(0, 95%, 35%);
+	--color-negative-light: hsl(0, 95%, 95%);
 }
 
 *,
@@ -258,7 +256,7 @@ button#return-to-filters {
 
 .result-chip-value-positive {
 	background-color: var(--color-positive-light);
-	color: var(--color-positive-dark);
+	color: var(--color-positive);
 	/* background-color: hsl(150, 28%, 90%);
 	color: hsl(150, 42%, 32%); */
 }
