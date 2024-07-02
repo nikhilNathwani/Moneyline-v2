@@ -1,7 +1,8 @@
 :root {
 	--minHeight-app: 600px;
 	--width-filterContent: 400px;
-	--color-accent: hsl(212, 26%, 29%);
+	/* --color-accent: hsl(212, 26%, 29%); */
+	--color-accent: hsl(147, 14%, 26%);
 	/* --color-mid: hsl(212, 43%, 64%); */
 	--color-light: hsl(212, 43%, 89%);
 	--color-bg: gainsboro;
