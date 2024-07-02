@@ -6,6 +6,8 @@
 	/* --color-mid: hsl(212, 43%, 64%); */
 	--color-light: hsl(212, 43%, 89%);
 	--color-bg: gainsboro;
+	--color-positive: hsl(158, 100%, 33%);
+	--color-negative: hsl(0, 100%, 30%);
 }
 
 *,
@@ -184,12 +186,12 @@ button#return-to-filters {
 
 .result-banner-positive {
 	font-weight: bold;
-	color: hsl(150, 42%, 32%);
+	color: var(--color-positive);
 }
 
 .result-banner-negative {
 	font-weight: bold;
-	color: hsl(0, 52%, 40%);
+	color: var(--color-negative);
 }
 
 #total-profit-banner {
