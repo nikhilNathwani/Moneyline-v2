@@ -4,8 +4,8 @@
 	/* --color-accent: hsl(212, 26%, 29%); */
 	--color-accent: hsl(147, 14%, 26%);
 	/* --color-mid: hsl(212, 43%, 64%); */
-	--color-light: hsl(212, 43%, 89%);
-	--color-bg: gainsboro;
+	--color-light: hsl(0, 0%, 89%);
+	--color-bg: hsl(0, 0%, 86%);
 	--color-positive: hsl(158, 100%, 33%);
 	--color-negative: hsl(0, 100%, 30%);
 }
