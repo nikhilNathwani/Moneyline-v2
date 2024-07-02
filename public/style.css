@@ -262,7 +262,7 @@ button#return-to-filters {
 
 .result-chip-value-negative {
 	background-color: var(--color-negative-light);
-	color: var(--color-negative-dark);
+	color: var(--color-negative);
 	/* background-color: hsl(0, 28%, 90%);
 	color: hsl(0, 52%, 40%); */
 }
