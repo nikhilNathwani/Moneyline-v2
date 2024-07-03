@@ -33,7 +33,7 @@ const filterReturnButton = document.getElementById("return-to-filters");
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
 	//Clear existing results if any are shown
-	if (appContainer.classList.contains(APP_STATE.INITIAL)) {
+	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
 		clearExistingResults();
 	}
 
