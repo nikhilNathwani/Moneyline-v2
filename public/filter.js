@@ -87,8 +87,8 @@ function getFilterValues() {
 	const team = document.getElementById("team-input").value;
 	const outcome =
 		document.getElementById("outcome-input").value == "Win every game"
-			? "win"
-			: "loss";
+			? true
+			: false;
 	const seasonStartYear = document.getElementById("season-input").value;
 	return {
 		seasonStartYear: seasonStartYear,

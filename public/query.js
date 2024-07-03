@@ -11,7 +11,6 @@ function generateResults() {
 }
 
 function makeResultDivs(betResults, prediction, wager) {
-	prediction = prediction === "win";
 	const {
 		numUnderdogWins,
 		numUnderdogLosses,
