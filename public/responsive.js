@@ -37,12 +37,14 @@ submitButton.addEventListener("click", function () {
 		clearExistingResults();
 	}
 
-	//Generate new results based on filters applied
-	generateResults();
+	document.addEventListener("transitionend", (event) => {
+		//Generate new results based on filters applied
+		generateResults();
 
-	//Bring results to foreground by either scrolling down or
-	//snapping filters to the left (depending on screen size)
-	revealResults();
+		//Bring results to foreground by either scrolling down or
+		//snapping filters to the left (depending on screen size)
+		revealResults();
+	});
 });
 
 function revealResults() {
