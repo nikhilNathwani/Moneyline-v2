@@ -48,7 +48,7 @@ submitButton.addEventListener("click", function () {
 	}, 500);
 });
 
-function showResultView() {
+function snapFilterView() {
 	//If screen is sufficiently small, scroll down to reveal results
 	if (
 		window.innerWidth < minWidthAdjacentMode ||
