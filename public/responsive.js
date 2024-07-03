@@ -40,7 +40,7 @@ submitButton.addEventListener("click", function () {
 
 	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
 		clearExistingResults();
-		timeout = 500;
+		timeout = 1000;
 	}
 
 	setTimeout(() => {
