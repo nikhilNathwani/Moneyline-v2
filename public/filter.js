@@ -80,3 +80,20 @@ seasons.forEach((season) => {
 	option.textContent = season;
 	seasonSelect.appendChild(option);
 });
+
+function getFilterValues() {
+	// Get the values of the Div filters
+	const wager = document.getElementById("bet-input").value;
+	const team = document.getElementById("team-input").value;
+	const outcome =
+		document.getElementById("outcome-input").value == "Win every game"
+			? "win"
+			: "loss";
+	const seasonStartYear = document.getElementById("season-input").value;
+	return {
+		seasonStartYear: seasonStartYear,
+		team: team,
+		prediction: outcome,
+		wager: wager,
+	};
+}

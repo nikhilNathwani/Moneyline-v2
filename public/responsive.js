@@ -32,21 +32,39 @@ const filterReturnButton = document.getElementById("return-to-filters");
 
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
-	queryGames();
+	//Clear existing results if any are shown
+	if (appContainer.classList.contains(APP_STATE.INITIAL)) {
+		clearExistingResults();
+	}
+
+	//Generate new results based on filters applied
+	generateResults();
+
+	//Bring results to foreground by either scrolling down or
+	//snapping filters to the left (depending on screen size)
+	revealResults();
+});
+
+function revealResults() {
+	//If screen is sufficiently small, scroll down to reveal results
 	if (
 		window.innerWidth < minWidthAdjacentMode ||
 		window.innerHeight < minHeight
 	) {
 		setAppState(APP_STATE.STACKED);
+		fadeInResults();
 		resultContainer.scrollIntoView({
 			behavior: "smooth",
 			block: "start",
 		});
-	} else {
+	}
+	//If screen is sufficiently large, display results side-by-side with filters
+	else {
 		setAppState(APP_STATE.ADJACENT);
+		fadeInResults();
 		resultContainer.scrollTo({ top: 0, behavior: "smooth" });
 	}
-});
+}
 
 // Handle screen resize
 window.addEventListener("resize", function () {

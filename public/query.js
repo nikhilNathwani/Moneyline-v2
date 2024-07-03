@@ -1,22 +1,17 @@
-function queryGames() {
-	// Get the values of the Div filters
-	const wager = document.getElementById("bet-input").value;
-	const team = document.getElementById("team-input").value;
-	const outcome =
-		document.getElementById("outcome-input").value == "Win every game"
-			? "win"
-			: "loss";
-	const seasonStartYear = document.getElementById("season-input").value;
-
+function generateResults() {
+	const { seasonStartYear, team, prediction, wager } = getFilterValues();
 	fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
-		.then((games) => generateResults(games.data, outcome, wager))
+		.then((games) => {
+			console.log("Games:", games);
+			const betResults = calcBetResults(games.data, prediction, wager);
+			makeResultDivs(betResults, prediction, wager);
+		})
 		.catch((error) => console.error("Error fetching data:", error));
 }
 
-function generateResults(games, prediction, wager) {
+function makeResultDivs(betResults, prediction, wager) {
 	prediction = prediction === "win";
-	console.log("Games:", games);
 	const {
 		numUnderdogWins,
 		numUnderdogLosses,
@@ -26,7 +21,7 @@ function generateResults(games, prediction, wager) {
 		profitUnderdogLosses,
 		profitFavoriteWins,
 		profitFavoriteLosses,
-	} = calcBetResults(games, prediction, wager);
+	} = betResults;
 	const numWins = numUnderdogWins + numFavoriteWins;
 	const numLosses = numUnderdogLosses + numFavoriteLosses;
 	const numGames = numWins + numLosses;
@@ -50,20 +45,6 @@ function generateResults(games, prediction, wager) {
 		profitFavoriteLosses
 	);
 	// makePerGameDiv();
-}
-
-function calcProfit(prediction, outcome, odds, wager) {
-	if (prediction !== outcome) {
-		return wager * -1;
-	} else {
-		let profit = 0;
-		if (odds > 0) {
-			profit = odds * (wager / 100);
-		} else {
-			profit = (wager / odds) * -100;
-		}
-		return Math.floor(profit * 100) / 100; //truncate to 2 decimal places
-	}
 }
 
 function calcBetResults(games, prediction, wager) {
@@ -122,4 +103,21 @@ function calcBetResults(games, prediction, wager) {
 	});
 	console.log("Results:", results);
 	return results;
+}
+
+//HELPER FUNCTIONS
+//
+//Calculates profit given odds, wager, and bet outcome
+function calcProfit(prediction, outcome, odds, wager) {
+	if (prediction !== outcome) {
+		return wager * -1;
+	} else {
+		let profit = 0;
+		if (odds > 0) {
+			profit = odds * (wager / 100);
+		} else {
+			profit = (wager / odds) * -100;
+		}
+		return Math.floor(profit * 100) / 100; //truncate to 2 decimal places
+	}
 }

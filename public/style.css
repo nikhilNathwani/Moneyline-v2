@@ -142,6 +142,11 @@ button#submit-button:active {
 	flex-flow: column nowrap;
 	align-items: center;
 	gap: 1rem;
+	animation: opacity 0.5s ease;
+}
+
+.result.disappear {
+	opacity: 0;
 }
 
 button#return-to-filters {

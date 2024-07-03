@@ -1,3 +1,14 @@
+function clearExistingResults() {
+	const results = document.querySelectorAll(".result");
+	results.forEach((result) => {
+		result.classList.add("disappear");
+	});
+}
+
+function fadeInResults() {
+	return;
+}
+
 function makeTotalProfitDiv(totalProfit) {
 	const totalProfitBanner = document.getElementById("total-profit-banner");
 	const totalProfitHeader = totalProfitBanner.querySelector("p");
