@@ -32,25 +32,23 @@ const filterReturnButton = document.getElementById("return-to-filters");
 
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
-	let timeout = 0;
+	//Bring results to foreground by either scrolling down or
+	//snapping filters to the left (depending on screen size)
+	snapFilterView();
 
-	//Clear existing results if any are shown
-	// if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
 	clearExistingResults();
-	timeout = 500;
+
+	// if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
+	// 	timeout = 500;
 	// }
 
 	setTimeout(() => {
 		//Generate new results based on filters applied
 		generateResults();
-
-		//Bring results to foreground by either scrolling down or
-		//snapping filters to the left (depending on screen size)
-		revealResults();
-	}, timeout);
+	}, 500);
 });
 
-function revealResults() {
+function showResultView() {
 	//If screen is sufficiently small, scroll down to reveal results
 	if (
 		window.innerWidth < minWidthAdjacentMode ||
