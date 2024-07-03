@@ -32,18 +32,21 @@ const filterReturnButton = document.getElementById("return-to-filters");
 
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
+	var timeout = 0;
+
 	//Bring results to foreground by either scrolling down or
 	//snapping filters to the left (depending on screen size)
 	snapFilterView();
 
 	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
 		clearExistingResults();
+		timeout = 500;
 	}
 
 	setTimeout(() => {
 		//Generate new results based on filters applied
 		generateResults();
-	}, 500);
+	}, timeout);
 });
 
 function snapFilterView() {
