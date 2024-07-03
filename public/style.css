@@ -142,11 +142,12 @@ button#submit-button:active {
 	flex-flow: column nowrap;
 	align-items: center;
 	gap: 1rem;
-	transition: opacity 0.5s ease;
+	transition: opacity 0.3s ease;
 }
 
 .result.disappear {
 	opacity: 0;
+	transition: opacity 0.5s ease;
 }
 
 button#return-to-filters {
