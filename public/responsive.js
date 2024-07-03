@@ -50,7 +50,7 @@ submitButton.addEventListener("click", function () {
 
 	setTimeout(() => {
 		fadeInResults();
-	}, timeout + 300);
+	}, timeout + 500);
 });
 
 function snapFilterView() {
