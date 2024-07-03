@@ -6,7 +6,10 @@ function clearExistingResults() {
 }
 
 function fadeInResults() {
-	return;
+	const results = document.querySelectorAll(".result");
+	results.forEach((result) => {
+		result.classList.remove("disappear");
+	});
 }
 
 function makeTotalProfitDiv(totalProfit) {
