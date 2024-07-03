@@ -42,12 +42,15 @@ submitButton.addEventListener("click", function () {
 		clearExistingResults();
 		timeout = 500; //duration of fade-out
 	}
-	generateResults();
 
 	setTimeout(() => {
 		//Generate new results based on filters applied
-		fadeInResults();
+		generateResults();
 	}, timeout);
+
+	setTimeout(() => {
+		fadeInResults();
+	}, timeout + 300);
 });
 
 function snapFilterView() {
