@@ -40,12 +40,13 @@ submitButton.addEventListener("click", function () {
 
 	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
 		clearExistingResults();
-		timeout = 1000;
+		timeout = 500;
 	}
 
 	setTimeout(() => {
 		//Generate new results based on filters applied
 		generateResults();
+		fadeInResults();
 	}, timeout);
 });
 
@@ -56,7 +57,6 @@ function snapFilterView() {
 		window.innerHeight < minHeight
 	) {
 		setAppState(APP_STATE.STACKED);
-		fadeInResults();
 		resultContainer.scrollIntoView({
 			behavior: "smooth",
 			block: "start",
@@ -65,7 +65,6 @@ function snapFilterView() {
 	//If screen is sufficiently large, display results side-by-side with filters
 	else {
 		setAppState(APP_STATE.ADJACENT);
-		fadeInResults();
 		resultContainer.scrollTo({ top: 0, behavior: "smooth" });
 	}
 }
