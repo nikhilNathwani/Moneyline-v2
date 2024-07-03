@@ -32,7 +32,7 @@ const filterReturnButton = document.getElementById("return-to-filters");
 
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", function () {
-	var timeout = 0;
+	var timeout = 300; //duration of fade-in of results
 
 	//Bring results to foreground by either scrolling down or
 	//snapping filters to the left (depending on screen size)
@@ -40,7 +40,7 @@ submitButton.addEventListener("click", function () {
 
 	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
 		clearExistingResults();
-		timeout = 500;
+		timeout = 800; //duration of fade-in plus duration of fade-out
 	}
 
 	setTimeout(() => {
