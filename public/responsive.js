@@ -35,10 +35,11 @@ submitButton.addEventListener("click", function () {
 	let timeout = 0;
 
 	//Clear existing results if any are shown
-	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
-		clearExistingResults();
-		timeout = 500;
-	}
+	// if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
+	clearExistingResults();
+	timeout = 500;
+	// }
+
 	setTimeout(() => {
 		//Generate new results based on filters applied
 		generateResults();
