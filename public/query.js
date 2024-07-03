@@ -3,7 +3,7 @@ function generateResults() {
 	fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
 		.then((games) => {
-			console.log("Games:", games);
+			// console.log("Games:", games);
 			const betResults = calcBetResults(games.data, prediction, wager);
 			makeResultDivs(betResults, prediction, wager);
 		})
@@ -85,13 +85,13 @@ function calcBetResults(games, prediction, wager) {
 					: "Underdog") +
 				(game.outcome ? "Wins" : "Losses"),
 		};
-		console.log(
-			prediction,
-			game.outcome,
-			odds,
-			wager,
-			calcProfit(prediction, game.outcome, odds, wager)
-		);
+		// console.log(
+		// 	prediction,
+		// 	game.outcome,
+		// 	odds,
+		// 	wager,
+		// 	calcProfit(prediction, game.outcome, odds, wager)
+		// );
 		results[resultToUpdate.gameCount]++;
 		results[resultToUpdate.profitSum] += calcProfit(
 			prediction,
@@ -100,7 +100,7 @@ function calcBetResults(games, prediction, wager) {
 			wager
 		);
 	});
-	console.log("Results:", results);
+	// console.log("Results:", results);
 	return results;
 }
 

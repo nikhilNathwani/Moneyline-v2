@@ -1,4 +1,5 @@
 function clearExistingResults() {
+	console.log("Clearing existing results");
 	const results = document.querySelectorAll(".result");
 	results.forEach((result) => {
 		result.classList.add("disappear");
@@ -6,6 +7,7 @@ function clearExistingResults() {
 }
 
 function fadeInResults() {
+	console.log("Fading in new results");
 	const results = document.querySelectorAll(".result");
 	results.forEach((result) => {
 		result.classList.remove("disappear");
