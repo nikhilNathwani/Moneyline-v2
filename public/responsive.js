@@ -36,11 +36,9 @@ submitButton.addEventListener("click", function () {
 	//snapping filters to the left (depending on screen size)
 	snapFilterView();
 
-	clearExistingResults();
-
-	// if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
-	// 	timeout = 500;
-	// }
+	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
+		clearExistingResults();
+	}
 
 	setTimeout(() => {
 		//Generate new results based on filters applied
