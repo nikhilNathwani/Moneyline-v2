@@ -9,11 +9,11 @@ function clearExistingResults() {
 function fadeInResults() {
 	console.log("Fading in new results");
 	const results = document.querySelectorAll(".result");
-	setTimeout(() => {
-		results.forEach((result) => {
+	results.forEach((result, index) => {
+		setTimeout(() => {
 			result.classList.remove("disappear");
-		});
-	}, 1000);
+		}, index * 500);
+	});
 }
 
 function makeTotalProfitDiv(totalProfit) {
