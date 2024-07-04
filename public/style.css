@@ -180,7 +180,7 @@ button#return-to-filters {
 /* Mobile adjustments*/
 @media (max-width: 519px) {
 	.result {
-		--marginBottom-result: 3.5rem;
+		--marginBottom-result: 3rem;
 	}
 }
 
@@ -229,7 +229,7 @@ button#return-to-filters {
 	justify-content: center;
 	gap: var(--gap-banner);
 	padding-block: var(--paddingY-profitBanner);
-	margin-bottom: 1.5rem;
+	margin-block: 3rem 1.5rem;
 }
 
 #total-profit-banner span {
