@@ -177,6 +177,13 @@ button#return-to-filters {
 	cursor: pointer;
 }
 
+/* Mobile adjustments*/
+@media (max-width: 519px) {
+	.result-banner {
+		--marginBottom-banner: 3.5rem;
+	}
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
 /*     RESULT BANNER                                        */
