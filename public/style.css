@@ -129,12 +129,14 @@ button#submit-button:active {
 #result-container {
 	height: fit-content;
 	min-height: var(--minHeight-app);
-	/* padding-block: 3rem; */
+	padding-block: 3rem;
 
 	/* background-color: white; */
 }
 
 .result {
+	--paddingBottom-resultChip: 1.5rem;
+	
 	width: min(80vw, 64ch);
 	margin: 3rem auto 4.5rem auto;
 
@@ -180,6 +182,8 @@ button#return-to-filters {
 	--paddingX-banner: 1.5rem;
 	--paddingY-banner: 2rem;
 	--paddingY-profitBanner: 3rem;
+	--marginBottom-banner: 4.5rem;
+	--marginTop-banner: calc(var(var(--marginBottom-banner) - var(--paddingBottom-resultChip)))
 	--gap-banner: 2rem;
 	--fs-banner: 2.5rem;
 	--fs-totalProfit: 4.5rem;
@@ -216,7 +220,7 @@ button#return-to-filters {
 	justify-content: center;
 	gap: var(--gap-banner);
 	padding-block: var(--paddingY-profitBanner);
-	margin-bottom: 1.5rem;
+	margin-block: 0rem 1.5rem;
 }
 
 #total-profit-banner span {
@@ -229,6 +233,7 @@ button#return-to-filters {
 		--paddingX-banner: 1rem;
 		--paddingY-banner: 2rem;
 		--paddingY-profitBanner: 2rem;
+		--marginBottom-banner: 3.5rem;
 		--gap-banner: 1rem;
 		--fs-banner: 1.625rem;
 		--fs-totalProfit: 2.75rem;
