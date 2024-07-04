@@ -179,7 +179,7 @@ button#return-to-filters {
 
 /* Mobile adjustments*/
 @media (max-width: 519px) {
-	.result-banner {
+	.result {
 		--marginBottom-result: 3.5rem;
 	}
 }
