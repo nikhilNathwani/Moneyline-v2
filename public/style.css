@@ -213,7 +213,7 @@ button#return-to-filters {
 }
 
 #total-profit-banner span {
-	font-size: 4.5rem;
+	font-size: clamp(2.5rem, 9vw, 4.5rem);
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
