@@ -184,7 +184,7 @@ button#return-to-filters {
 	border-bottom: 6px solid var(--color-light);
 	border-radius: 8px;
 
-	font-size: clamp(1rem, 7vw, 2.5rem);
+	font-size: clamp(1rem, 9vw, 2.5rem);
 	text-align: center;
 
 	/* color: hsl(212, 26%, 29%); */
@@ -213,7 +213,7 @@ button#return-to-filters {
 }
 
 #total-profit-banner span {
-	font-size: clamp(2.5rem, 9vw, 4.5rem);
+	font-size: clamp(3rem, 14vw, 4.5rem);
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
