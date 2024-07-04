@@ -177,14 +177,20 @@ button#return-to-filters {
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .result-banner {
+	--paddingX-banner: 1.5rem;
+	--paddingY-banner: 2rem;
+	--gap-banner: 2rem;
+	--fs-banner: 2.5rem;
+	--fs-totalProfit: 4.5rem;
+
 	width: 100%;
-	padding: 2em 1em;
+	padding: var(--paddingY-banner) var(--paddingX-banner);
 
 	border: 3px solid var(--color-light);
 	border-bottom: 6px solid var(--color-light);
 	border-radius: 8px;
 
-	font-size: clamp(1rem, 8vw, 2.5rem);
+	font-size: var(--fs-banner);
 	text-align: center;
 
 	/* color: hsl(212, 26%, 29%); */
@@ -207,13 +213,23 @@ button#return-to-filters {
 	flex-flow: column nowrap;
 	align-items: center;
 	justify-content: center;
-	gap: 1em;
+	gap: var(--gap-banner);
 	padding-block: 3rem;
 	margin-bottom: 1.5rem;
 }
 
 #total-profit-banner span {
-	font-size: clamp(3rem, 12vw, 4.5rem);
+	font-size: var(--fs-totalProfit);
+}
+
+@media (max-width: 519px) {
+	.result-banner {
+		--paddingX-banner: 1rem;
+		--paddingY-banner: 2rem;
+		--gap-banner: 1rem;
+		--fs-banner: 1.5rem;
+		--fs-totalProfit: 2.5rem;
+	}
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
