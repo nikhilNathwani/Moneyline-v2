@@ -136,7 +136,7 @@ button#submit-button:active {
 
 .result {
 	--paddingBottom-resultChip: 1.5rem;
-	
+
 	width: min(80vw, 64ch);
 	margin: 3rem auto 4.5rem auto;
 
@@ -183,7 +183,9 @@ button#return-to-filters {
 	--paddingY-banner: 2rem;
 	--paddingY-profitBanner: 3rem;
 	--marginBottom-banner: 4.5rem;
-	--marginTop-banner: calc(var(var(--marginBottom-banner) - var(--paddingBottom-resultChip)))
+	--marginTop-banner: calc(
+		var(var(--marginBottom-banner) - var(--paddingBottom-resultChip))
+	);
 	--gap-banner: 2rem;
 	--fs-banner: 2.5rem;
 	--fs-totalProfit: 4.5rem;
