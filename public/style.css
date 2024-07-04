@@ -214,7 +214,7 @@ button#return-to-filters {
 	align-items: center;
 	justify-content: center;
 	gap: var(--gap-banner);
-	padding-block: 3rem;
+	/* padding-block: 3rem; */
 	margin-bottom: 1.5rem;
 }
 
@@ -222,13 +222,14 @@ button#return-to-filters {
 	font-size: var(--fs-totalProfit);
 }
 
+/* Mobile adjustments*/
 @media (max-width: 519px) {
 	.result-banner {
 		--paddingX-banner: 1rem;
 		--paddingY-banner: 2rem;
 		--gap-banner: 1rem;
-		--fs-banner: 1.5rem;
-		--fs-totalProfit: 2.5rem;
+		--fs-banner: 1.75rem;
+		--fs-totalProfit: 2.75rem;
 	}
 }
 
