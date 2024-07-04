@@ -129,7 +129,7 @@ button#submit-button:active {
 #result-container {
 	height: fit-content;
 	min-height: var(--minHeight-app);
-	padding-block: 3rem;
+	/* padding-block: 3rem; */
 
 	/* background-color: white; */
 }
