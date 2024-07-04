@@ -136,9 +136,13 @@ button#submit-button:active {
 
 .result {
 	--paddingBottom-resultChip: 1.5rem;
+	--marginBottom-result: 4.5rem;
+	--marginTop-result: calc(
+		var(var(--marginBottom-banner) - var(--paddingBottom-resultChip))
+	);
 
 	width: min(80vw, 64ch);
-	margin: 3rem auto 4.5rem auto;
+	margin: var(--marginTop-result) auto var(--marginBottom-result) auto;
 
 	display: flex;
 	flex-flow: column nowrap;
@@ -182,10 +186,6 @@ button#return-to-filters {
 	--paddingX-banner: 1.5rem;
 	--paddingY-banner: 2rem;
 	--paddingY-profitBanner: 3rem;
-	--marginBottom-banner: 4.5rem;
-	--marginTop-banner: calc(
-		var(var(--marginBottom-banner) - var(--paddingBottom-resultChip))
-	);
 	--gap-banner: 2rem;
 	--fs-banner: 2.5rem;
 	--fs-totalProfit: 4.5rem;
@@ -222,7 +222,7 @@ button#return-to-filters {
 	justify-content: center;
 	gap: var(--gap-banner);
 	padding-block: var(--paddingY-profitBanner);
-	margin-block: 0rem 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
 #total-profit-banner span {
