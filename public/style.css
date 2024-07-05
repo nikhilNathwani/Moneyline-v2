@@ -321,7 +321,7 @@ td {
 }
 
 th {
-	font-weight: 400;
+	font-weight: normal;
 	background-color: var(--color-light);
 }
 
