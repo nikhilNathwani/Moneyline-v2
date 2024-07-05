@@ -308,6 +308,14 @@ button#return-to-filters {
 	color: hsl(0, 52%, 40%); */
 }
 
+.result-list {
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
 table {
 	border-collapse: collapse;
 	margin-top: 0.375rem;
