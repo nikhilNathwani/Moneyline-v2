@@ -308,6 +308,22 @@ button#return-to-filters {
 	color: hsl(0, 52%, 40%); */
 }
 
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	border: 1px solid var(--color-accent);
+	padding: 8px;
+	text-align: left; /* Align text to the left */
+}
+
+th {
+	background-color: var(--color-light);
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
 /*     INITIAL MODE                                         */
