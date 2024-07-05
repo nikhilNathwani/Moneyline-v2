@@ -308,12 +308,8 @@ button#return-to-filters {
 	color: hsl(0, 52%, 40%); */
 }
 
-.result-list {
-	width: 100%;
-	display: flex;
-	flex-flow: row nowrap;
-	align-items: center;
-	justify-content: center;
+#top-bets-div .result-details {
+	flex-flow: column nowrap;
 }
 
 table {
