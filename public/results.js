@@ -149,6 +149,8 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 	const gameChips = topGamesResult.querySelectorAll(".result-chip");
 
 	gameChips.forEach((gameChip, index) => {
+		console.log("GameChip:", gameChip);
+
 		const gameNumberDiv = gameChip.querySelector(".result-chip-title");
 		gameNumberDiv.textContent = `Game #${topThreeBets[index].gameNumber}:`;
 
@@ -161,30 +163,30 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 		const gameTableOutcome = gameTable.querySelector(
 			"tr.result-chip-table-outcome"
 		);
-		const gameTableOutcomeValue = gameTableOutcome.querySelector("td");
-		gameTableOutcomeValue.textContent = prediction ? "Win" : "Loss";
+		gameTableOutcome.querySelector("td").textContent = prediction
+			? "Win"
+			: "Loss";
 
 		const gameTableOdds = gameTable.querySelector(
 			"tr.result-chip-table-odds"
 		);
-		const gameTableOddsHeader = gameTableOdds.querySelector("th");
-		gameTableOddsHeader.textContent = prediction
+		gameTableOdds.querySelector("th").textContent = prediction
 			? "Odds to Win"
 			: "Odds to Lose";
-		const gameTableOddsValue = gameTableOdds.querySelector("td");
-		gameTableOddsValue.textContent = topThreeBets[index].odds;
+		gameTableOdds.querySelector("td").textContent =
+			topThreeBets[index].odds;
 
 		const gameTableWager = gameTable.querySelector(
 			"tr.result-chip-table-wager"
 		);
-		const gameTableWagerValue = gameTableWager.querySelector("td");
-		gameTableWagerValue.textContent = `-${formatCurrency(wager)}`;
+		gameTableWager.querySelector("td").textContent = `-${formatCurrency(
+			wager
+		)}`;
 
 		const gameTablePayout = gameTable.querySelector(
 			"tr.result-chip-table-payout"
 		);
-		const gameTablePayoutValue = gameTablePayout.querySelector("td");
-		gameTablePayoutValue.textContent = `+${formatCurrency(
+		gameTablePayout.querySelector("td").textContent = `+${formatCurrency(
 			wager + topThreeBets[index].profit
 		)}`;
 	});
