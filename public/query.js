@@ -4,13 +4,17 @@ function generateResults() {
 		.then((response) => response.json())
 		.then((games) => {
 			// console.log("Games:", games);
-			const betResults = calcBetResults(games.data, prediction, wager);
-			makeResultDivs(betResults, prediction, wager);
+			const { betResults, topThreeBets } = calcBetResults(
+				games.data,
+				prediction,
+				wager
+			);
+			makeResultDivs(betResults, topThreeBets, prediction, wager);
 		})
 		.catch((error) => console.error("Error fetching data:", error));
 }
 
-function makeResultDivs(betResults, prediction, wager) {
+function makeResultDivs(betResults, topThreeBets, prediction, wager) {
 	const {
 		numUnderdogWins,
 		numUnderdogLosses,
@@ -43,7 +47,7 @@ function makeResultDivs(betResults, prediction, wager) {
 		profitFavoriteWins,
 		profitFavoriteLosses
 	);
-	// makePerGameDiv();
+	makeTopBetsDiv(prediction, wager, topThreeBets);
 }
 
 function calcBetResults(games, prediction, wager) {
@@ -85,23 +89,25 @@ function calcBetResults(games, prediction, wager) {
 					: "Underdog") +
 				(game.outcome ? "Wins" : "Losses"),
 		};
-		// console.log(
-		// 	prediction,
-		// 	game.outcome,
-		// 	odds,
-		// 	wager,
-		// 	calcProfit(prediction, game.outcome, odds, wager)
-		// );
+		const profit = calcProfit(prediction, game.outcome, odds, wager);
+		results[resultToUpdate.profitSum] += profit;
 		results[resultToUpdate.gameCount]++;
-		results[resultToUpdate.profitSum] += calcProfit(
-			prediction,
-			game.outcome,
-			odds,
-			wager
-		);
+
+		if (game.outcome == prediction) {
+			winningBets.push({
+				gameNumber: game.gamenumber,
+				odds: odds,
+				profit: profit,
+			});
+		}
 	});
 	// console.log("Results:", results);
-	return results;
+
+	//Get top 3 highest-earning games
+	const sortedByProfit = winningBets.sort((a, b) => b.profit - a.profit);
+	const topThreeBets = sortedByProfit.slice(0, 3);
+
+	return { results, topThreeBets };
 }
 
 //HELPER FUNCTIONS

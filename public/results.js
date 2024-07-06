@@ -1,3 +1,6 @@
+//
+// RESULT CHOREO
+//
 function clearExistingResults() {
 	console.log("Clearing existing results");
 	const results = document.querySelectorAll(".result");
@@ -16,6 +19,11 @@ function fadeInResults() {
 	});
 }
 
+//
+// RESULT CONSTRUCTION
+//
+
+// 1. "You would have [won/lost] $XYZ"
 function makeTotalProfitDiv(totalProfit) {
 	const totalProfitBanner = document.getElementById("total-profit-banner");
 	const totalProfitHeader = totalProfitBanner.querySelector("p");
@@ -34,6 +42,7 @@ function makeTotalProfitDiv(totalProfit) {
 	}${formatCurrency(totalProfit)}`;
 }
 
+// 2. "That's a XX% return on investment"
 function makeROIDiv(totalProfit, numGames, wager) {
 	const roi = (totalProfit * 100) / (numGames * wager);
 
@@ -71,6 +80,7 @@ function makeROIDiv(totalProfit, numGames, wager) {
 	roiPercentReturn.textContent = `${formatPercent(roi)}`;
 }
 
+// 3. "This comes from X [correct/incorrect] guesses"
 function makeWinLossDiv(
 	totalProfit,
 	prediction,
@@ -133,6 +143,14 @@ function makeWinLossDiv(
 	});
 }
 
+// 4. "Top 3 highest-earning bets"
+function makeTopBetsDiv(prediction, wager, topThreeBets) {
+	console.log(("PWT", prediction, wager, topThreeBets));
+}
+
+//
+// HELPER FUNCTIONS
+//
 function formatCurrency(number) {
 	// Determine if the number has cents
 	let hasCents = number % 1 !== 0;
