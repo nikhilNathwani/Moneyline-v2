@@ -159,32 +159,35 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 
 		const gameTable = gameChip.querySelector("table");
 		const gameTableOutcome = gameTable.querySelector(
-			".result-chip-table-outcome"
+			"tr.result-chip-table-outcome"
 		);
-		gameTableOutcome.querySelector("td").textContent = prediction
-			? "Win"
-			: "Loss";
+		const gameTableOutcomeValue.querySelector("td");
+		gameTableOutcomeValue.textContent = prediction ? "Win" : "Loss";
 
 		const gameTableOdds = gameTable.querySelector(
-			".result-chip-table-odds"
+			"tr.result-chip-table-odds"
 		);
-		gameTableOdds.querySelector("th").textContent = prediction
+		const gameTableOddsHeader= gameTableOdds.querySelector("th")
+		gameTableOddsHeader.textContent = prediction
 			? "Odds to Win"
 			: "Odds to Lose";
-		gameTableOdds.querySelector("td").textContent =
+		const gameTableOddsValue= gameTableOdds.querySelector("td")
+		gameTableOddsValue.textContent =
 			topThreeBets[index].odds;
 
 		const gameTableWager = gameTable.querySelector(
-			".result-chip-table-wager"
+			"tr.result-chip-table-wager"
 		);
-		gameTableWager.querySelector("td").textContent = `-${formatCurrency(
+		const gameTableWagerValue= gameTableWager.querySelector("td")
+		gameTableWagerValue.textContent = `-${formatCurrency(
 			wager
 		)}`;
 
 		const gameTablePayout = gameTable.querySelector(
-			".result-chip-table-payout"
+			"tr.result-chip-table-payout"
 		);
-		gameTablePayout.querySelector("td").textContent = `+${formatCurrency(
+		const gameTablePayoutValue= gameTablePayout.querySelector("td")
+		gameTablePayoutValue.textContent = `+${formatCurrency(
 			wager + topThreeBets[index].profit
 		)}`;
 	});
