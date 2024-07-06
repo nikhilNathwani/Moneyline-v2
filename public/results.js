@@ -153,16 +153,22 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 
 		const gameNumberDiv = gameChip.querySelector(".result-chip-title");
 		gameNumberDiv.textContent = `Game #${topThreeBets[index].gameNumber}:`;
+		console.log("gameNumberDiv:", gameNumberDiv);
 
 		const profitDiv = gameChip.querySelector(".result-chip-value");
 		profitDiv.textContent = `+${formatCurrency(
 			topThreeBets[index].profit
 		)}`;
+		console.log("profitDiv:", profitDiv);
 
 		const gameTable = gameChip.querySelector("table");
+		console.log("gameTable:", gameTable);
+
 		const gameTableOutcome = gameTable.querySelector(
 			"tr.result-chip-table-outcome"
 		);
+		console.log("gameTableOutcome:", gameTableOutcome);
+
 		gameTableOutcome.querySelector("td").textContent = prediction
 			? "Win"
 			: "Loss";
