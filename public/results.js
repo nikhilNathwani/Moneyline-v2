@@ -179,8 +179,9 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 		gameTableOdds.querySelector("th").textContent = prediction
 			? "Odds to Win"
 			: "Odds to Lose";
-		gameTableOdds.querySelector("td").textContent =
-			topThreeBets[index].odds;
+		gameTableOdds.querySelector("td").textContent = `${
+			topThreeBets[index].odds >= 0 ? "+" : ""
+		}${topThreeBets[index].odds}`;
 
 		const gameTableWager = gameTable.querySelector(
 			"tr.result-chip-table-wager"
