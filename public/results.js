@@ -193,7 +193,7 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 			"tr.result-chip-table-payout"
 		);
 		gameTablePayout.querySelector("td").textContent = `+${formatCurrency(
-			wager + topThreeBets[index].profit
+			parseFloat(wager) + parseFloat(topThreeBets[index].profit)
 		)}`;
 	});
 	console.log(("PWT", prediction, wager, topThreeBets));
