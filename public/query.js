@@ -108,6 +108,9 @@ function calcBetResults(games, prediction, wager) {
 	const sortedByProfit = winningBets.sort((a, b) => b.profit - a.profit);
 	const topThreeBets = sortedByProfit.slice(0, 3);
 
+	console.log("betResults:", betResults);
+	console.log("topThreeBets:", topThreeBets);
+
 	return { betResults, topThreeBets };
 }
 
