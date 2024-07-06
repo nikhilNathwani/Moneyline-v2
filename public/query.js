@@ -51,7 +51,7 @@ function makeResultDivs(betResults, topThreeBets, prediction, wager) {
 }
 
 function calcBetResults(games, prediction, wager) {
-	let results = {
+	let betResults = {
 		numUnderdogWins: 0,
 		numUnderdogLosses: 0,
 		numFavoriteWins: 0,
@@ -91,8 +91,8 @@ function calcBetResults(games, prediction, wager) {
 				(game.outcome ? "Wins" : "Losses"),
 		};
 		const profit = calcProfit(prediction, game.outcome, odds, wager);
-		results[resultToUpdate.profitSum] += profit;
-		results[resultToUpdate.gameCount]++;
+		betResults[resultToUpdate.profitSum] += profit;
+		betResults[resultToUpdate.gameCount]++;
 
 		if (game.outcome == prediction) {
 			winningBets.push({
@@ -102,13 +102,13 @@ function calcBetResults(games, prediction, wager) {
 			});
 		}
 	});
-	// console.log("Results:", results);
+	// console.log("betResults:", betResults);
 
 	//Get top 3 highest-earning games
 	const sortedByProfit = winningBets.sort((a, b) => b.profit - a.profit);
 	const topThreeBets = sortedByProfit.slice(0, 3);
 
-	return { results, topThreeBets };
+	return { betResults, topThreeBets };
 }
 
 //HELPER FUNCTIONS
