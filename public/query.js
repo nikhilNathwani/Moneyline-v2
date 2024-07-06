@@ -61,6 +61,7 @@ function calcBetResults(games, prediction, wager) {
 		profitFavoriteWins: 0,
 		profitFavoriteLosses: 0,
 	};
+	let winningBets = [];
 
 	games.forEach((game) => {
 		const odds = prediction

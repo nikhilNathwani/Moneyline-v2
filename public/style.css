@@ -308,7 +308,7 @@ button#return-to-filters {
 	color: hsl(0, 52%, 40%); */
 }
 
-#top-bets-div .result-details {
+#top-bets-result .result-details {
 	flex-flow: column nowrap;
 }
 
