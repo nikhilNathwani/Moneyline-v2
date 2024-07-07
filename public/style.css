@@ -367,6 +367,7 @@ th {
 	height: fit-content;
 }
 
+/* Prevent jarring fadeout as screen scrolls down */
 .stackedMode .result.disappear {
 	transition: none;
 }
