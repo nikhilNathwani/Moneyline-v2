@@ -40,7 +40,11 @@ submitButton.addEventListener("click", function () {
 
 	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
 		clearExistingResults();
-		timeout = 500; //duration of fade-out
+		if (appContainer.classList.contains(APP_STATE.ADJACENT)) {
+			timeout = 500; //wait for fade-out of existing results
+		} else {
+			timeout = 0; //no fade-out of existing results in STACKED mode
+		}
 	}
 
 	setTimeout(() => {
