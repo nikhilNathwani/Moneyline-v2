@@ -73,13 +73,14 @@ outcomes.forEach((outcome) => {
 	outcomeSelect.appendChild(option);
 });
 
-// Populate season dropdown
+// Populate season dropdown (and default to latest available season)
 seasons.forEach((season) => {
 	const option = document.createElement("option");
 	option.value = Number(season.split("-")[0]);
 	option.textContent = season;
 	seasonSelect.appendChild(option);
 });
+seasonSelect.selectedIndex = seasons.length - 1;
 
 function getFilterValues() {
 	// Get the values of the Div filters
