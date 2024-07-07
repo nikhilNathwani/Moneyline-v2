@@ -367,6 +367,10 @@ th {
 	height: fit-content;
 }
 
+.stackedMode .result.disappear {
+	transition: none;
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
 /*     ADJACENT MODE                                        */
