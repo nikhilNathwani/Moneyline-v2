@@ -64,21 +64,10 @@ function calcBetResults(games, prediction, wager) {
 	let winningBets = [];
 
 	games.forEach((game) => {
-		//Pre-processing: select the appropriate odds
 		const odds = prediction
 			? parseFloat(game.winodds)
 			: parseFloat(game.loseodds);
 
-		//Add to winningBets if prediction is correct
-		if (game.outcome == prediction) {
-			winningBets.push({
-				gameNumber: game.gamenumber,
-				odds: odds,
-				profit: profit,
-			});
-		}
-
-		//Populate betResults i.e. num wins/losses & profit per underdog/favorite
 		let resultToUpdate = {
 			gameCount:
 				"num" +
@@ -104,6 +93,14 @@ function calcBetResults(games, prediction, wager) {
 		const profit = calcProfit(prediction, game.outcome, odds, wager);
 		betResults[resultToUpdate.profitSum] += profit;
 		betResults[resultToUpdate.gameCount]++;
+
+		if (game.outcome == prediction) {
+			winningBets.push({
+				gameNumber: game.gamenumber,
+				odds: odds,
+				profit: profit,
+			});
+		}
 	});
 
 	//Get top 3 highest-earning games
