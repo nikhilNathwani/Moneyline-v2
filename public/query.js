@@ -3,7 +3,6 @@ function generateResults() {
 	fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
 		.then((games) => {
-			// console.log("Games:", games);
 			const { betResults, topThreeBets } = calcBetResults(
 				games.data,
 				prediction,
@@ -102,14 +101,10 @@ function calcBetResults(games, prediction, wager) {
 			});
 		}
 	});
-	// console.log("betResults:", betResults);
 
 	//Get top 3 highest-earning games
 	const sortedByProfit = winningBets.sort((a, b) => b.profit - a.profit);
 	const topThreeBets = sortedByProfit.slice(0, 3);
-
-	console.log("betResults:", betResults);
-	console.log("topThreeBets:", topThreeBets);
 
 	return { betResults, topThreeBets };
 }

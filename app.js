@@ -21,13 +21,7 @@ app.get("/api/games", (req, res) => {
   `;
 
 	// Params array to securely pass values into the query
-	const params = [
-		parseInt(seasonStart, 10),
-		team,
-		//outcome === "win", // Converts outcome to a boolean (true for "win", false otherwise)
-	];
-
-	console.log("Params: ", params, typeof params);
+	const params = [parseInt(seasonStart, 10), team];
 
 	pool.query(query, params, (err, result) => {
 		if (err) {

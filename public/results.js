@@ -2,7 +2,6 @@
 // RESULT CHOREO
 //
 function clearExistingResults() {
-	console.log("Clearing existing results");
 	const results = document.querySelectorAll(".result");
 	results.forEach((result) => {
 		result.classList.add("disappear");
@@ -10,7 +9,6 @@ function clearExistingResults() {
 }
 
 function fadeInResults() {
-	console.log("Fading in new results");
 	const results = document.querySelectorAll(".result");
 	results.forEach((result, index) => {
 		setTimeout(() => {
@@ -149,25 +147,19 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 	const gameChips = topGamesResult.querySelectorAll(".result-chip");
 
 	gameChips.forEach((gameChip, index) => {
-		console.log("GameChip:", gameChip);
-
 		const gameNumberDiv = gameChip.querySelector(".result-chip-title");
 		gameNumberDiv.textContent = `Game #${topThreeBets[index].gameNumber}:`;
-		console.log("gameNumberDiv:", gameNumberDiv);
 
 		const profitDiv = gameChip.querySelector(".result-chip-value");
 		profitDiv.textContent = `+${formatCurrency(
 			topThreeBets[index].profit
 		)}`;
-		console.log("profitDiv:", profitDiv);
 
 		const gameTable = gameChip.querySelector("table");
-		console.log("gameTable:", gameTable);
 
 		const gameTableOutcome = gameTable.querySelector(
 			"tr.result-chip-table-outcome"
 		);
-		console.log("gameTableOutcome:", gameTableOutcome);
 
 		gameTableOutcome.querySelector("td").textContent = prediction
 			? "Win"
@@ -197,7 +189,6 @@ function makeTopBetsDiv(prediction, wager, topThreeBets) {
 			parseFloat(wager) + parseFloat(topThreeBets[index].profit)
 		)}`;
 	});
-	console.log(("PWT", prediction, wager, topThreeBets));
 }
 
 //
