@@ -7,9 +7,9 @@ const seasons = [
 	"2020-21",
 	"2021-22",
 ];
-const betAmounts = [];
+const wagers = [];
 for (let i = 1; i <= 20; i++) {
-	betAmounts.push(i * 50);
+	wagers.push(i * 50);
 }
 const teamNames = [
 	"Atlanta Hawks",
@@ -45,7 +45,7 @@ const teamNames = [
 ];
 
 const teamSelect = document.getElementById("team-input");
-const betSelect = document.getElementById("bet-input");
+const wagerSelect = document.getElementById("wager-input");
 const outcomeSelect = document.getElementById("outcome-input");
 const seasonSelect = document.getElementById("season-input");
 
@@ -57,12 +57,12 @@ teamNames.forEach((teamName) => {
 	teamSelect.appendChild(option);
 });
 
-// Populate bet dropdown
-betAmounts.forEach((amount) => {
+// Populate wager dropdown
+wagers.forEach((amount) => {
 	const option = document.createElement("option");
 	option.value = amount;
 	option.textContent = "$" + amount;
-	betSelect.appendChild(option);
+	wagerSelect.appendChild(option);
 });
 
 // Populate outcome dropdown
@@ -84,7 +84,7 @@ seasonSelect.selectedIndex = seasons.length - 1;
 
 function getFilterValues() {
 	// Get the values of the Div filters
-	const wager = document.getElementById("bet-input").value;
+	const wager = document.getElementById("wager-input").value;
 	const team = document.getElementById("team-input").value;
 	const outcome =
 		document.getElementById("outcome-input").value == "Win every game"
