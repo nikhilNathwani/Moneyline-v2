@@ -3,3 +3,5 @@
 /.vercel
 /node_modules
 .env.developement.local
+/data.csv
+/moneyline.db
