@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const { Pool } = require("pg");
+const betResultsRouter = require("./routes/bet-results");
+const topBetsRouter = require("./routes/top-bets");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,7 +11,10 @@ const pool = new Pool({
 	connectionString: process.env.POSTGRES_URL,
 });
 
-//Route to fetch data
+app.use("/api/bet-results", betResultsRouter);
+app.use("/api/top-bets", topBetsRouter);
+
+//Route to fetch raw game data for given team and season
 app.get("/api/games", (req, res) => {
 	const { seasonStart, team } = req.query;
 
