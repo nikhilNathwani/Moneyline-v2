@@ -1,16 +1,22 @@
+/* External imports */
 const express = require("express");
 const path = require("path");
 const { Pool } = require("pg");
+
+/* Internal imports */
 const betResultsRouter = require("./routes/bet-results");
 const topBetsRouter = require("./routes/top-bets");
 
+/* App Configurations */
 const app = express();
-const PORT = process.env.PORT || 3000;
-
 const pool = new Pool({
 	connectionString: process.env.POSTGRES_URL,
 });
 
+// Serve static files from public folder
+app.use(express.static(path.join(__dirname, "public")));
+
+// Use the routes I defined
 app.use("/api/bet-results", betResultsRouter);
 app.use("/api/top-bets", topBetsRouter);
 
@@ -41,15 +47,9 @@ app.get("/api/games", (req, res) => {
 	});
 });
 
-// Serve static files from public directory (like css/js files)
-app.use(express.static(path.join(__dirname, "public")));
-
 // Fallback to serve index.html for any other route
 app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Start the server
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app;
