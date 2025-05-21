@@ -1,6 +1,6 @@
 // Load env vars first (local-only since .env.development.local isn't tracked in git)
 if (process.env.NODE_ENV !== "production") {
-	require("dotenv").config();
+	require("dotenv").config({ path: ".env.development.local" });
 }
 const app = require("./app");
 const PORT = process.env.PORT || 3000;
