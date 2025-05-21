@@ -13,6 +13,8 @@ const pool = new Pool({
 	connectionString: process.env.POSTGRES_URL,
 });
 
+console.log("Using POSTGRES_URL:", process.env.POSTGRES_URL);
+
 // Serve static files from public folder
 app.use(express.static(path.join(__dirname, "public")));
 
