@@ -2,6 +2,6 @@
 /.vscode
 /.vercel
 /node_modules
-.env.developement.local
+.env.development.local
 /data.csv
 /moneyline.db
