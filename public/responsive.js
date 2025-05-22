@@ -20,61 +20,11 @@ var appContainer = document.getElementById("app");
 var filterContainer = document.getElementById("filter-container");
 var resultContainer = document.getElementById("result-container");
 
-// Buttons
-const submitButton = document.getElementById("submit-button");
-const filterReturnButton = document.getElementById("return-to-filters");
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
 /*     EVENT HANDLING                                         */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-// Handle submit ('View Results' button)
-submitButton.addEventListener("click", function () {
-	var timeout = 0;
-
-	//Bring results to foreground by either scrolling down or
-	//snapping filters to the left (depending on screen size)
-	snapFilterView();
-
-	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
-		clearExistingResults();
-		if (appContainer.classList.contains(APP_STATE.ADJACENT)) {
-			timeout = 500; //wait for fade-out of existing results
-		} else {
-			timeout = 200; //no fade-out of existing results in STACKED mode, so just a short wait
-		}
-	}
-
-	setTimeout(() => {
-		//Generate new results based on filters applied
-		generateResults();
-	}, timeout);
-
-	setTimeout(() => {
-		fadeInResults();
-	}, timeout + 500);
-});
-
-function snapFilterView() {
-	//If screen is sufficiently small, scroll down to reveal results
-	if (
-		window.innerWidth < minWidthAdjacentMode ||
-		window.innerHeight < minHeight
-	) {
-		setAppState(APP_STATE.STACKED);
-		resultContainer.scrollIntoView({
-			behavior: "smooth",
-			block: "start",
-		});
-	}
-	//If screen is sufficiently large, display results side-by-side with filters
-	else {
-		setAppState(APP_STATE.ADJACENT);
-		resultContainer.scrollTo({ top: 0, behavior: "smooth" });
-	}
-}
 
 // Handle screen resize
 window.addEventListener("resize", function () {
@@ -99,12 +49,8 @@ window.addEventListener("resize", function () {
 	}
 });
 
-// Handle 'Return to filters' button (only shown in stacked mode when filters are out of view)
-filterReturnButton.addEventListener("click", function () {
-	filterContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-// Show 'Return to filters' button (when filters are out of view)
+// Show 'Return to filters' button
+// (when filters are scrolled out of view in stacked mode)
 const observer = new IntersectionObserver(
 	(entries) => {
 		entries.forEach((entry) => {
@@ -124,6 +70,13 @@ const observer = new IntersectionObserver(
 );
 observer.observe(filterContainer);
 
+// Handle 'Return to filters' button
+// (only shown in stacked mode when filters are out of view)
+const filterReturnButton = document.getElementById("return-to-filters");
+filterReturnButton.addEventListener("click", function () {
+	filterContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
 /*     HELPER FUNCTIONS                                        */
@@ -134,4 +87,25 @@ function setAppState(state) {
 		appContainer.classList.remove(state)
 	);
 	appContainer.classList.add(state);
+}
+
+//Bring results to foreground by either scrolling down or
+//snapping filters to the left (depending on screen size)
+function snapFilterView() {
+	//If screen is sufficiently small, scroll down to reveal results
+	if (
+		window.innerWidth < minWidthAdjacentMode ||
+		window.innerHeight < minHeight
+	) {
+		setAppState(APP_STATE.STACKED);
+		resultContainer.scrollIntoView({
+			behavior: "smooth",
+			block: "start",
+		});
+	}
+	//If screen is sufficiently large, display results side-by-side with filters
+	else {
+		setAppState(APP_STATE.ADJACENT);
+		resultContainer.scrollTo({ top: 0, behavior: "smooth" });
+	}
 }
