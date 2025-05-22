@@ -1,6 +1,18 @@
 //Fetch data from db and pass results along to calcBetResults then makeResultDivs
-function generateResults() {
+async function generateResults() {
 	const { seasonStartYear, team, prediction, wager } = getFilterValues();
+
+	// fetch("/api/bet-results", {
+	// 	method: "POST",
+	// 	headers: { "Content-Type": "application/json" },
+	// 	body: JSON.stringify({ seasonStartYear, team, prediction, wager }),
+	// });
+	// fetch("/api/top-bets", {
+	// 	method: "POST",
+	// 	headers: { "Content-Type": "application/json" },
+	// 	body: JSON.stringify({ seasonStartYear, team, prediction, wager }),
+	// });
+
 	fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
 		.then((response) => response.json())
 		.then((games) => {
