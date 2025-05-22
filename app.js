@@ -16,6 +16,11 @@ const pool = new Pool({
 // Serve static files from public folder
 app.use(express.static(path.join(__dirname, "public")));
 
+// Middleware to parse request bodies (for POST requests)
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// ^check if i need this
+
 // Use the routes I defined
 app.use("/api/bet-results", betResultsRouter);
 app.use("/api/top-bets", topBetsRouter);
