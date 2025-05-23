@@ -26,3 +26,44 @@ submitButton.addEventListener("click", function () {
 		fadeInResults();
 	}, timeout + 500);
 });
+
+//Fetch data from db and pass results along to calcBetResults then makeResultDivs
+async function generateResults() {
+	const { seasonStartYear, team, prediction, wager } = getFilterValues();
+	console.log(
+		"Type of seasonStartYear:",
+		typeof seasonStartYear,
+		seasonStartYear
+	);
+	console.log("Type of team:", typeof team, team);
+
+	try {
+		const response = await fetch("/api/games", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ seasonStartYear, team }),
+		});
+		const json = await response.json(); //json is {message:"success", data:[array of games]}
+		const games = json.data;
+		const { betResults, topThreeBets } = calcBetResults(
+			games,
+			prediction,
+			wager
+		);
+		makeResultDivs(betResults, topThreeBets, prediction, wager);
+	} catch (error) {
+		console.error("Error fetchung games:", err);
+	}
+
+	// fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
+	// 	.then((response) => response.json())
+	// 	.then((games) => {
+	// 		const { betResults, topThreeBets } = calcBetResults(
+	// 			games.data,
+	// 			prediction,
+	// 			wager
+	// 		);
+	// 		makeResultDivs(betResults, topThreeBets, prediction, wager);
+	// 	})
+	// 	.catch((error) => console.error("Error fetching data:", error));
+}

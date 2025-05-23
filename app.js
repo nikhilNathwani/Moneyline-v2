@@ -26,8 +26,9 @@ app.use("/api/bet-results", betResultsRouter);
 app.use("/api/top-bets", topBetsRouter);
 
 //Route to fetch raw game data for given team and season
-app.get("/api/games", (req, res) => {
-	const { seasonStart, team } = req.query;
+app.post("/api/games", (req, res) => {
+	const { seasonStartYear, team } = req.body;
+	console.log("REQ.BODY:", req.body);
 
 	const query = `
     SELECT gameNumber, outcome, winOdds, loseOdds 
@@ -37,7 +38,8 @@ app.get("/api/games", (req, res) => {
   `;
 
 	// Params array to securely pass values into the query
-	const params = [parseInt(seasonStart, 10), team];
+	const params = [parseInt(seasonStartYear, 10), team];
+	console.log("Params:", params);
 
 	pool.query(query, params, (err, result) => {
 		if (err) {
