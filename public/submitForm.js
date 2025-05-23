@@ -27,15 +27,9 @@ submitButton.addEventListener("click", function () {
 	}, timeout + 500);
 });
 
-//Fetch data from db and pass results along to calcBetResults then makeResultDivs
+//Fetch data from api and pass results along to calcBetResults then makeResultDivs
 async function generateResults() {
 	const { seasonStartYear, team, prediction, wager } = getFilterValues();
-	console.log(
-		"Type of seasonStartYear:",
-		typeof seasonStartYear,
-		seasonStartYear
-	);
-	console.log("Type of team:", typeof team, team);
 
 	try {
 		const response = await fetch("/api/games", {
@@ -54,16 +48,16 @@ async function generateResults() {
 	} catch (error) {
 		console.error("Error fetchung games:", err);
 	}
+}
 
-	// fetch(`/api/games?seasonStart=${seasonStartYear}&team=${team}`)
-	// 	.then((response) => response.json())
-	// 	.then((games) => {
-	// 		const { betResults, topThreeBets } = calcBetResults(
-	// 			games.data,
-	// 			prediction,
-	// 			wager
-	// 		);
-	// 		makeResultDivs(betResults, topThreeBets, prediction, wager);
-	// 	})
-	// 	.catch((error) => console.error("Error fetching data:", error));
+function getFilterValues() {
+	return {
+		seasonStartYear: document.getElementById("season-input").value,
+		team: document.getElementById("team-input").value,
+		wager: document.getElementById("wager-input").value,
+		prediction:
+			document.getElementById("outcome-input").value == "Win every game"
+				? true
+				: false,
+	};
 }
