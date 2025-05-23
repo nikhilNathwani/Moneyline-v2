@@ -20,7 +20,7 @@ function fadeInResults() {
 //
 // RESULT CONSTRUCTION
 //
-function makeResultDivs(betResults, topThreeBets, prediction, wager) {
+function renderBetResults(betResults, prediction, wager) {
 	const {
 		numUnderdogWins,
 		numUnderdogLosses,
@@ -53,7 +53,56 @@ function makeResultDivs(betResults, topThreeBets, prediction, wager) {
 		profitFavoriteWins,
 		profitFavoriteLosses
 	);
-	makeTopBetsDiv(prediction, wager, topThreeBets);
+}
+
+//Section showing top 3 highest-earning bets
+function renderTopBets(topThreeBets, prediction, wager) {
+	const topGamesResult = document.getElementById("top-bets-result");
+	const gameChips = topGamesResult.querySelectorAll(".result-chip");
+
+	gameChips.forEach((gameChip, index) => {
+		const gameNumberDiv = gameChip.querySelector(".result-chip-title");
+		gameNumberDiv.textContent = `Game #${topThreeBets[index].gameNumber}:`;
+
+		const profitDiv = gameChip.querySelector(".result-chip-value");
+		profitDiv.textContent = `+${formatCurrency(
+			topThreeBets[index].profit
+		)}`;
+
+		const gameTable = gameChip.querySelector("table");
+
+		const gameTableOutcome = gameTable.querySelector(
+			"tr.result-chip-table-outcome"
+		);
+
+		gameTableOutcome.querySelector("td").textContent = prediction
+			? "Win"
+			: "Loss";
+
+		const gameTableOdds = gameTable.querySelector(
+			"tr.result-chip-table-odds"
+		);
+		gameTableOdds.querySelector("th").textContent = prediction
+			? "Odds to Win"
+			: "Odds to Lose";
+		gameTableOdds.querySelector("td").textContent = `${
+			topThreeBets[index].odds >= 0 ? "+" : ""
+		}${topThreeBets[index].odds}`;
+
+		const gameTableWager = gameTable.querySelector(
+			"tr.result-chip-table-wager"
+		);
+		gameTableWager.querySelector("td").textContent = `-${formatCurrency(
+			wager
+		)}`;
+
+		const gameTablePayout = gameTable.querySelector(
+			"tr.result-chip-table-payout"
+		);
+		gameTablePayout.querySelector("td").textContent = `+${formatCurrency(
+			parseFloat(wager) + parseFloat(topThreeBets[index].profit)
+		)}`;
+	});
 }
 
 // 1. "You would have [won/lost] $XYZ"
@@ -177,54 +226,6 @@ function makeWinLossDiv(
 }
 
 // 4. "Top 3 highest-earning bets"
-function makeTopBetsDiv(prediction, wager, topThreeBets) {
-	const topGamesResult = document.getElementById("top-bets-result");
-	const gameChips = topGamesResult.querySelectorAll(".result-chip");
-
-	gameChips.forEach((gameChip, index) => {
-		const gameNumberDiv = gameChip.querySelector(".result-chip-title");
-		gameNumberDiv.textContent = `Game #${topThreeBets[index].gameNumber}:`;
-
-		const profitDiv = gameChip.querySelector(".result-chip-value");
-		profitDiv.textContent = `+${formatCurrency(
-			topThreeBets[index].profit
-		)}`;
-
-		const gameTable = gameChip.querySelector("table");
-
-		const gameTableOutcome = gameTable.querySelector(
-			"tr.result-chip-table-outcome"
-		);
-
-		gameTableOutcome.querySelector("td").textContent = prediction
-			? "Win"
-			: "Loss";
-
-		const gameTableOdds = gameTable.querySelector(
-			"tr.result-chip-table-odds"
-		);
-		gameTableOdds.querySelector("th").textContent = prediction
-			? "Odds to Win"
-			: "Odds to Lose";
-		gameTableOdds.querySelector("td").textContent = `${
-			topThreeBets[index].odds >= 0 ? "+" : ""
-		}${topThreeBets[index].odds}`;
-
-		const gameTableWager = gameTable.querySelector(
-			"tr.result-chip-table-wager"
-		);
-		gameTableWager.querySelector("td").textContent = `-${formatCurrency(
-			wager
-		)}`;
-
-		const gameTablePayout = gameTable.querySelector(
-			"tr.result-chip-table-payout"
-		);
-		gameTablePayout.querySelector("td").textContent = `+${formatCurrency(
-			parseFloat(wager) + parseFloat(topThreeBets[index].profit)
-		)}`;
-	});
-}
 
 //
 // HELPER FUNCTIONS

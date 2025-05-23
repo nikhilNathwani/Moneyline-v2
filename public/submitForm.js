@@ -44,7 +44,8 @@ async function generateResults() {
 			prediction,
 			wager
 		);
-		makeResultDivs(betResults, topThreeBets, prediction, wager);
+		renderBetResults(betResults, prediction, wager);
+		renderTopBets(topThreeBets, prediction, wager);
 	} catch (error) {
 		console.error("Error fetchung games:", err);
 	}
