@@ -61,3 +61,78 @@ function getFilterValues() {
 				: false,
 	};
 }
+
+function calcBetResults(games, prediction, wager) {
+	let betResults = {
+		numUnderdogWins: 0,
+		numUnderdogLosses: 0,
+		numFavoriteWins: 0,
+		numFavoriteLosses: 0,
+		profitUnderdogWins: 0,
+		profitUnderdogLosses: 0,
+		profitFavoriteWins: 0,
+		profitFavoriteLosses: 0,
+	};
+	let winningBets = [];
+
+	games.forEach((game) => {
+		const odds = prediction
+			? parseFloat(game.winodds)
+			: parseFloat(game.loseodds);
+
+		let resultToUpdate = {
+			gameCount:
+				"num" +
+				(prediction
+					? odds >= 0
+						? "Underdog"
+						: "Favorite"
+					: odds >= 0
+					? "Favorite"
+					: "Underdog") +
+				(game.outcome ? "Wins" : "Losses"),
+			profitSum:
+				"profit" +
+				(prediction
+					? odds >= 0
+						? "Underdog"
+						: "Favorite"
+					: odds >= 0
+					? "Favorite"
+					: "Underdog") +
+				(game.outcome ? "Wins" : "Losses"),
+		};
+		const profit = calcProfit(prediction, game.outcome, odds, wager);
+		betResults[resultToUpdate.profitSum] += profit;
+		betResults[resultToUpdate.gameCount]++;
+
+		if (game.outcome == prediction) {
+			winningBets.push({
+				gameNumber: game.gamenumber,
+				odds: odds,
+				profit: profit,
+			});
+		}
+	});
+
+	//Get top 3 highest-earning games
+	const sortedByProfit = winningBets.sort((a, b) => b.profit - a.profit);
+	const topThreeBets = sortedByProfit.slice(0, 3);
+
+	return { betResults, topThreeBets };
+}
+
+//Calculates profit given odds, wager, and bet outcome
+function calcProfit(prediction, outcome, odds, wager) {
+	if (prediction !== outcome) {
+		return wager * -1;
+	} else {
+		let profit = 0;
+		if (odds > 0) {
+			profit = odds * (wager / 100);
+		} else {
+			profit = (wager / odds) * -100;
+		}
+		return Math.floor(profit * 100) / 100; //truncate to 2 decimal places
+	}
+}

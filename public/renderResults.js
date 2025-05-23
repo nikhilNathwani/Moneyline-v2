@@ -20,6 +20,41 @@ function fadeInResults() {
 //
 // RESULT CONSTRUCTION
 //
+function makeResultDivs(betResults, topThreeBets, prediction, wager) {
+	const {
+		numUnderdogWins,
+		numUnderdogLosses,
+		numFavoriteWins,
+		numFavoriteLosses,
+		profitUnderdogWins,
+		profitUnderdogLosses,
+		profitFavoriteWins,
+		profitFavoriteLosses,
+	} = betResults;
+	const numWins = numUnderdogWins + numFavoriteWins;
+	const numLosses = numUnderdogLosses + numFavoriteLosses;
+	const numGames = numWins + numLosses;
+	const totalProfit =
+		profitUnderdogWins +
+		profitUnderdogLosses +
+		profitFavoriteWins +
+		profitFavoriteLosses;
+	makeTotalProfitDiv(totalProfit);
+	makeROIDiv(totalProfit, numGames, wager);
+	makeWinLossDiv(
+		totalProfit,
+		prediction,
+		numUnderdogWins,
+		numUnderdogLosses,
+		numFavoriteWins,
+		numFavoriteLosses,
+		profitUnderdogWins,
+		profitUnderdogLosses,
+		profitFavoriteWins,
+		profitFavoriteLosses
+	);
+	makeTopBetsDiv(prediction, wager, topThreeBets);
+}
 
 // 1. "You would have [won/lost] $XYZ"
 function makeTotalProfitDiv(totalProfit) {
