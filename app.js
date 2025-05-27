@@ -1,17 +1,34 @@
+/* External imports */
 const express = require("express");
 const path = require("path");
 const { Pool } = require("pg");
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+/* Internal imports */
+const betResultsRouter = require("./routes/bet-results");
+const topBetsRouter = require("./routes/top-bets");
 
+/* App Configurations */
+const app = express();
 const pool = new Pool({
 	connectionString: process.env.POSTGRES_URL,
 });
 
-//Route to fetch data
-app.get("/api/games", (req, res) => {
-	const { seasonStart, team } = req.query;
+// Serve static files from public folder
+app.use(express.static(path.join(__dirname, "public")));
+
+// Middleware to parse request bodies (for POST requests)
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// ^check if i need this
+
+// Use the routes I defined
+app.use("/api/bet-results", betResultsRouter);
+app.use("/api/top-bets", topBetsRouter);
+
+//Route to fetch raw game data for given team and season
+app.post("/api/games", (req, res) => {
+	const { seasonStartYear, team } = req.body;
+	console.log("REQ.BODY:", req.body);
 
 	const query = `
     SELECT gameNumber, outcome, winOdds, loseOdds 
@@ -21,7 +38,8 @@ app.get("/api/games", (req, res) => {
   `;
 
 	// Params array to securely pass values into the query
-	const params = [parseInt(seasonStart, 10), team];
+	const params = [parseInt(seasonStartYear, 10), team];
+	console.log("Params:", params);
 
 	pool.query(query, params, (err, result) => {
 		if (err) {
@@ -36,15 +54,9 @@ app.get("/api/games", (req, res) => {
 	});
 });
 
-// Serve static files from public directory (like css/js files)
-app.use(express.static(path.join(__dirname, "public")));
-
 // Fallback to serve index.html for any other route
 app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Start the server
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app;

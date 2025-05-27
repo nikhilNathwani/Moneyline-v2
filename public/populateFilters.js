@@ -81,20 +81,3 @@ seasons.forEach((season) => {
 	seasonSelect.appendChild(option);
 });
 seasonSelect.selectedIndex = seasons.length - 1;
-
-function getFilterValues() {
-	// Get the values of the Div filters
-	const wager = document.getElementById("wager-input").value;
-	const team = document.getElementById("team-input").value;
-	const outcome =
-		document.getElementById("outcome-input").value == "Win every game"
-			? true
-			: false;
-	const seasonStartYear = document.getElementById("season-input").value;
-	return {
-		seasonStartYear: seasonStartYear,
-		team: team,
-		prediction: outcome,
-		wager: wager,
-	};
-}
