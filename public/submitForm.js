@@ -47,8 +47,34 @@ async function generateResults() {
 		renderBetResults(betResults, prediction, wager);
 		renderTopBets(topThreeBets, prediction, wager);
 	} catch (error) {
-		console.error("Error fetchung games:", err);
+		console.error("Error fetching games:", error);
 	}
+
+	// try {
+	// 	const response = await fetch("/api/bet-results", {
+	// 		method: "POST",
+	// 		headers: { "Content-Type": "application/json" },
+	// 		body: JSON.stringify({ seasonStartYear, team }),
+	// 	});
+	// 	const json = await response.json(); //json is {message:"success", data:[array of games]}
+	// 	const betResults = json.data;
+	// 	// renderBetResults(betResults, prediction, wager);
+	// } catch (error) {
+	// 	console.error("Error fetching bet results:", error);
+	// }
+
+	// try {
+	// 	const response = await fetch("/api/top-bets", {
+	// 		method: "POST",
+	// 		headers: { "Content-Type": "application/json" },
+	// 		body: JSON.stringify({ seasonStartYear, team }),
+	// 	});
+	// 	const json = await response.json(); //json is {message:"success", data:[array of games]}
+	// 	const topBets = json.data;
+	// 	// renderBetResults(topBets, prediction, wager);
+	// } catch (error) {
+	// 	console.error("Error fetching top bets:", error);
+	// }
 }
 
 function getFilterValues() {

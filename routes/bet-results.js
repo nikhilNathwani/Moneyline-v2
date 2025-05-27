@@ -4,8 +4,9 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
 	try {
-		const { filters } = req.body;
-		const betResults = await runBetResultsQuery(filters);
+		const { seasonStartYear, team } = req.body;
+		seasonStartYear = parseInt(seasonStartYear, 10);
+		const betResults = await runBetResultsQuery(seasonStartYear, team);
 		res.json({ success: true, betResults });
 	} catch (error) {
 		console.error("Error fetching bet results:", error);
@@ -13,8 +14,30 @@ router.post("/", async (req, res) => {
 	}
 });
 
-async function runBetResultsQuery(filters) {
+async function runBetResultsQuery(seasonStartYear, team) {
 	console.log("In runBetResultsQuery function");
+
+	const query = `
+    SELECT gameNumber, outcome, winOdds, loseOdds 
+    FROM games 
+    WHERE seasonStartYear = $1 
+      AND team = $2 
+  `;
+
+	// Params array to securely pass values into the query
+	const params = [seasonStartYear, team];
+
+	pool.query(query, params, (err, result) => {
+		if (err) {
+			console.error("Error executing bet results query:", err);
+			res.status(500).json({ error: err.message });
+			return;
+		}
+		res.json({
+			message: "success",
+			data: result.rows,
+		});
+	});
 }
 
 module.exports = router;
