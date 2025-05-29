@@ -1,7 +1,0 @@
-.DS_Store
-/.vscode
-/.vercel
-/node_modules
-.env.development.local
-/data.csv
-/moneyline.db
