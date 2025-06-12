@@ -35,7 +35,7 @@ async function generateResults() {
 		const response = await fetch("/api/games", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ seasonStartYear, team }),
+			body: JSON.stringify({ seasonStartYear, team, prediction, wager }),
 		});
 		const json = await response.json(); //json is {message:"success", data:[array of games]}
 		const games = json.data;
@@ -54,7 +54,7 @@ async function generateResults() {
 		const response = await fetch("/api/bet-results", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ seasonStartYear, team }),
+			body: JSON.stringify({ seasonStartYear, team, prediction, wager }),
 		});
 		const json = await response.json(); //json is {message:"success", data:[array of games]}
 		const betResults = json.data;
@@ -67,7 +67,7 @@ async function generateResults() {
 		const response = await fetch("/api/top-bets", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ seasonStartYear, team }),
+			body: JSON.stringify({ seasonStartYear, team, prediction, wager }),
 		});
 		const json = await response.json(); //json is {message:"success", data:[array of games]}
 		const topBets = json.data;
