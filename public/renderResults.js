@@ -165,9 +165,7 @@ function makeTotalProfitDiv(totalProfit) {
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
 
-	totalProfitSpan.textContent = `${
-		totalProfit >= 0 ? "+" : ""
-	}${formatCentsToDollars(totalProfit)}`;
+	totalProfitSpan.textContent = `${formatCentsToDollars(totalProfit, true)}`;
 }
 
 // 2. "That's a XX% return on investment"
@@ -197,9 +195,7 @@ function makeROIDiv(totalProfit, numGames, wager) {
 	roiProfit.className = `result-chip-value result-chip-value-${
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
-	roiProfit.textContent = `${
-		totalProfit >= 0 ? "+" : ""
-	}${formatCentsToDollars(totalProfit)}`;
+	roiProfit.textContent = `${formatCentsToDollars(totalProfit, true)}`;
 	//
 	const roiPercentReturn = roiDetails.querySelector("#percentReturn");
 	roiPercentReturn.className = `result-chip-value result-chip-value-${
@@ -261,9 +257,10 @@ function makeWinLossDiv(
 				chipValues[prefix + "gameCount"] + " games";
 
 			const payout_chip = document.getElementById(prefix + "payout");
-			payout_chip.textContent = `${
-				chipValues[prefix + "payout"] >= 0 ? "+" : ""
-			}${formatCentsToDollars(chipValues[prefix + "payout"])}`;
+			payout_chip.textContent = `${formatCentsToDollars(
+				chipValues[prefix + "payout"],
+				true
+			)}`;
 			payout_chip.className = `result-chip-value result-chip-value-${
 				chipValues[prefix + "payout"] >= 0 ? "positive" : "negative"
 			}`;
@@ -276,7 +273,7 @@ function makeWinLossDiv(
 //
 // HELPER FUNCTIONS
 //
-function formatCentsToDollars(cents) {
+function formatCentsToDollars(cents, includePlusSign = false) {
 	// Determine if amount has cents when converted to dollars
 	let hasCents = cents % 100 !== 0;
 	let options = {
@@ -287,7 +284,11 @@ function formatCentsToDollars(cents) {
 	};
 
 	let formatter = new Intl.NumberFormat("en-US", options);
-	return formatter.format(cents / 100);
+	const amount = formatter.format(cents / 100);
+	if (includePlusSign && cents > 0) {
+		return "+" + amount;
+	}
+	return amount;
 }
 
 function formatPercent(number) {
