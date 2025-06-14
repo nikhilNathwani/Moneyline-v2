@@ -21,7 +21,49 @@ function fadeInResults() {
 // RESULT CONSTRUCTION
 //
 function renderBetResults(betResults, prediction, wager) {
-	const {
+	// Initialize
+	let numUnderdogWins = 0;
+	let numUnderdogLosses = 0;
+	let numFavoriteWins = 0;
+	let numFavoriteLosses = 0;
+
+	let profitUnderdogWins = 0;
+	let profitUnderdogLosses = 0;
+	let profitFavoriteWins = 0;
+	let profitFavoriteLosses = 0;
+
+	// Assign values
+	for (const row of betResults) {
+		const { is_favorite, outcome, num_games, total_profit_cents } = row;
+
+		console.log(
+			"Bet results row:",
+			"is_favorite, outcome, num_games, total_profit_cents:",
+			is_favorite,
+			outcome,
+			num_games,
+			total_profit_cents
+		);
+		if (!is_favorite && outcome) {
+			// Underdog win
+			numUnderdogWins = num_games;
+			profitUnderdogWins = total_profit_cents;
+		} else if (!is_favorite && !outcome) {
+			// Underdog loss
+			numUnderdogLosses = num_games;
+			profitUnderdogLosses = total_profit_cents;
+		} else if (is_favorite && outcome) {
+			// Favorite win
+			numFavoriteWins = num_games;
+			profitFavoriteWins = total_profit_cents;
+		} else if (is_favorite && !outcome) {
+			// Favorite loss
+			numFavoriteLosses = num_games;
+			profitFavoriteLosses = total_profit_cents;
+		}
+	}
+
+	console.log({
 		numUnderdogWins,
 		numUnderdogLosses,
 		numFavoriteWins,
@@ -30,7 +72,8 @@ function renderBetResults(betResults, prediction, wager) {
 		profitUnderdogLosses,
 		profitFavoriteWins,
 		profitFavoriteLosses,
-	} = betResults;
+	});
+
 	const numWins = numUnderdogWins + numFavoriteWins;
 	const numLosses = numUnderdogLosses + numFavoriteLosses;
 	const numGames = numWins + numLosses;
@@ -62,11 +105,11 @@ function renderTopBets(topThreeBets, prediction, wager) {
 
 	gameChips.forEach((gameChip, index) => {
 		const gameNumberDiv = gameChip.querySelector(".result-chip-title");
-		gameNumberDiv.textContent = `Game #${topThreeBets[index].gameNumber}:`;
+		gameNumberDiv.textContent = `Game #${topThreeBets[index].game_number}:`;
 
 		const profitDiv = gameChip.querySelector(".result-chip-value");
-		profitDiv.textContent = `+${formatCurrency(
-			topThreeBets[index].profit
+		profitDiv.textContent = `+${formatCentsToDollars(
+			topThreeBets[index].profit_cents
 		)}`;
 
 		const gameTable = gameChip.querySelector("table");
@@ -85,28 +128,31 @@ function renderTopBets(topThreeBets, prediction, wager) {
 		gameTableOdds.querySelector("th").textContent = prediction
 			? "Odds to Win"
 			: "Odds to Lose";
-		gameTableOdds.querySelector("td").textContent = `${
-			topThreeBets[index].odds >= 0 ? "+" : ""
-		}${topThreeBets[index].odds}`;
+		gameTableOdds.querySelector(
+			"td"
+		).textContent = `${topThreeBets[index].odds}`;
 
 		const gameTableWager = gameTable.querySelector(
 			"tr.result-chip-table-wager"
 		);
-		gameTableWager.querySelector("td").textContent = `-${formatCurrency(
-			wager
-		)}`;
+		gameTableWager.querySelector(
+			"td"
+		).textContent = `${formatCentsToDollars(wager)}`;
 
 		const gameTablePayout = gameTable.querySelector(
 			"tr.result-chip-table-payout"
 		);
-		gameTablePayout.querySelector("td").textContent = `+${formatCurrency(
-			parseFloat(wager) + parseFloat(topThreeBets[index].profit)
+		gameTablePayout.querySelector(
+			"td"
+		).textContent = `+${formatCentsToDollars(
+			wager + topThreeBets[index].profit_cents
 		)}`;
 	});
 }
 
 // 1. "You would have [won/lost] $XYZ"
 function makeTotalProfitDiv(totalProfit) {
+	console.log("TOTAL PROFIT:", totalProfit);
 	const totalProfitBanner = document.getElementById("total-profit-banner");
 	const totalProfitHeader = totalProfitBanner.querySelector("p");
 	const totalProfitSpan = totalProfitBanner.querySelector("span");
@@ -121,7 +167,7 @@ function makeTotalProfitDiv(totalProfit) {
 
 	totalProfitSpan.textContent = `${
 		totalProfit >= 0 ? "+" : ""
-	}${formatCurrency(totalProfit)}`;
+	}${formatCentsToDollars(totalProfit)}`;
 }
 
 // 2. "That's a XX% return on investment"
@@ -140,10 +186,10 @@ function makeROIDiv(totalProfit, numGames, wager) {
 	const roiDetails = document.getElementById("roi-details");
 	//
 	const roiTotalWagered = roiDetails.querySelector("#totalWagered");
-	roiTotalWagered.textContent = `${formatCurrency(numGames * wager)}`;
+	roiTotalWagered.textContent = `${formatCentsToDollars(numGames * wager)}`;
 	//
 	const roiTotalPayout = roiDetails.querySelector("#totalPayout");
-	roiTotalPayout.textContent = `${formatCurrency(
+	roiTotalPayout.textContent = `${formatCentsToDollars(
 		totalProfit + numGames * wager
 	)}`;
 	//
@@ -151,9 +197,9 @@ function makeROIDiv(totalProfit, numGames, wager) {
 	roiProfit.className = `result-chip-value result-chip-value-${
 		totalProfit >= 0 ? "positive" : "negative"
 	}`;
-	roiProfit.textContent = `${totalProfit >= 0 ? "+" : ""}${formatCurrency(
-		totalProfit
-	)}`;
+	roiProfit.textContent = `${
+		totalProfit >= 0 ? "+" : ""
+	}${formatCentsToDollars(totalProfit)}`;
 	//
 	const roiPercentReturn = roiDetails.querySelector("#percentReturn");
 	roiPercentReturn.className = `result-chip-value result-chip-value-${
@@ -217,7 +263,7 @@ function makeWinLossDiv(
 			const payout_chip = document.getElementById(prefix + "payout");
 			payout_chip.textContent = `${
 				chipValues[prefix + "payout"] >= 0 ? "+" : ""
-			}${formatCurrency(chipValues[prefix + "payout"])}`;
+			}${formatCentsToDollars(chipValues[prefix + "payout"])}`;
 			payout_chip.className = `result-chip-value result-chip-value-${
 				chipValues[prefix + "payout"] >= 0 ? "positive" : "negative"
 			}`;
@@ -230,9 +276,9 @@ function makeWinLossDiv(
 //
 // HELPER FUNCTIONS
 //
-function formatCurrency(number) {
-	// Determine if the number has cents
-	let hasCents = number % 1 !== 0;
+function formatCentsToDollars(cents) {
+	// Determine if amount has cents when converted to dollars
+	let hasCents = cents % 100 !== 0;
 	let options = {
 		style: "currency",
 		currency: "USD",
@@ -241,7 +287,7 @@ function formatCurrency(number) {
 	};
 
 	let formatter = new Intl.NumberFormat("en-US", options);
-	return formatter.format(number);
+	return formatter.format(cents / 100);
 }
 
 function formatPercent(number) {

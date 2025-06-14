@@ -31,25 +31,7 @@ submitButton.addEventListener("click", function () {
 async function generateResults() {
 	const { seasonStartYear, team, prediction, wager } = getFilterValues();
 
-	try {
-		const response = await fetch("/api/games", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ seasonStartYear, team, prediction, wager }),
-		});
-		const json = await response.json(); //json is {message:"success", data:[array of games]}
-		const games = json.data;
-		const { betResults, topThreeBets } = calcBetResults(
-			games,
-			prediction,
-			wager
-		);
-		renderBetResults(betResults, prediction, wager);
-		renderTopBets(topThreeBets, prediction, wager);
-	} catch (error) {
-		console.error("Error fetching games:", error);
-	}
-
+	//Generate BET RESULTS
 	try {
 		const response = await fetch("/api/bet-results", {
 			method: "POST",
@@ -58,11 +40,13 @@ async function generateResults() {
 		});
 		const json = await response.json(); //json is {message:"success", data:[array of games]}
 		const betResults = json.data;
-		// renderBetResults(betResults, prediction, wager);
+		console.log("BET RESULTS in submitForm:", json, betResults);
+		renderBetResults(betResults, prediction, wager);
 	} catch (error) {
 		console.error("Error fetching bet results:", error);
 	}
 
+	//Generate TOP BETS
 	try {
 		const response = await fetch("/api/top-bets", {
 			method: "POST",
@@ -71,7 +55,8 @@ async function generateResults() {
 		});
 		const json = await response.json(); //json is {message:"success", data:[array of games]}
 		const topBets = json.data;
-		// renderBetResults(topBets, prediction, wager);
+		console.log("TOP BETS JSON.DATA:", topBets);
+		renderTopBets(topBets, prediction, wager);
 	} catch (error) {
 		console.error("Error fetching top bets:", error);
 	}
@@ -81,7 +66,7 @@ function getFilterValues() {
 	return {
 		seasonStartYear: document.getElementById("season-input").value,
 		team: document.getElementById("team-input").value,
-		wager: document.getElementById("wager-input").value,
+		wager: parseInt(document.getElementById("wager-input").value, 10) * 100, //convert to cents
 		prediction:
 			document.getElementById("outcome-input").value == "Win every game"
 				? true

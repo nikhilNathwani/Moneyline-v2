@@ -3,7 +3,12 @@ function handleQueryRoute(queryFunction) {
 		try {
 			let { seasonStartYear, team, prediction, wager } = req.body;
 			seasonStartYear = parseInt(seasonStartYear, 10);
-			const data = await queryFunction(seasonStartYear, team, prediction);
+			const data = await queryFunction(
+				seasonStartYear,
+				team,
+				prediction,
+				wager
+			);
 			res.json({ success: true, data });
 		} catch (error) {
 			console.error("Error in route handler:", error);
