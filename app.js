@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const handleQueryRoute = require("./utils/handleQueryRoute");
-const { runBetResultsQuery, runTopBetsQuery } = require("./queries");
+const { runBetResultsQuery, runTopBetsQuery } = require("./data/queries");
 
 /* App Configurations */
 const app = express();
