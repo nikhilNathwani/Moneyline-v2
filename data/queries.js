@@ -1,7 +1,7 @@
 const pool = require("./dbConfig");
 
-async function runBetResultsQuery(seasonStartYear, team, prediction, wager) {
-	console.log("In runBetResultsQuery function");
+async function runResultSummaryQuery(seasonStartYear, team, prediction, wager) {
+	console.log("In runResultSummaryQuery function");
 
 	const query = `
 		WITH integer_odds AS (
@@ -156,4 +156,4 @@ async function runTopBetsQuery(seasonStartYear, team, prediction, wager) {
 	return result.rows;
 }
 
-module.exports = { runBetResultsQuery, runTopBetsQuery };
+module.exports = { runResultSummaryQuery, runTopBetsQuery };

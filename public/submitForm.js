@@ -27,23 +27,23 @@ submitButton.addEventListener("click", function () {
 	}, timeout + 500);
 });
 
-//Fetch data from api and pass results along to calcBetResults then makeResultDivs
+//Fetch data from api and pass results along to frontend
 async function generateResults() {
 	const { seasonStartYear, team, prediction, wager } = getFilterValues();
 
 	//Generate BET RESULTS
 	try {
-		const response = await fetch("/api/bet-results", {
+		const response = await fetch("/api/result-summary", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ seasonStartYear, team, prediction, wager }),
 		});
 		const json = await response.json(); //json is {message:"success", data:[array of games]}
-		const betResults = json.data;
-		console.log("BET RESULTS in submitForm:", json, betResults);
-		renderBetResults(betResults, prediction, wager);
+		const resultSummary = json.data;
+		console.log("RESULT SUMMARY in submitForm:", json, resultSummary);
+		renderResultSummary(resultSummary, prediction, wager);
 	} catch (error) {
-		console.error("Error fetching bet results:", error);
+		console.error("Error fetching result summary:", error);
 	}
 
 	//Generate TOP BETS

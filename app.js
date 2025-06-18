@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const handleQueryRoute = require("./utils/handleQueryRoute");
-const { runBetResultsQuery, runTopBetsQuery } = require("./data/queries");
+const { runResultSummaryQuery, runTopBetsQuery } = require("./data/queries");
 
 /* App Configurations */
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.json());
 // ^check if i need this
 
 // Use the routes I defined
-app.post("/api/bet-results", handleQueryRoute(runBetResultsQuery));
+app.post("/api/result-summary", handleQueryRoute(runResultSummaryQuery));
 app.post("/api/top-bets", handleQueryRoute(runTopBetsQuery));
 
 // Fallback to serve index.html for any other route

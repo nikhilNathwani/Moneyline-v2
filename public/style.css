@@ -212,12 +212,12 @@ button#return-to-filters {
 	background-image: linear-gradient(45deg, var(--color-light), white);
 }
 
-.result-banner-positive {
+.result-banner .positive {
 	font-weight: bold;
 	color: var(--color-positive);
 }
 
-.result-banner-negative {
+.result-banner .negative {
 	font-weight: bold;
 	color: var(--color-negative);
 }
@@ -294,14 +294,14 @@ button#return-to-filters {
 	border-radius: 6px;
 }
 
-.result-chip-value-positive {
+.result-chip-value.positive {
 	background-color: var(--color-positive-light);
 	color: var(--color-positive);
 	/* background-color: hsl(150, 28%, 90%);
 	color: hsl(150, 42%, 32%); */
 }
 
-.result-chip-value-negative {
+.result-chip-value.negative {
 	background-color: var(--color-negative-light);
 	color: var(--color-negative);
 	/* background-color: hsl(0, 28%, 90%);
