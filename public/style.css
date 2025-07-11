@@ -21,7 +21,10 @@
 }
 
 #app {
+	--width-filterContainer: 100%;
+
 	min-height: var(--minHeight-app);
+	overflow-y: scroll;
 
 	display: grid;
 	grid-template-columns: var(--width-filterContainer) 1fr;
@@ -29,7 +32,15 @@
 	    the 'initial mode' and 'adjacent mode' classes */
 
 	/* background-color: var(--color-accent); */
+}
 
+@media (max-height: 599px) {
+	#app {
+		overflow-y: hidden;
+	}
+}
+
+#app.animatedCollapse {
 	transition: grid-template-columns 0.6s ease;
 }
 
@@ -127,6 +138,8 @@ button#submit-button:active {
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #result-container {
+	display: none;
+
 	height: fit-content;
 	min-height: var(--minHeight-app);
 	/* padding-block: 3rem; */
@@ -331,63 +344,44 @@ th {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
-/*     INITIAL MODE                                         */
+/*     STACKED LAYOUT                                       */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#app.initialMode {
-	--width-filterContainer: 100%;
-	overflow-y: scroll;
-}
-
-.initialMode #filter-container {
-	/* height: 100dvh; */
-}
-
-.initialMode #result-container {
-	display: none;
-}
-
-@media (max-height: 599px) {
-	#app.initialMode {
-		overflow-y: hidden;
-	}
-}
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/*                                                          */
-/*     STACKED MODE                                         */
-/*                                                          */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#app.stackedMode {
+#app.stackedLayout {
 	display: flex;
 	flex-flow: column nowrap;
+
+	overflow-y: auto;
 }
 
-.stackedMode #result-container {
+.stackedLayout #result-container {
+	display: block;
 	height: fit-content;
 }
 
 /* Prevent jarring fadeout as screen scrolls down */
-.stackedMode .result.disappear {
+.stackedLayout .result.disappear {
 	transition: none;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
-/*     ADJACENT MODE                                        */
+/*     ADJACENT LAYOUT                                      */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#app.adjacentMode {
+#app.adjacentLayout {
 	--width-filterContainer: 400px;
 	overflow-y: hidden;
 }
 
-.adjacentMode #filter-container {
+.adjacentLayout #filter-container {
 	z-index: 2;
 	box-shadow: 10px 0px 6px rgba(0, 0, 0, 0.3);
 }
 
-.adjacentMode #result-container {
+.adjacentLayout #result-container {
+	display: block;
+
 	height: 100vh;
 	height: 100dvh;
 	overflow-y: scroll;

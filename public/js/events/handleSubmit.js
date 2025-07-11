@@ -3,6 +3,32 @@ const submitButton = document.getElementById("submit-button");
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", handleSubmit);
 
+function parseTransitionDuration(element) {
+	console.log("Parsing transition duration for element:", element);
+	const computedStyle = getComputedStyle(element);
+	return 1000 * parseFloat(computedStyle.transitionDuration);
+}
+
+function getTransitionDuration() {
+	let timeout = 0;
+
+	//If results are already present, need to delay the rendering
+	// of new results (to account for the fade-out of prior results,
+	// and the potential collapsing of the filter view)
+	if (!isAwaitingFirstSubmit) {
+		//account for fade-out of existing results
+		const result = document.querySelector(".result");
+		console.log("Found result to fade out:", result);
+		timeout = parseTransitionDuration(result);
+		if (appContainer.classList.contains(LAYOUT_MODE.ADJACENT)) {
+			//account for filter section collapsing to left
+			console.log("ptd:", appContainer);
+			timeout = Math.max(timeout, parseTransitionDuration(appContainer));
+		}
+	}
+	return timeout;
+}
+
 async function handleSubmit() {
 	console.log("submit button clicked");
 
@@ -15,16 +41,18 @@ async function handleSubmit() {
 	collapseFilterView();
 
 	let timeout = 0;
-	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
+	timeout = getTransitionDuration();
+	if (!isAwaitingFirstSubmit) {
 		clearExistingResults();
-		timeout = appContainer.classList.contains(APP_STATE.ADJACENT)
-			? 500
-			: 200;
 	}
 
 	const timeoutPromise = new Promise((resolve) =>
 		setTimeout(resolve, timeout)
 	);
+
+	if (isAwaitingFirstSubmit) {
+		isAwaitingFirstSubmit = false;
+	}
 
 	// Step 3: Wait for data + timeout in parallel
 	try {
@@ -43,54 +71,9 @@ async function handleSubmit() {
 		renderTopBets(topBets, filterValues.prediction, filterValues.wager);
 
 		// Step 5: Fade in new results
-		setTimeout(fadeInResults, 500);
+		fadeInResults();
+		// setTimeout(fadeInResults, 500);
 	} catch (err) {
 		console.error("Error fetching results:", err);
 	}
 }
-
-// async function handleSubmit() {
-// 	console.log("submit button clicked");
-// 	//Bring results to foreground by either scrolling down or
-// 	//snapping filters to the left (depending on screen size)
-// 	collapseFilterView();
-
-// 	var timeout = 0;
-// 	if (!appContainer.classList.contains(APP_STATE.INITIAL)) {
-// 		clearExistingResults();
-// 		if (appContainer.classList.contains(APP_STATE.ADJACENT)) {
-// 			timeout = 500; //wait for fade-out of existing results
-// 		} else {
-// 			timeout = 200; //no fade-out of existing results in STACKED mode, so just a short wait
-// 		}
-// 	}
-
-// 	setTimeout(async () => {
-// 		//Generate new results based on filters applied
-// 		const filterValues = getFilterValues();
-
-// 		//Generate BET RESULTS
-// 		try {
-// 			const resultSummary = await fetchResultSummary(filterValues);
-// 			renderResultSummary(
-// 				resultSummary,
-// 				filterValues.prediction,
-// 				filterValues.wager
-// 			);
-// 		} catch (err) {
-// 			console.error("Error fetching result summary:", err);
-// 		}
-
-// 		//Generate TOP BETS
-// 		try {
-// 			const topBets = await fetchTopBets(filterValues);
-// 			renderTopBets(topBets, filterValues.prediction, filterValues.wager);
-// 		} catch (err) {
-// 			console.error("Error fetching top bets:", err);
-// 		}
-// 	}, timeout);
-
-// 	setTimeout(() => {
-// 		fadeInResults();
-// 	}, timeout + 500);
-// }

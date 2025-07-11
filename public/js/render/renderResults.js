@@ -338,15 +338,6 @@ function deconstructBetResultData(resultSummary) {
 	// Assign values
 	for (const row of resultSummary) {
 		const { is_favorite, outcome, num_games, total_profit_cents } = row;
-
-		console.log(
-			"Bet results row:",
-			"is_favorite, outcome, num_games, total_profit_cents:",
-			is_favorite,
-			outcome,
-			num_games,
-			total_profit_cents
-		);
 		if (!is_favorite && outcome) {
 			// Underdog win
 			numUnderdogWins = num_games;

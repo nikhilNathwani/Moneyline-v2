@@ -4,16 +4,42 @@
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-// Breakpoint
-const minWidthAdjacentMode = 1000; //px
-const minHeight = 600; //px
-
-// App states
-const APP_STATE = {
-	INITIAL: "initialMode",
-	STACKED: "stackedMode",
-	ADJACENT: "adjacentMode",
+let isAwaitingFirstSubmit = true;
+// Layout modes
+const LAYOUT_MODE = {
+	STACKED: "stackedLayout",
+	ADJACENT: "adjacentLayout",
 };
+
+function getLayoutMode() {
+	if (appContainer.classList.contains(LAYOUT_MODE.STACKED)) {
+		return LAYOUT_MODE.STACKED;
+	} else if (appContainer.classList.contains(LAYOUT_MODE.ADJACENT)) {
+		return LAYOUT_MODE.ADJACENT;
+	}
+	return null;
+}
+
+function setLayoutMode(state, smoothScroll = true) {
+	Object.values(LAYOUT_MODE).forEach((state) =>
+		appContainer.classList.remove(state)
+	);
+	appContainer.classList.add(state);
+
+	if (state === LAYOUT_MODE.ADJACENT) {
+		resultContainer.scrollTo({
+			top: 0,
+			behavior: smoothScroll ? "smooth" : "auto",
+		});
+	}
+
+	if (state === LAYOUT_MODE.STACKED) {
+		resultContainer.scrollIntoView({
+			behavior: smoothScroll ? "smooth" : "auto",
+			block: "start",
+		});
+	}
+}
 
 // Page sections
 var appContainer = document.getElementById("app");
@@ -22,30 +48,29 @@ var resultContainer = document.getElementById("result-container");
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
-/*     EVENT HANDLING                                         */
+/*     EVENT HANDLING                                       */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 // Handle screen resize
 window.addEventListener("resize", function () {
-	if (appContainer.classList.contains(APP_STATE.INITIAL)) {
+	console.log(
+		"Window resized, isAwaitingFirstSubmit:",
+		isAwaitingFirstSubmit,
+		"getLayoutMode:",
+		getLayoutMode()
+	);
+	if (isAwaitingFirstSubmit) {
 		return;
 	}
-	if (
-		(window.innerWidth < minWidthAdjacentMode ||
-			window.innerHeight < minHeight) &&
-		!appContainer.classList.contains(APP_STATE.STACKED)
-	) {
-		setAppState(APP_STATE.STACKED);
-		resultContainer.scrollIntoView({ block: "start" });
-		return;
-	}
-	if (
-		window.innerWidth >= minWidthAdjacentMode &&
-		window.innerHeight >= minHeight &&
-		!appContainer.classList.contains(APP_STATE.ADJACENT)
-	) {
-		setAppState(APP_STATE.ADJACENT);
+	if (isWideScreen()) {
+		if (getLayoutMode() != LAYOUT_MODE.ADJACENT) {
+			setLayoutMode(LAYOUT_MODE.ADJACENT, (smoothScroll = false));
+		}
+	} else {
+		if (getLayoutMode() != LAYOUT_MODE.STACKED) {
+			setLayoutMode(LAYOUT_MODE.STACKED, (smoothScroll = false));
+		}
 	}
 });
 
@@ -54,9 +79,3 @@ window.addEventListener("resize", function () {
 /*     HELPER FUNCTIONS                                        */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-function setAppState(state) {
-	Object.values(APP_STATE).forEach((state) =>
-		appContainer.classList.remove(state)
-	);
-	appContainer.classList.add(state);
-}

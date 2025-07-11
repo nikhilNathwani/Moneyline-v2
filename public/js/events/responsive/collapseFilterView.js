@@ -1,23 +1,39 @@
+function animateFirstCollapse() {
+	const app = document.getElementById("app");
+	app.classList.add("animatedCollapse");
+
+	function handleTransitionEnd(event) {
+		if (
+			event.target === app &&
+			event.propertyName === "grid-template-columns"
+		) {
+			app.classList.remove("animatedCollapse");
+			app.removeEventListener("transitionend", handleTransitionEnd);
+		}
+	}
+
+	app.addEventListener("transitionend", handleTransitionEnd);
+}
+
 // Collapse filter view and bring results to foreground
 // Either by:
 //   a) (narrow screen case) Scrolling down & showing 'Return to filters' button
 //   b) (wide screen case) Snapping filters to the left
 function collapseFilterView() {
-	//If screen is sufficiently small, scroll down to reveal results
-	if (
-		window.innerWidth < minWidthAdjacentMode ||
-		window.innerHeight < minHeight
-	) {
-		setAppState(APP_STATE.STACKED);
-		resultContainer.scrollIntoView({
-			behavior: "smooth",
-			block: "start",
-		});
+	//If screen is sufficiently wide, scroll down to reveal results
+	if (isWideScreen()) {
+		console.log(
+			"Wide screen detected, isAwaitingFirstSubmit:",
+			isAwaitingFirstSubmit
+		);
+		if (isAwaitingFirstSubmit) {
+			animateFirstCollapse();
+		}
+		setLayoutMode(LAYOUT_MODE.ADJACENT);
 	}
-	//If screen is sufficiently large, display results side-by-side with filters
+	//If screen is sufficiently narrow, display results side-by-side with filters
 	else {
-		setAppState(APP_STATE.ADJACENT);
-		resultContainer.scrollTo({ top: 0, behavior: "smooth" });
+		setLayoutMode(LAYOUT_MODE.STACKED);
 	}
 }
 
