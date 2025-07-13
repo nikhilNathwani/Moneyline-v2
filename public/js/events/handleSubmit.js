@@ -4,47 +4,6 @@ const submitButton = document.getElementById("submit-button");
 // Handle submit ('View Results' button)
 submitButton.addEventListener("click", handleSubmit);
 
-function parseTransitionDuration(element) {
-	console.log("Parsing transition duration for element:", element);
-	const computedStyle = getComputedStyle(element);
-	return 1000 * parseFloat(computedStyle.transitionDuration);
-}
-
-function scrollToTopOfResults(smoothScroll = true) {
-	const resultContainer = document.getElementById("result-container");
-
-	if (isWideScreen()) {
-		resultContainer.scrollTo({
-			top: 0,
-			behavior: smoothScroll ? "smooth" : "auto",
-		});
-	} else {
-		resultContainer.scrollIntoView({
-			behavior: smoothScroll ? "smooth" : "auto",
-			block: "start",
-		});
-	}
-}
-
-function initializeResultsView() {
-	timeout = 0;
-	if (isAwaitingFirstSubmit) {
-		latestWidescreenStatus = isWideScreen();
-		if (latestWidescreenStatus) {
-			// duration of smoothly snapping filters to left
-			timeout = parseTransitionDuration(appContainer);
-		}
-		isAwaitingFirstSubmit = false;
-	} else {
-		const result = document.querySelector(".result");
-		clearExistingResults();
-		scrollToTopOfResults();
-		// duration of fading out existing results
-		timeout = parseTransitionDuration(result);
-	}
-	return new Promise((resolve) => setTimeout(resolve, timeout));
-}
-
 async function handleSubmit() {
 	console.log("submit button clicked");
 	appContainer.classList.remove("awaitingFirstSubmit");

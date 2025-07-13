@@ -1,13 +1,9 @@
-// Show 'Return to filters' button
-// (when filters are scrolled out of view in stacked mode)
-// Handle 'Return to filters' button
-// (only shown in stacked mode when filters are out of view)
 const filterContainer = document.getElementById("filter-container");
 const filterReturnButton = document.getElementById("return-to-filters");
 
-filterReturnButton.addEventListener("click", function () {
-	filterContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-});
+// Show 'Return to filters' button when:
+// 1. in stacked mode, and
+// 2. filters are scrolled out of view (i.e. only 20% or less is visible)
 const observer = new IntersectionObserver(
 	(entries) => {
 		entries.forEach((entry) => {
@@ -26,3 +22,8 @@ const observer = new IntersectionObserver(
 	}
 );
 observer.observe(filterContainer);
+
+// Scroll to filterContainer when 'Return to filters' button is clicked
+filterReturnButton.addEventListener("click", function () {
+	filterContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+});
