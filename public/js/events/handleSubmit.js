@@ -1,3 +1,4 @@
+const appContainer = document.getElementById("app");
 const submitButton = document.getElementById("submit-button");
 
 // Handle submit ('View Results' button)
@@ -9,28 +10,44 @@ function parseTransitionDuration(element) {
 	return 1000 * parseFloat(computedStyle.transitionDuration);
 }
 
-function getTransitionDuration() {
-	let timeout = 0;
+function scrollToTopOfResults(smoothScroll = true) {
+	const resultContainer = document.getElementById("result-container");
 
-	//If results are already present, need to delay the rendering
-	// of new results (to account for the fade-out of prior results,
-	// and the potential collapsing of the filter view)
-	if (!isAwaitingFirstSubmit) {
-		//account for fade-out of existing results
-		const result = document.querySelector(".result");
-		console.log("Found result to fade out:", result);
-		timeout = parseTransitionDuration(result);
-		if (appContainer.classList.contains(LAYOUT_MODE.ADJACENT)) {
-			//account for filter section collapsing to left
-			console.log("ptd:", appContainer);
-			timeout = Math.max(timeout, parseTransitionDuration(appContainer));
-		}
+	if (isWideScreen()) {
+		resultContainer.scrollTo({
+			top: 0,
+			behavior: smoothScroll ? "smooth" : "auto",
+		});
+	} else {
+		resultContainer.scrollIntoView({
+			behavior: smoothScroll ? "smooth" : "auto",
+			block: "start",
+		});
 	}
-	return timeout;
+}
+
+function initializeResultsView() {
+	timeout = 0;
+	if (isAwaitingFirstSubmit) {
+		latestWidescreenStatus = isWideScreen();
+		if (latestWidescreenStatus) {
+			// duration of smoothly snapping filters to left
+			timeout = parseTransitionDuration(appContainer);
+		}
+		isAwaitingFirstSubmit = false;
+	} else {
+		const result = document.querySelector(".result");
+		clearExistingResults();
+		scrollToTopOfResults();
+		// duration of fading out existing results
+		timeout = parseTransitionDuration(result);
+	}
+	return new Promise((resolve) => setTimeout(resolve, timeout));
 }
 
 async function handleSubmit() {
 	console.log("submit button clicked");
+	appContainer.classList.remove("awaitingFirstSubmit");
 
 	// Step 1: Start fetching immediately
 	const filterValues = getFilterValues();
@@ -38,28 +55,14 @@ async function handleSubmit() {
 	const topBetsPromise = fetchTopBets(filterValues);
 
 	// Step 2: Start collapsing UI and measuring delay
-	collapseFilterView();
-
-	let timeout = 0;
-	timeout = getTransitionDuration();
-	if (!isAwaitingFirstSubmit) {
-		clearExistingResults();
-	}
-
-	const timeoutPromise = new Promise((resolve) =>
-		setTimeout(resolve, timeout)
-	);
-
-	if (isAwaitingFirstSubmit) {
-		isAwaitingFirstSubmit = false;
-	}
+	const uiTransitionPromise = initializeResultsView();
 
 	// Step 3: Wait for data + timeout in parallel
 	try {
 		const [resultSummary, topBets, _] = await Promise.all([
 			resultSummaryPromise,
 			topBetsPromise,
-			timeoutPromise,
+			uiTransitionPromise,
 		]);
 
 		// Step 4: Render results

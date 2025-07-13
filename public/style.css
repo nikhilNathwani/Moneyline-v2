@@ -21,7 +21,8 @@
 }
 
 #app {
-	--width-filterContainer: 100%;
+	/* --width-filterContainer: 100%; */
+	--width-filterContainer: 400px;
 
 	min-height: var(--minHeight-app);
 	overflow-y: scroll;
@@ -30,6 +31,7 @@
 	grid-template-columns: var(--width-filterContainer) 1fr;
 	/* ^Note: --width-filterContainer is set within 
 	    the 'initial mode' and 'adjacent mode' classes */
+	transition: grid-template-columns 0.6s ease;
 
 	/* background-color: var(--color-accent); */
 }
@@ -38,10 +40,6 @@
 	#app {
 		overflow-y: hidden;
 	}
-}
-
-#app.animatedCollapse {
-	transition: grid-template-columns 0.6s ease;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -344,45 +342,66 @@ th {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
-/*     STACKED LAYOUT                                       */
+/*     STACKED LAYOUT (narrow screen)                       */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#app.stackedLayout {
-	display: flex;
-	flex-flow: column nowrap;
+@media (max-width: 999px), (max-height: 599px) {
+	#app {
+		display: flex;
+		flex-flow: column nowrap;
+		overflow-y: auto;
+	}
 
-	overflow-y: auto;
-}
+	#result-container {
+		display: block;
+		height: fit-content;
+	}
 
-.stackedLayout #result-container {
-	display: block;
-	height: fit-content;
-}
-
-/* Prevent jarring fadeout as screen scrolls down */
-.stackedLayout .result.disappear {
-	transition: none;
+	/* Prevent jarring fadeout as screen scrolls down */
+	.result.disappear {
+		transition: none;
+	}
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
-/*     ADJACENT LAYOUT                                      */
+/*     ADJACENT LAYOUT (wide screen)                        */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#app.adjacentLayout {
-	--width-filterContainer: 400px;
+
+@media (min-width: 1000px) and (min-height: 600px) {
+	#app {
+		--width-filterContainer: 400px;
+		overflow-y: hidden;
+	}
+
+	#filter-container {
+		z-index: 2;
+		box-shadow: 10px 0px 6px rgba(0, 0, 0, 0.3);
+	}
+
+	#result-container {
+		display: block;
+
+		height: 100vh;
+		height: 100dvh;
+		overflow-y: scroll;
+	}
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     INITIAL VIEW (before first submit)                   */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* Filter view is full screen when you first land on app */
+#app.awaitingFirstSubmit {
+	--width-filterContainer: 100%;
+	/* overflow-y: scroll; */
 	overflow-y: hidden;
 }
 
-.adjacentLayout #filter-container {
-	z-index: 2;
-	box-shadow: 10px 0px 6px rgba(0, 0, 0, 0.3);
-}
-
-.adjacentLayout #result-container {
-	display: block;
-
-	height: 100vh;
-	height: 100dvh;
-	overflow-y: scroll;
+#app.animatedCollapse {
+	transition: grid-template-columns 0.6s ease;
 }
