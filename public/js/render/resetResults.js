@@ -1,26 +1,30 @@
 function clearExistingResults() {
 	const results = document.querySelectorAll(".result");
+	// Use the first one to get the transition duration
+	if (results.length == 0) return;
 	results.forEach((result) => {
 		result.classList.add("disappear");
 	});
+	return parseTransitionDuration(results[0]);
 }
 
-function initializeResultsView() {
-	timeout = 0;
-	if (isAwaitingFirstSubmit) {
-		latestWidescreenStatus = isWideScreen();
-		if (latestWidescreenStatus) {
-			// duration of smoothly snapping filters to left
-			timeout = parseTransitionDuration(appContainer);
-		}
-		isAwaitingFirstSubmit = false;
-	} else {
-		const result = document.querySelector(".result");
-		clearExistingResults();
-		// duration of fading out existing results
-		timeout = parseTransitionDuration(result);
+function showResultsView(isFirstSubmit, isWideScreenLayout) {
+	if (!isFirstSubmit) return;
+	appContainer.classList.remove("awaitingFirstSubmit");
+	isAwaitingFirstSubmit = false;
+	if (!isWideScreenLayout) {
+		scrollToTopOfResults(isWideScreenLayout);
 	}
-	scrollToTopOfResults();
+	timeout = parseTransitionDuration(appContainer);
+	console.log("isAwaitingFirstSubmit:", isAwaitingFirstSubmit);
+	return new Promise((resolve) => setTimeout(resolve, timeout));
+}
+
+function resetResultsView(isFirstSubmit, isWideScreenLayout) {
+	if (isFirstSubmit) return;
+	scrollToTopOfResults(isWideScreenLayout);
+	// duration of fading out existing results
+	timeout = clearExistingResults();
 	return new Promise((resolve) => setTimeout(resolve, timeout));
 }
 

@@ -1,3 +1,5 @@
+let isAwaitingFirstSubmit = true;
+
 const appContainer = document.getElementById("app");
 const submitButton = document.getElementById("submit-button");
 
@@ -5,16 +7,15 @@ const submitButton = document.getElementById("submit-button");
 submitButton.addEventListener("click", handleSubmit);
 
 async function handleSubmit() {
-	console.log("submit button clicked");
-	appContainer.classList.remove("awaitingFirstSubmit");
-
 	// Step 1: Start fetching immediately
 	const filterValues = getFilterValues();
 	const resultSummaryPromise = fetchResultSummary(filterValues);
 	const topBetsPromise = fetchTopBets(filterValues);
 
 	// Step 2: Start collapsing UI and measuring delay
-	const uiTransitionPromise = initializeResultsView();
+	const uiTransitionPromise = isAwaitingFirstSubmit
+		? showResultsView(isAwaitingFirstSubmit, isWideScreen())
+		: resetResultsView(isAwaitingFirstSubmit, isWideScreen());
 
 	// Step 3: Wait for data + timeout in parallel
 	try {
@@ -24,13 +25,13 @@ async function handleSubmit() {
 			uiTransitionPromise,
 		]);
 
-		// Step 4: Render results
-		renderResultSummary(
+		// Step 4: Populate result elements
+		populateResultSummary(
 			resultSummary,
 			filterValues.prediction,
 			filterValues.wager
 		);
-		renderTopBets(topBets, filterValues.prediction, filterValues.wager);
+		populateTopBets(topBets, filterValues.prediction, filterValues.wager);
 
 		// Step 5: Fade in new results
 		fadeInResults();
