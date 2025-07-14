@@ -1,6 +1,6 @@
+// State var to track if this is the first submit
 let isAwaitingFirstSubmit = true;
-
-const appContainer = document.getElementById("app");
+//
 const submitButton = document.getElementById("submit-button");
 
 // Handle submit ('View Results' button)
@@ -14,8 +14,8 @@ async function handleSubmit() {
 
 	// Step 2: Start collapsing UI and measuring delay
 	const uiTransitionPromise = isAwaitingFirstSubmit
-		? showResultsView(isAwaitingFirstSubmit, isWideScreen())
-		: resetResultsView(isAwaitingFirstSubmit, isWideScreen());
+		? unhideResultsUI(isAwaitingFirstSubmit, isWideScreen())
+		: resetResultsUI(isAwaitingFirstSubmit, isWideScreen());
 
 	// Step 3: Wait for data + timeout in parallel
 	try {
@@ -34,8 +34,11 @@ async function handleSubmit() {
 		populateTopBets(topBets, filterValues.prediction, filterValues.wager);
 
 		// Step 5: Fade in new results
-		fadeInResults();
-		// setTimeout(fadeInResults, 500);
+		// fadeInResults();
+		setTimeout(fadeInResults, 600);
+
+		// Step 6: Update state var (no longer awaiting first submit)
+		isAwaitingFirstSubmit = false;
 	} catch (err) {
 		console.error("Error fetching results:", err);
 	}

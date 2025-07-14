@@ -251,18 +251,29 @@
 				</div>
 			</div>
 		</div>
-		<script src="js/filters/populateFilters.js"></script>
+		<!-- 1. Utilities (low-level helpers used app-wide) -->
+		<script src="js/utils/getScreenSize.js"></script>
+		<script src="js/utils/getTransitionDuration.js"></script>
+		<script src="js/utils/formatResultValue.js"></script>
+
+		<!-- 2. Filters UI setup -->
 		<script src="js/filters/getFilterValues.js"></script>
-		<script src="js/render/util/getScreenSize.js"></script>
-		<script src="js/events/responsive/handleReturnToFilters.js"></script>
+		<script src="js/filters/renderFilters.js"></script>
+
+		<!-- 3. API (data fetching / parsing) -->
 		<script src="js/api/fetchResults.js"></script>
-		<script src="js/api/util/deconstructResultSummary.js"></script>
+		<script src="js/api/deconstructResults.js"></script>
+
+		<!-- 4. Results UI setup -->
+		<script src="js/resultsUI/fade.js"></script>
+		<script src="js/resultsUI/populateElement.js"></script>
+		<script src="js/resultsUI/initResultsUI.js"></script>
+		<script src="js/resultsUI/populateResultSummary.js"></script>
+		<script src="js/resultsUI/populateTopBets.js"></script>
+
+		<!-- 5. Event Handlers (last, since they use UI + API functions) -->
+		<script src="js/events/handleReturnToFilters.js"></script>
 		<script src="js/events/handleSubmit.js"></script>
-		<script src="js/events/responsive/manageScrollPosition.js"></script>
-		<script src="js/render/util/formatResultValue.js"></script>
-		<script src="js/render/util/populateResultElement.js"></script>
-		<script src="js/render/resetResults.js"></script>
-		<script src="js/render/populateResultSummary.js"></script>
-		<script src="js/render/populateTopBets.js"></script>
+		<script src="js/events/manageScroll.js"></script>
 	</body>
 </html>
