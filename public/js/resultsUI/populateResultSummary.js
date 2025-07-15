@@ -137,13 +137,19 @@ function makeWinLossSection(
 	//Make win-loss banner
 	const winLossBanner = document.getElementById("win-loss-banner");
 	const winLossCount = winLossBanner.querySelector("span");
-	winLossCount.textContent = prediction
+	const winLossCountValue = prediction
 		? totalProfit >= 0
 			? numUnderdogWins + numFavoriteWins
-			: numUnderdogLosses + numFavoriteLosses
+			: -numUnderdogLosses - numFavoriteLosses
 		: totalProfit >= 0
 		? numUnderdogLosses + numFavoriteLosses
-		: numUnderdogWins + numFavoriteWins;
+		: -numUnderdogWins - numFavoriteWins;
+	populateResultElement({
+		element: winLossCount,
+		value: winLossCountValue,
+		textFormatFn: (winLossCountValue) => Math.abs(winLossCountValue),
+		applySignAndColor: true,
+	});
 	winLossCount.classList.add(`${totalProfit >= 0 ? "positive" : "negative"}`);
 	const winLossLabel = winLossBanner.querySelector("span:last-child");
 	winLossLabel.textContent = `${

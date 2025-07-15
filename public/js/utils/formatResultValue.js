@@ -16,7 +16,7 @@ function formatCentsToDollars(cents, includePlusSign = false) {
 	return amount;
 }
 
-function formatPercent(number, iscludePlusSign = true) {
+function formatPercent(number, includePlusSign = true) {
 	return `${number >= 0 ? "+" : ""}${number.toPrecision(3)}%`;
 
 	// *The below version converts 0.805 to 0.81 instead of keeping 0.805
