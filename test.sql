@@ -6,11 +6,22 @@ SELECT
     *,
     CAST(REPLACE(winodds,'+','') AS INTEGER) AS winodds_int
 FROM games
-WHERE seasonstartyear = '2020'
+WHERE seasonstartyear = '2021'
     AND team = 'Boston Celtics'
     AND outcome = TRUE
 ORDER BY winodds_int DESC
 LIMIT 3;
+
+SELECT 
+    *,
+    CAST(REPLACE(winodds,'+','') AS INTEGER) AS winodds_int
+FROM games
+WHERE seasonstartyear = '2021'
+    AND team = 'Atlanta Hawks'
+    -- AND outcome = TRUE
+ORDER BY gameNumber ASC;
+-- LIMIT 3;
+
 
 
 WITH params AS (
