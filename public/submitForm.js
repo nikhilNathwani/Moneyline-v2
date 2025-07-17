@@ -30,7 +30,12 @@ submitButton.addEventListener("click", function () {
 //Fetch data from api and pass results along to calcBetResults then makeResultDivs
 async function generateResults() {
 	const { seasonStartYear, team, prediction, wager } = getFilterValues();
-
+	console.log("Generating results with values:", {
+		seasonStartYear,
+		team,
+		prediction,
+		wager,
+	});
 	try {
 		const response = await fetch("/api/games", {
 			method: "POST",
@@ -47,7 +52,7 @@ async function generateResults() {
 		renderBetResults(betResults, prediction, wager);
 		renderTopBets(topThreeBets, prediction, wager);
 	} catch (error) {
-		console.error("Error fetchung games:", err);
+		console.error("Error fetching games:", error);
 	}
 }
 
@@ -77,6 +82,7 @@ function calcBetResults(games, prediction, wager) {
 	let winningBets = [];
 
 	games.forEach((game) => {
+		// console.log("Processing game:", game);
 		const odds = prediction
 			? parseFloat(game.winodds)
 			: parseFloat(game.loseodds);
@@ -103,9 +109,12 @@ function calcBetResults(games, prediction, wager) {
 					: "Underdog") +
 				(game.outcome ? "Wins" : "Losses"),
 		};
+		// console.log("Result to update:", resultToUpdate);
+
 		const profit = calcProfit(prediction, game.outcome, odds, wager);
 		betResults[resultToUpdate.profitSum] += profit;
 		betResults[resultToUpdate.gameCount]++;
+		// console.log("GameCount is now:", betResults[resultToUpdate.gameCount]);
 
 		if (game.outcome == prediction) {
 			winningBets.push({
@@ -135,5 +144,107 @@ function calcProfit(prediction, outcome, odds, wager) {
 			profit = (wager / odds) * -100;
 		}
 		return Math.floor(profit * 100) / 100; //truncate to 2 decimal places
+	}
+}
+
+async function compareBetResults() {
+	const { seasonStartYear, team, prediction, wager } = {
+		seasonStartYear: "2021",
+		team: "Atlanta Hawks",
+		prediction: true,
+		wager: "50",
+	};
+	try {
+		const response = await fetch("/api/games", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ seasonStartYear, team }),
+		});
+		const json = await response.json(); //json is {message:"success", data:[array of games]}
+		const games = json.data;
+
+		// let betResultsWin = {
+		// 	numUnderdogWins: 0,
+		// 	numUnderdogLosses: 0,
+		// 	numFavoriteWins: 0,
+		// 	numFavoriteLosses: 0,
+		// 	profitUnderdogWins: 0,
+		// 	profitUnderdogLosses: 0,
+		// 	profitFavoriteWins: 0,
+		// 	profitFavoriteLosses: 0,
+		// };
+		// let betResultsLoss = {
+		// 	numUnderdogWins: 0,
+		// 	numUnderdogLosses: 0,
+		// 	numFavoriteWins: 0,
+		// 	numFavoriteLosses: 0,
+		// 	profitUnderdogWins: 0,
+		// 	profitUnderdogLosses: 0,
+		// 	profitFavoriteWins: 0,
+		// 	profitFavoriteLosses: 0,
+		// };
+
+		games.forEach((game) => {
+			// console.log("Processing game:", game);
+			const oddsWin = parseFloat(game.winodds);
+			const oddsLoss = parseFloat(game.loseodds);
+
+			let resultToUpdateWin = {
+				gameCount:
+					"num" +
+					(true
+						? oddsWin >= 0
+							? "Underdog"
+							: "Favorite"
+						: oddsWin >= 0
+						? "Favorite"
+						: "Underdog") +
+					(game.outcome ? "Wins" : "Losses"),
+				profitSum:
+					"profit" +
+					(true
+						? oddsWin >= 0
+							? "Underdog"
+							: "Favorite"
+						: oddsWin >= 0
+						? "Favorite"
+						: "Underdog") +
+					(game.outcome ? "Wins" : "Losses"),
+			};
+
+			let resultToUpdateLoss = {
+				gameCount:
+					"num" +
+					(false
+						? oddsLoss >= 0
+							? "Underdog"
+							: "Favorite"
+						: oddsLoss >= 0
+						? "Favorite"
+						: "Underdog") +
+					(game.outcome ? "Wins" : "Losses"),
+				profitSum:
+					"profit" +
+					(false
+						? oddsLoss >= 0
+							? "Underdog"
+							: "Favorite"
+						: oddsLoss >= 0
+						? "Favorite"
+						: "Underdog") +
+					(game.outcome ? "Wins" : "Losses"),
+			};
+			if (resultToUpdateWin.gameCount != resultToUpdateLoss.gameCount) {
+				console.log("MISMATCH:", game);
+				console.log(
+					"resultToUpdateWin:",
+					resultToUpdateWin,
+					"resultToUpdateLoss:",
+					resultToUpdateLoss
+				);
+			}
+		});
+	} catch (error) {
+		console.error("Error fetching games:", error);
 	}
 }
