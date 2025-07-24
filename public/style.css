@@ -2,10 +2,9 @@
 	--minHeight-app: 600px;
 	--width-filterContent: 400px;
 	/* --color-accent: hsl(212, 26%, 29%); */
-	--color-accent: hsl(147, 14%, 26%);
+	--color-accent: hsl(160, 15%, 32%); /* fenway green */
 	--color-white: white;
 	--color-light: hsl(0, 0%, 89%);
-	--color-filterContent-light: hsl(0, 0%, 86%);
 	--color-bg: hsl(0, 0%, 96%);
 	--color-positive: hsl(147, 44%, 35%);
 	--color-positive-light: hsl(147, 44%, 90%);
@@ -79,7 +78,7 @@
 	text-align: center;
 	gap: 0.5rem;
 
-	color: var(--color-filterContent-light);
+	color: var(--color-bg);
 }
 
 #filter-header h1 {
@@ -93,7 +92,7 @@
 	justify-content: center;
 	gap: 1.25rem;
 
-	color: var(--color-filterContent-light);
+	color: var(--color-bg);
 }
 
 #filter-paragraph select {
@@ -105,7 +104,7 @@
 	font-weight: bold;
 
 	color: var(--color-accent);
-	background-color: var(--color-filterContent-light);
+	background-color: var(--color-bg);
 }
 
 button#submit-button {
@@ -115,13 +114,13 @@ button#submit-button {
 	margin: auto;
 
 	border-radius: 6px;
-	border: 2px solid var(--color-filterContent-light);
-	border-bottom: 4px solid var(--color-filterContent-light);
+	border: 2px solid var(--color-bg);
+	border-bottom: 4px solid var(--color-bg);
 
 	font-size: 1rem;
 	font-weight: bold;
 
-	color: var(--color-filterContent-light);
+	color: var(--color-bg);
 	background-color: var(--color-accent);
 
 	cursor: pointer;
