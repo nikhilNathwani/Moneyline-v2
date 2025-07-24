@@ -3,6 +3,7 @@
 	--width-filterContent: 400px;
 	/* --color-accent: hsl(212, 26%, 29%); */
 	--color-accent: hsl(147, 14%, 26%);
+	--color-white: white;
 	--color-light: hsl(0, 0%, 89%);
 	--color-filterContent-light: hsl(0, 0%, 86%);
 	--color-bg: hsl(0, 0%, 96%);
@@ -218,7 +219,7 @@ button#return-to-filters {
 	text-align: center;
 
 	color: var(--color-accent);
-	background-color: white;
+	background-color: var(--color-white);
 }
 
 .result-banner .positive {
