@@ -213,7 +213,7 @@ button#return-to-filters {
 	padding: var(--paddingY-banner) var(--paddingX-banner);
 
 	/* border: 3px solid var(--color-light); */
-	box-shadow: 4px 8px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
 	font-size: var(--fs-banner);
 	text-align: center;
