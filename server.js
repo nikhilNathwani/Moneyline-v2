@@ -1,3 +1,6 @@
+// Local development server - NOT used in production
+// Production uses app.js directly (see vercel.json)
+
 // Load env vars first (local-only since .env.development.local isn't tracked in git)
 if (process.env.NODE_ENV !== "production") {
 	require("dotenv").config({ path: ".env.development.local" });

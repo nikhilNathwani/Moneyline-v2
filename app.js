@@ -1,27 +1,29 @@
 /* External imports */
 const express = require("express");
 const path = require("path");
-const handleQueryRoute = require("./utils/handleQueryRoute");
-const { runResultSummaryQuery, runTopBetsQuery } = require("./data/queries");
 
-/* App Configurations */
+/* Internal imports */
+const resultSummaryRoute = require("./app/routes/resultSummary");
+const topBetsRoute = require("./app/routes/topBets");
+
+/* App Configuration */
 const app = express();
-
-// Serve static files from public folder
-app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware to parse request bodies (for POST requests)
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// ^check if i need this
+app.use(express.urlencoded({ extended: true }));
 
 // Use the routes I defined
-app.post("/api/result-summary", handleQueryRoute(runResultSummaryQuery));
-app.post("/api/top-bets", handleQueryRoute(runTopBetsQuery));
+app.use("/api/result-summary", resultSummaryRoute);
+app.use("/api/top-bets", topBetsRoute);
+
+// Serve static files from public folder
+const staticPathRoot = path.join(__dirname, "public");
+app.use(express.static(staticPathRoot));
 
 // Fallback to serve index.html for any other route
 app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "public", "index.html"));
+	res.sendFile(path.join(staticPathRoot, "index.html"));
 });
 
 module.exports = app;
