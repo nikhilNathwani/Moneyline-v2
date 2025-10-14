@@ -252,24 +252,25 @@
 			</div>
 		</div>
 		<!-- 1. Utilities (low-level helpers used app-wide) -->
-		<script src="js/utils/getScreenSize.js"></script>
-		<script src="js/utils/getTransitionDuration.js"></script>
-		<script src="js/utils/formatResultValue.js"></script>
+		<script src="js/view/utils/getScreenSize.js"></script>
+		<script src="js/view/utils/getTransitionDuration.js"></script>
+		<script src="js/view/utils/formatResultValue.js"></script>
 
 		<!-- 2. Filters UI setup -->
-		<script src="js/filters/getFilterValues.js"></script>
-		<script src="js/filters/renderFilters.js"></script>
+		<script src="js/view/utils/getFilterValues.js"></script>
+		<script src="js/view/renderFilters.js"></script>
 
 		<!-- 3. API (data fetching / parsing) -->
 		<script src="js/api/fetchResults.js"></script>
 		<script src="js/api/deconstructResults.js"></script>
 
 		<!-- 4. Results UI setup -->
-		<script src="js/resultsUI/fade.js"></script>
-		<script src="js/resultsUI/populateElement.js"></script>
-		<script src="js/resultsUI/initResultsUI.js"></script>
-		<script src="js/resultsUI/populateResultSummary.js"></script>
-		<script src="js/resultsUI/populateTopBets.js"></script>
+		<script src="js/view/transitions/fade.js"></script>
+		<script src="js/view/transitions/initResults.js"></script>
+		<script src="js/view/transitions/resetResults.js"></script>
+		<script src="js/view/utils/populateElement.js"></script>
+		<script src="js/view/renderResultSummary.js"></script>
+		<script src="js/view/renderTopBets.js"></script>
 
 		<!-- 5. Event Handlers (last, since they use UI + API functions) -->
 		<script src="js/events/handleReturnToFilters.js"></script>
