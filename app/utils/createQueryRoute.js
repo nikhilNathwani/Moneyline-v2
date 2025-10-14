@@ -1,5 +1,6 @@
 const express = require("express");
 const pool = require("./dbConfig");
+const getCallerFile = require("./getCallerFile");
 
 /**
  * Creates an Express router for a given SQL query.
@@ -21,13 +22,7 @@ function createQueryRoute(query) {
 			res.json({ success: true, data: rows });
 		} catch (error) {
 			// Figure out which file imported this helper (for logging only)
-			let callerFile = "unknown";
-			try {
-				const parent = module.parent || module; // fallback if undefined
-				callerFile = path.basename(parent.filename);
-			} catch (_) {}
-
-			console.error(`Error in ${callerFile} route handler:`, error);
+			console.error(`Error in ${getCallerFile()} route handler:`, error);
 			res.status(500).json({ success: false, message: error.message });
 		}
 	});

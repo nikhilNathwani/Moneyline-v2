@@ -51,3 +51,5 @@ const topBetsQuery = `
         CAST(FLOOR(payout_untruncated) AS integer) AS payout_cents
     FROM profit_and_payout
 `;
+
+module.exports = topBetsQuery;

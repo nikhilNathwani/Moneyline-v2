@@ -78,3 +78,5 @@ const resultSummaryQuery = `
     FROM profit_and_payout
     GROUP BY team, seasonStartYear, outcome, is_favorite, wager;
 `;
+
+module.exports = resultSummaryQuery;
