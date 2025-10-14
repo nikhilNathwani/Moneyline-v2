@@ -1,4 +1,4 @@
 const createQueryRoute = require("../utils/createQueryRoute");
-const topBetsQuery = require("../queries/topBetsSQL");
+const { topBetsQuery } = require("../utils/parseSQL");
 
 module.exports = createQueryRoute(topBetsQuery);

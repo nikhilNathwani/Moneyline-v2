@@ -1,5 +1,10 @@
--- Result Summary Query: Analyzes betting outcomes with profit/loss calculations
--- Parameters: $1 = seasonStartYear, $2 = team, $3 = prediction (boolean), $4 = wager
+-- Result Summary Query: 
+--      Analyzes betting outcomes with profit/loss calculations
+-- Parameters:
+--      $1 = seasonStartYear
+--      $2 = team
+--      $3 = prediction (boolean)
+--      $4 = wager
 
 WITH integer_odds AS (
 	SELECT 
