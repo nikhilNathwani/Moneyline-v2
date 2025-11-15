@@ -1,3 +1,13 @@
+"""
+DEPRECATED: This file is deprecated and kept for reference only.
+
+Use the new modular scraper architecture instead:
+- parsers/oddsportal_parser.py - OddsPortal-specific implementation
+- main.py - Orchestration script
+
+See MIGRATION.md for migration guide.
+"""
+
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options

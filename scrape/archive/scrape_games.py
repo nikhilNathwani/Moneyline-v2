@@ -1,3 +1,12 @@
+"""
+DEPRECATED: This file is deprecated and kept for reference only.
+
+Use the new modular scraper instead:
+  python3 main.py --seasons 2022 2023 2024
+
+See MIGRATION.md for migration guide and README.md for full documentation.
+"""
+
 from scraper import *
 from game import Game
 

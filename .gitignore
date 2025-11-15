@@ -6,3 +6,9 @@
 /data.csv
 /moneyline.db
 /data/archive
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
