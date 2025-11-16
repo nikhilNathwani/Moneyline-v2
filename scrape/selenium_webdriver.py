@@ -53,6 +53,11 @@ class SeleniumWebDriver:
         options.add_experimental_option("prefs", prefs)
         
         self.driver = webdriver.Chrome(options=options)
+
+        # --- IMPORTANT: Disable browser cache so single-page-apps (SPAs) fully reload ---
+        self.driver.execute_cdp_cmd("Network.enable", {})
+        self.driver.execute_cdp_cmd("Network.setCacheDisabled", {"cacheDisabled": True})
+
         return self.driver
     
     def quitDriver(self):
@@ -76,6 +81,9 @@ class SeleniumWebDriver:
             self.initDriver()
             
         self.driver.get(url)
+
+        # --- IMPORTANT: Force a TRUE network reload to defeat Vue router caching ---
+        self.driver.execute_script("location.reload(true);")
         
         if wait_selector:
             WebDriverWait(self.driver, self.wait_time).until(

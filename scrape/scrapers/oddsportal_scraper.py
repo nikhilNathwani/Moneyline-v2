@@ -51,7 +51,7 @@ class OddsPortalScraper(BaseScraper, SeleniumWebDriver):
         lastPageNum = self._getLastPageNum(seasonStartYear)
         return [self._makeUrl(seasonStartYear, pageNum) for pageNum in range(1, lastPageNum + 1)]
     
-    def scrapeGames(self, url: str, seasonStartYear: int, games: Dict[str, List[Game]]):
+    def scrapeGamesFromPage(self, url: str, page_num: int,seasonStartYear: int, games: Dict[str, List[Game]]):
         """
         Scrapes all games from a single OddsPortal results page.
         
@@ -60,8 +60,10 @@ class OddsPortalScraper(BaseScraper, SeleniumWebDriver):
             seasonStartYear (int): Calendar year in which the season started
             games (Dict[str, List[Game]]): Dictionary to accumulate games into
         """
-        soup = self.makeSoup(url, wait_selector='[data-testid="add-to-my-leagues-button"]')
-        
+        # soup = self.makeSoup(url, wait_selector='[data-testid="add-to-my-leagues-button"]')
+        print(f"Making soup for page {page_num} with wait selector a.pagination-link.active[data-number='{page_num}']")
+        soup = self.makeSoup(url, wait_selector=f"a.pagination-link.active[data-number='{page_num}']")
+
         # Scroll to load all lazy-loaded content
         self.scrollToBottom()
         
@@ -70,15 +72,14 @@ class OddsPortalScraper(BaseScraper, SeleniumWebDriver):
         soup = BeautifulSoup(self.driver.page_source, "lxml")
         
         gameRows = soup.find_all(class_="eventRow")
-        isRegularSeasonNow = False
-        
+        isRegularSeasonNow= False
         for gameRow in gameRows:
-            headerRow = self._getHeaderRow(gameRow)
+            headerRow= self._getHeaderRow(gameRow) 
             if headerRow is not None:
-                isRegularSeasonNow = self._isRegularSeason(headerRow)
-            
-            if isRegularSeasonNow:
-                self._scrapeGame(gameRow, seasonStartYear, games)
+                isRegularSeasonNow= self._isRegularSeason(headerRow)
+                print("isRegularSeasonNow", isRegularSeasonNow)
+                if isRegularSeasonNow:
+                    self._scrapeGame(gameRow, seasonStartYear, games)
     
     def scrapeSeasonSchedule(self, seasonStartYear: int) -> Dict[str, List[Game]]:
         """
@@ -103,31 +104,27 @@ class OddsPortalScraper(BaseScraper, SeleniumWebDriver):
         try:
             for i, url in enumerate(urls, start=1):
                 print(f"Scraping page {i}/{len(urls)}...")
-                self.scrapeGames(url, seasonStartYear, games)
+                self.scrapeGamesFromPage(url, i, seasonStartYear, games)
         finally:
             self.quitDriver()
         
         # Fix game numbers (OddsPortal lists games in reverse chronological order)
-        self._fixGameNumbers(games)
+        self._reverseGameNumbers(games)
         
         return games
-    
-    def _fixGameNumbers(self, games: Dict[str, List[Game]]):
+ 
+    def _makeUrl(self, seasonStartYear: int, pageNum: int) -> str:
         """
-        Fix game numbers to be in chronological order.
-        
-        OddsPortal lists games in reverse chronological order, so we reverse
-        and renumber them.
+        Construct URL for a given season and page number.
         
         Args:
-            games (Dict[str, List[Game]]): Dictionary of team games to fix
+            seasonStartYear (int): Calendar year in which the season started
+            pageNum (int): Page number
+            
+        Returns:
+            str: Full URL to the results page
         """
-        for team, team_games in games.items():
-            # Reverse the list so it's in chronological order
-            team_games.reverse()
-            # Assign game numbers
-            for i, game in enumerate(team_games, start=1):
-                game.gameNumber = i
+        return f"https://www.oddsportal.com/basketball/usa/nba-{seasonStartYear}-{seasonStartYear+1}/results/#/page/{pageNum}/"
     
     def _getLastPageNum(self, seasonStartYear: int) -> int:
         """
@@ -153,6 +150,28 @@ class OddsPortalScraper(BaseScraper, SeleniumWebDriver):
             print(f"No pagination links found for {seasonStartYear}-{seasonStartYear+1}, defaulting to 1 page")
             return 1
     
+    def _getHeaderRow(self, gameRow):
+        subRows = gameRow.find_all('div', recursive=False)
+        # ^recursive=False ensures only direct children are fetched
+        if len(subRows) >= 2: #game includes date header
+            return subRows[-2]
+        else:
+            return None
+    
+    def _isRegularSeason(self, header) -> bool:
+        """
+        Determine if games under this header are regular season games.
+        
+        Args:
+            headerRow: BeautifulSoup element representing the header
+            
+        Returns:
+            bool: True if regular season, False otherwise
+        """
+        text = header.get_text(strip=True)
+        #date header has "[date] - [gameType]" for non-reg season games
+        return "-" not in text
+
     def _scrapeGame(self, row, seasonStartYear: int, games: Dict[str, List[Game]]):
         """
         Scrape a single game from a table row and add to games dictionary.
@@ -166,6 +185,7 @@ class OddsPortalScraper(BaseScraper, SeleniumWebDriver):
             games (Dict[str, List[Game]]): Dictionary to add games to
         """
         gameRow = row.select_one('[data-testid="game-row"]')
+        print(gameRow.prettify())
         
         # Extract odds elements and team names
         odds_elements = gameRow.select('p[data-testid^="odd-container"]')
@@ -204,45 +224,19 @@ class OddsPortalScraper(BaseScraper, SeleniumWebDriver):
                 games[game.team] = []
             games[game.team].append(game)
     
-    def _makeUrl(self, seasonStartYear: int, pageNum: int) -> str:
+    def _reverseGameNumbers(self, games: Dict[str, List[Game]]):
         """
-        Construct URL for a given season and page number.
+        Fix game numbers to be in chronological order.
+        
+        OddsPortal lists games in reverse chronological order, so we reverse
+        and renumber them.
         
         Args:
-            seasonStartYear (int): Calendar year in which the season started
-            pageNum (int): Page number
-            
-        Returns:
-            str: Full URL to the results page
+            games (Dict[str, List[Game]]): Dictionary of team games to fix
         """
-        return f"https://www.oddsportal.com/basketball/usa/nba-{seasonStartYear}-{seasonStartYear+1}/results/#/page/{pageNum}/"
-    
-    def _getHeaderRow(self, gameRow):
-        """
-        Extract header row from a game row element.
-        
-        Args:
-            gameRow: BeautifulSoup element
-            
-        Returns:
-            Header row element or None
-        """
-        subRows = gameRow.find_all('div', recursive=False)
-        if len(subRows) >= 2:  # Game includes date header
-            return subRows[-2]
-        else:
-            return None
-    
-    def _isRegularSeason(self, headerRow) -> bool:
-        """
-        Determine if games under this header are regular season games.
-        
-        Args:
-            headerRow: BeautifulSoup element representing the header
-            
-        Returns:
-            bool: True if regular season, False otherwise
-        """
-        text = headerRow.get_text(strip=True)
-        # Date header has "[date] - [gameType]" for non-regular season games
-        return "-" not in text
+        for team, team_games in games.items():
+            # Reverse the list so it's in chronological order
+            team_games.reverse()
+            # Assign game numbers
+            for i, game in enumerate(team_games, start=1):
+                game.gameNumber = i

@@ -33,7 +33,7 @@ class BaseScraper(ABC):
         pass
     
     @abstractmethod
-    def scrapeGames(self, url: str, seasonStartYear: int, games: Dict[str, List[Game]]):
+    def scrapeGamesFromPage(self, url: str, seasonStartYear: int, games: Dict[str, List[Game]]):
         """
         Scrapes all games from a single URL and adds them to the games dictionary.
         
@@ -51,7 +51,7 @@ class BaseScraper(ABC):
         
         Default implementation:
         1. Gets all schedule URLs via getSeasonScheduleLinks()
-        2. Scrapes games from each URL via scrapeGames()
+        2. Scrapes games from each URL via scrapeGamesFromPage()
         3. Returns the accumulated games
         
         Override this method if you need:
@@ -68,7 +68,7 @@ class BaseScraper(ABC):
                 self.initDriver()  # Setup
                 try:
                     for url in urls:
-                        self.scrapeGames(url, seasonStartYear, games)
+                        self.scrapeGamesFromPage(url, seasonStartYear, games)
                 finally:
                     self.quitDriver()  # Cleanup
                 
@@ -86,6 +86,6 @@ class BaseScraper(ABC):
         urls = self.getSeasonScheduleLinks(seasonStartYear)
         
         for url in urls:
-            self.scrapeGames(url, seasonStartYear, games)
+            self.scrapeGamesFromPage(url, seasonStartYear, games)
         
         return games

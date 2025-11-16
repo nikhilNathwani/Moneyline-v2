@@ -1,5 +1,704 @@
 {
-  "2022": {},
-  "2023": {},
-  "2024": {}
+  "2022": {
+    "Chicago Bulls": [
+      {
+        "team": "Chicago Bulls",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 177,
+        "loseOdds": -213,
+        "opponent": "Phoenix Suns"
+      },
+      {
+        "team": "Chicago Bulls",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": -200,
+        "loseOdds": 168,
+        "opponent": "Washington Wizards"
+      },
+      {
+        "team": "Chicago Bulls",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": 166,
+        "loseOdds": -196,
+        "opponent": "Atlanta Hawks"
+      },
+      {
+        "team": "Chicago Bulls",
+        "seasonStartYear": 2022,
+        "gameNumber": 4,
+        "outcome": true,
+        "winOdds": -370,
+        "loseOdds": 294,
+        "opponent": "Detroit Pistons"
+      }
+    ],
+    "Detroit Pistons": [
+      {
+        "team": "Detroit Pistons",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 195,
+        "loseOdds": -238,
+        "opponent": "Atlanta Hawks"
+      },
+      {
+        "team": "Detroit Pistons",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": 149,
+        "loseOdds": -172,
+        "opponent": "Indiana Pacers"
+      },
+      {
+        "team": "Detroit Pistons",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": false,
+        "winOdds": 294,
+        "loseOdds": -370,
+        "opponent": "Chicago Bulls"
+      }
+    ],
+    "Atlanta Hawks": [
+      {
+        "team": "Atlanta Hawks",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -238,
+        "loseOdds": 195,
+        "opponent": "Detroit Pistons"
+      },
+      {
+        "team": "Atlanta Hawks",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": -196,
+        "loseOdds": 166,
+        "opponent": "Chicago Bulls"
+      },
+      {
+        "team": "Atlanta Hawks",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": -154,
+        "loseOdds": 131,
+        "opponent": "Dallas Mavericks"
+      }
+    ],
+    "Dallas Mavericks": [
+      {
+        "team": "Dallas Mavericks",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 100,
+        "loseOdds": -115,
+        "opponent": "Los Angeles Clippers"
+      },
+      {
+        "team": "Dallas Mavericks",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": 131,
+        "loseOdds": -154,
+        "opponent": "Atlanta Hawks"
+      }
+    ],
+    "Portland Trail Blazers": [
+      {
+        "team": "Portland Trail Blazers",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": -122,
+        "loseOdds": 104,
+        "opponent": "Minnesota Timberwolves"
+      },
+      {
+        "team": "Portland Trail Blazers",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": 380,
+        "loseOdds": -500,
+        "opponent": "Oklahoma City Thunder"
+      }
+    ],
+    "Oklahoma City Thunder": [
+      {
+        "team": "Oklahoma City Thunder",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 210,
+        "loseOdds": -256,
+        "opponent": "Denver Nuggets"
+      },
+      {
+        "team": "Oklahoma City Thunder",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": -167,
+        "loseOdds": 141,
+        "opponent": "Indiana Pacers"
+      },
+      {
+        "team": "Oklahoma City Thunder",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": 225,
+        "loseOdds": -270,
+        "opponent": "Los Angeles Lakers"
+      },
+      {
+        "team": "Oklahoma City Thunder",
+        "seasonStartYear": 2022,
+        "gameNumber": 4,
+        "outcome": true,
+        "winOdds": -500,
+        "loseOdds": 380,
+        "opponent": "Portland Trail Blazers"
+      }
+    ],
+    "Los Angeles Lakers": [
+      {
+        "team": "Los Angeles Lakers",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": 114,
+        "loseOdds": -135,
+        "opponent": "New Orleans Pelicans"
+      },
+      {
+        "team": "Los Angeles Lakers",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": 129,
+        "loseOdds": -154,
+        "opponent": "Los Angeles Clippers"
+      },
+      {
+        "team": "Los Angeles Lakers",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": false,
+        "winOdds": 152,
+        "loseOdds": -179,
+        "opponent": "Los Angeles Clippers"
+      },
+      {
+        "team": "Los Angeles Lakers",
+        "seasonStartYear": 2022,
+        "gameNumber": 4,
+        "outcome": false,
+        "winOdds": -270,
+        "loseOdds": 225,
+        "opponent": "Oklahoma City Thunder"
+      },
+      {
+        "team": "Los Angeles Lakers",
+        "seasonStartYear": 2022,
+        "gameNumber": 5,
+        "outcome": false,
+        "winOdds": -143,
+        "loseOdds": 124,
+        "opponent": "New York Knicks"
+      },
+      {
+        "team": "Los Angeles Lakers",
+        "seasonStartYear": 2022,
+        "gameNumber": 6,
+        "outcome": true,
+        "winOdds": -256,
+        "loseOdds": 211,
+        "opponent": "Orlando Magic"
+      }
+    ],
+    "Orlando Magic": [
+      {
+        "team": "Orlando Magic",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 211,
+        "loseOdds": -256,
+        "opponent": "Los Angeles Lakers"
+      }
+    ],
+    "Indiana Pacers": [
+      {
+        "team": "Indiana Pacers",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 141,
+        "loseOdds": -167,
+        "opponent": "Oklahoma City Thunder"
+      },
+      {
+        "team": "Indiana Pacers",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": -172,
+        "loseOdds": 149,
+        "opponent": "Detroit Pistons"
+      }
+    ],
+    "New York Knicks": [
+      {
+        "team": "New York Knicks",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": 114,
+        "loseOdds": -135,
+        "opponent": "Philadelphia 76ers"
+      },
+      {
+        "team": "New York Knicks",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": 108,
+        "loseOdds": -127,
+        "opponent": "Denver Nuggets"
+      },
+      {
+        "team": "New York Knicks",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": 116,
+        "loseOdds": -132,
+        "opponent": "Boston Celtics"
+      },
+      {
+        "team": "New York Knicks",
+        "seasonStartYear": 2022,
+        "gameNumber": 4,
+        "outcome": true,
+        "winOdds": 124,
+        "loseOdds": -143,
+        "opponent": "Los Angeles Lakers"
+      }
+    ],
+    "Los Angeles Clippers": [
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -154,
+        "loseOdds": 129,
+        "opponent": "Los Angeles Lakers"
+      },
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": 367,
+        "loseOdds": -500,
+        "opponent": "Golden State Warriors"
+      },
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": -115,
+        "loseOdds": 100,
+        "opponent": "Dallas Mavericks"
+      },
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 4,
+        "outcome": false,
+        "winOdds": -116,
+        "loseOdds": 100,
+        "opponent": "Philadelphia 76ers"
+      },
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 5,
+        "outcome": true,
+        "winOdds": -179,
+        "loseOdds": 152,
+        "opponent": "Los Angeles Lakers"
+      },
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 6,
+        "outcome": true,
+        "winOdds": -333,
+        "loseOdds": 287,
+        "opponent": "Golden State Warriors"
+      },
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 7,
+        "outcome": false,
+        "winOdds": 152,
+        "loseOdds": -175,
+        "opponent": "Denver Nuggets"
+      },
+      {
+        "team": "Los Angeles Clippers",
+        "seasonStartYear": 2022,
+        "gameNumber": 8,
+        "outcome": true,
+        "winOdds": -294,
+        "loseOdds": 249,
+        "opponent": "Memphis Grizzlies"
+      }
+    ],
+    "Memphis Grizzlies": [
+      {
+        "team": "Memphis Grizzlies",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 249,
+        "loseOdds": -294,
+        "opponent": "Los Angeles Clippers"
+      }
+    ],
+    "Boston Celtics": [
+      {
+        "team": "Boston Celtics",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -417,
+        "loseOdds": 319,
+        "opponent": "New Orleans Pelicans"
+      },
+      {
+        "team": "Boston Celtics",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": -385,
+        "loseOdds": 294,
+        "opponent": "Brooklyn Nets"
+      },
+      {
+        "team": "Boston Celtics",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": false,
+        "winOdds": -132,
+        "loseOdds": 116,
+        "opponent": "New York Knicks"
+      }
+    ],
+    "Denver Nuggets": [
+      {
+        "team": "Denver Nuggets",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -256,
+        "loseOdds": 210,
+        "opponent": "Oklahoma City Thunder"
+      },
+      {
+        "team": "Denver Nuggets",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": -127,
+        "loseOdds": 108,
+        "opponent": "New York Knicks"
+      },
+      {
+        "team": "Denver Nuggets",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": -667,
+        "loseOdds": 476,
+        "opponent": "Washington Wizards"
+      },
+      {
+        "team": "Denver Nuggets",
+        "seasonStartYear": 2022,
+        "gameNumber": 4,
+        "outcome": false,
+        "winOdds": 124,
+        "loseOdds": -143,
+        "opponent": "Sacramento Kings"
+      },
+      {
+        "team": "Denver Nuggets",
+        "seasonStartYear": 2022,
+        "gameNumber": 5,
+        "outcome": true,
+        "winOdds": -270,
+        "loseOdds": 225,
+        "opponent": "New Orleans Pelicans"
+      },
+      {
+        "team": "Denver Nuggets",
+        "seasonStartYear": 2022,
+        "gameNumber": 6,
+        "outcome": true,
+        "winOdds": -175,
+        "loseOdds": 152,
+        "opponent": "Los Angeles Clippers"
+      }
+    ],
+    "Golden State Warriors": [
+      {
+        "team": "Golden State Warriors",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -227,
+        "loseOdds": 185,
+        "opponent": "Miami Heat"
+      },
+      {
+        "team": "Golden State Warriors",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": -500,
+        "loseOdds": 367,
+        "opponent": "Los Angeles Clippers"
+      },
+      {
+        "team": "Golden State Warriors",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": false,
+        "winOdds": 287,
+        "loseOdds": -333,
+        "opponent": "Los Angeles Clippers"
+      }
+    ],
+    "Washington Wizards": [
+      {
+        "team": "Washington Wizards",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 168,
+        "loseOdds": -200,
+        "opponent": "Chicago Bulls"
+      },
+      {
+        "team": "Washington Wizards",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": 476,
+        "loseOdds": -667,
+        "opponent": "Denver Nuggets"
+      },
+      {
+        "team": "Washington Wizards",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": -167,
+        "loseOdds": 146,
+        "opponent": "Charlotte Hornets"
+      }
+    ],
+    "Charlotte Hornets": [
+      {
+        "team": "Charlotte Hornets",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 146,
+        "loseOdds": -167,
+        "opponent": "Washington Wizards"
+      }
+    ],
+    "Brooklyn Nets": [
+      {
+        "team": "Brooklyn Nets",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -147,
+        "loseOdds": 122,
+        "opponent": "Toronto Raptors"
+      },
+      {
+        "team": "Brooklyn Nets",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": 229,
+        "loseOdds": -278,
+        "opponent": "Philadelphia 76ers"
+      },
+      {
+        "team": "Brooklyn Nets",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": false,
+        "winOdds": 294,
+        "loseOdds": -385,
+        "opponent": "Boston Celtics"
+      }
+    ],
+    "New Orleans Pelicans": [
+      {
+        "team": "New Orleans Pelicans",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": -135,
+        "loseOdds": 114,
+        "opponent": "Los Angeles Lakers"
+      },
+      {
+        "team": "New Orleans Pelicans",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": false,
+        "winOdds": 319,
+        "loseOdds": -417,
+        "opponent": "Boston Celtics"
+      },
+      {
+        "team": "New Orleans Pelicans",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": false,
+        "winOdds": 225,
+        "loseOdds": -270,
+        "opponent": "Denver Nuggets"
+      }
+    ],
+    "Philadelphia 76ers": [
+      {
+        "team": "Philadelphia 76ers",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": -135,
+        "loseOdds": 114,
+        "opponent": "New York Knicks"
+      },
+      {
+        "team": "Philadelphia 76ers",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": 100,
+        "loseOdds": -116,
+        "opponent": "Los Angeles Clippers"
+      },
+      {
+        "team": "Philadelphia 76ers",
+        "seasonStartYear": 2022,
+        "gameNumber": 3,
+        "outcome": true,
+        "winOdds": -278,
+        "loseOdds": 229,
+        "opponent": "Brooklyn Nets"
+      }
+    ],
+    "Minnesota Timberwolves": [
+      {
+        "team": "Minnesota Timberwolves",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": 104,
+        "loseOdds": -122,
+        "opponent": "Portland Trail Blazers"
+      }
+    ],
+    "Sacramento Kings": [
+      {
+        "team": "Sacramento Kings",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -286,
+        "loseOdds": 229,
+        "opponent": "San Antonio Spurs"
+      },
+      {
+        "team": "Sacramento Kings",
+        "seasonStartYear": 2022,
+        "gameNumber": 2,
+        "outcome": true,
+        "winOdds": -143,
+        "loseOdds": 124,
+        "opponent": "Denver Nuggets"
+      }
+    ],
+    "Phoenix Suns": [
+      {
+        "team": "Phoenix Suns",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": true,
+        "winOdds": -213,
+        "loseOdds": 177,
+        "opponent": "Chicago Bulls"
+      }
+    ],
+    "San Antonio Spurs": [
+      {
+        "team": "San Antonio Spurs",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 229,
+        "loseOdds": -286,
+        "opponent": "Sacramento Kings"
+      }
+    ],
+    "Miami Heat": [
+      {
+        "team": "Miami Heat",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 185,
+        "loseOdds": -227,
+        "opponent": "Golden State Warriors"
+      }
+    ],
+    "Toronto Raptors": [
+      {
+        "team": "Toronto Raptors",
+        "seasonStartYear": 2022,
+        "gameNumber": 1,
+        "outcome": false,
+        "winOdds": 122,
+        "loseOdds": -147,
+        "opponent": "Brooklyn Nets"
+      }
+    ]
+  }
 }
