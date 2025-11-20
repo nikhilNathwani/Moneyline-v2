@@ -146,6 +146,19 @@ button#submit-button:active {
 	background-color: var(--color-bg);
 }
 
+#data-source {
+	text-align: center;
+	/* padding: 2rem 0 3rem 0; */
+	color: hsl(0, 0%, 50%);
+	font-size: 0.85rem;
+	margin-bottom: 5.25rem;
+	transition: opacity 0.5s ease;
+}
+
+#data-source.disappear {
+	opacity: 0;
+}
+
 .result {
 	--paddingBottom-resultChip: 1.5rem;
 	--marginBottom-result: 4.5rem;
@@ -160,7 +173,12 @@ button#submit-button:active {
 	flex-flow: column nowrap;
 	align-items: center;
 	gap: 1.5rem;
+
 	transition: opacity 0.5s ease;
+}
+
+#top-bets-result {
+	margin-bottom: 3.5rem !important;
 }
 
 .result.disappear {
