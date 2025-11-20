@@ -18,11 +18,10 @@ Examples:
 """
 
 import os
-import sys
 import argparse
 from typing import List
-from scrapers.oddsportal_scraper import OddsPortalScraper
-from utils.export_data import save_to_json, save_to_database
+from oddsportal.oddsportal_scraper import OddsPortalScraper
+from core.utils.export_data import save_to_json, save_to_database
 
 
 # Define output paths

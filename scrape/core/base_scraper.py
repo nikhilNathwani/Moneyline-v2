@@ -6,10 +6,7 @@ Any site-specific scraper must implement these methods to work with the main scr
 
 from abc import ABC, abstractmethod
 from typing import List, Dict
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from game import Game
+from core.game import Game
 
 
 class BaseScraper(ABC):

@@ -66,7 +66,28 @@ class SeleniumWebDriver:
             self.driver.quit()
             self.driver = None
     
-    def makeSoup(self, url: str, wait_selector: str = None) -> BeautifulSoup:
+    def loadWebPage(self, url: str):
+        """
+        Load a web page using the WebDriver.
+        
+        Args:
+            url (str): URL of the page to load
+        """
+        if self.driver is None:
+            self.initDriver()
+            
+        self.driver.get(url)
+
+        # --- IMPORTANT: Force a TRUE network reload to defeat Vue router caching ---
+        self.driver.execute_script("location.reload(true);")
+        
+        time.sleep(4)
+
+        # Scroll to load all lazy-loaded content
+        self.scrollToBottom()   
+
+
+    def makeSoup(self) -> BeautifulSoup:
         """
         Load a page and return BeautifulSoup object.
         
@@ -77,37 +98,72 @@ class SeleniumWebDriver:
         Returns:
             BeautifulSoup: Parsed HTML content
         """
-        if self.driver is None:
-            self.initDriver()
-            
-        self.driver.get(url)
-
-        # --- IMPORTANT: Force a TRUE network reload to defeat Vue router caching ---
-        self.driver.execute_script("location.reload(true);")
-        
-        if wait_selector:
-            WebDriverWait(self.driver, self.wait_time).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, wait_selector))
-            )
-        
         html = self.driver.page_source
         return BeautifulSoup(html, "lxml")
     
+    # def scrollToBottom(self):
+    #     """
+    #     Scroll to bottom of page to trigger lazy loading.
+        
+    #     Useful for pages that load content dynamically as you scroll.
+    #     """
+    #     if self.driver is None:
+    #         raise RuntimeError("Driver not initialized. Call initDriver() first.")
+            
+    #     last_height = self.driver.execute_script("return document.body.scrollHeight")
+    #     while True:
+    #         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    #         time.sleep(1)
+            
+    #         new_height = self.driver.execute_script("return document.body.scrollHeight")
+    #         if new_height == last_height:
+    #             break
+    #         last_height = new_height
+
     def scrollToBottom(self):
         """
         Scroll to bottom of page to trigger lazy loading.
         
+        Scrolls in increments to ensure lazy-loaded content is triggered.
         Useful for pages that load content dynamically as you scroll.
         """
         if self.driver is None:
             raise RuntimeError("Driver not initialized. Call initDriver() first.")
-            
+        
+        # Get initial page height
         last_height = self.driver.execute_script("return document.body.scrollHeight")
-        while True:
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1)
+        
+        # Scroll in smaller increments to trigger lazy loading
+        current_position = 0
+        scroll_increment = 200  # pixels to scroll at a time
+        
+        while current_position < last_height:
+            # Scroll down by increment
+            current_position += scroll_increment
+            self.driver.execute_script(f"window.scrollTo(0, {current_position});")
+            time.sleep(1.5)  # Wait for content to load
             
+            # Check if page height increased (new content loaded)
             new_height = self.driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                break
-            last_height = new_height
+            if new_height > last_height:
+                last_height = new_height
+        
+        # Final scroll to absolute bottom
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
+
+
+    def waitForElement(self, css_selector: str):
+        """
+        Wait for an element to be present on the page.
+        
+        Args:
+            css_selector (str): CSS selector of the element to wait for
+        """
+        if self.driver is None:
+            raise RuntimeError("Driver not initialized. Call initDriver() first.")
+        
+        WebDriverWait(self.driver, self.wait_time).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, css_selector))
+        )
+        time.sleep(2) #Additional wait to ensure content is fully loaded

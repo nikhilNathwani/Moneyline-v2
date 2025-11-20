@@ -58,6 +58,9 @@ python3 main.py --seasons 2022 2023 2024
 # Scrape a range of seasons
 python3 main.py --seasons 2022-2024
 
+# Save to JSON
+python3 main.py --seasons 2023 --output json
+
 # Save to database instead of JSON
 python3 main.py --seasons 2023 --output db
 

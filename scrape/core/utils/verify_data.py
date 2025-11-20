@@ -7,13 +7,10 @@ Tests the basic components without actually scraping (to save time).
 import sys
 import os
 
-# Add parent directory to path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-from game import Game
-from parsers.base_parser import BaseParser
-from parsers.oddsportal_parser import OddsPortalParser
-from utils.export_data import save_to_json, verify_data
+from core.game import Game
+from core.base_scraper import BaseScraper
+from oddsportal.oddsportal_scraper import OddsPortalScraper
+from core.utils.export_data import save_to_json, verify_data
 
 
 def test_game_object():
@@ -40,15 +37,15 @@ def test_game_object():
 
 
 def test_parser_interface():
-    """Test that OddsPortalParser implements BaseParser."""
+    """Test that OddsPortalScraper implements BaseScraper."""
     print("Testing parser interface...")
     
-    parser = OddsPortalParser(headless=True)
-    assert isinstance(parser, BaseParser)
+    scraper = OddsPortalScraper(headless=True)
+    assert isinstance(scraper, BaseScraper)
     
     # Check that required methods exist
-    assert hasattr(parser, 'scrapeSeasonGames')
-    assert hasattr(parser, 'getLastPageNum')
+    assert hasattr(scraper, 'scrapeSeasonSchedule')
+    assert hasattr(scraper, 'getSeasonScheduleLinks')
     
     print("  ✅ Parser interface tests passed!\n")
 

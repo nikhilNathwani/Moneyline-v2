@@ -8,11 +8,7 @@ import json
 import sqlite3
 import os
 from typing import Dict, List
-import sys
-
-# Add parent directory to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from game import Game
+from core.game import Game
 
 
 def save_to_json(all_games: Dict[int, Dict[str, List[Game]]], output_path: str):
