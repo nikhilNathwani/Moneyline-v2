@@ -18,8 +18,25 @@ Usage:
 
 import os
 import sys
+import subprocess
 import argparse
 from typing import List
+
+# Check and install requirements if needed
+def check_requirements():
+    """Check if required packages are installed, install if missing."""
+    try:
+        import psycopg2
+        import selenium
+        import bs4
+        from dotenv import load_dotenv
+    except ImportError:
+        print("📦 Installing required packages...")
+        requirements_path = os.path.join(os.path.dirname(__file__), 'requirements.txt')
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '-r', requirements_path], check=True)
+        print("✅ Packages installed successfully\n")
+
+check_requirements()
 
 # Add parent directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
