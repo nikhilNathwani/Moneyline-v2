@@ -5,6 +5,10 @@ beautifulsoup4>=4.12.0
 selenium>=4.15.0
 lxml>=4.9.0
 
+# Database
+psycopg2-binary>=2.9.0
+python-dotenv>=1.0.0
+
 # Note: ChromeDriver must be installed separately
 # macOS: brew install --cask chromedriver
 # Or download from: https://chromedriver.chromium.org/
