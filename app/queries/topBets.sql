@@ -20,40 +20,30 @@ WITH odds_of_prediction AS (
 			AND team = $2
 			AND outcome = $3
 ),
-top_bets AS (
+odds_as_int AS (
 	SELECT 
 		game_number, 
 		outcome,
 		wager,
 		odds_string,
-		CAST(REPLACE(odds_string,'+','') AS INTEGER) AS odds
+		CAST(REPLACE(odds_string,'+','') AS INTEGER) AS odds_int
 	FROM odds_of_prediction
-	ORDER BY odds DESC
-	LIMIT 3 
 ),
-profit_and_payout AS (
-	SELECT 
-		game_number, 
-		outcome, 
-		odds_string,
-		odds,
-		wager,
-		CASE 
-			WHEN odds > 0 THEN (wager / 100) * odds
-			ELSE (wager/(odds * -1)) * 100
-		END AS profit_untruncated,
-		CASE 
-			WHEN odds > 0 THEN wager + (wager / 100) * odds
-			ELSE wager + (wager/(odds * -1)) * 100
-		END AS payout_untruncated
-	FROM top_bets 
+top_bets AS (
+	SELECT *
+	FROM odds_as_int
+	ORDER BY odds_int DESC
+	LIMIT 3 
 )
 SELECT
 	game_number, 
 	outcome, 
 	odds_string as odds,
-	odds as odds_int,
 	CAST(wager AS integer) AS wager,
-	CAST(FLOOR(profit_untruncated) AS integer) AS profit_cents,
-	CAST(FLOOR(payout_untruncated) AS integer) AS payout_cents
-FROM profit_and_payout;
+	CAST(FLOOR(
+		CASE 
+			WHEN odds_int > 0 THEN (wager / 100) * odds_int
+			ELSE (wager/(odds_int * -1)) * 100
+		END
+	) AS integer) AS profit_cents
+FROM top_bets;

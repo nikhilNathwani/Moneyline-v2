@@ -42,36 +42,25 @@ odds_of_prediction AS (
 		END AS odds
 		FROM label_favorites
 ),
-profit AS (
+profit_per_game AS (
 	SELECT 
-		*,
-		CASE
-		-- Incorrect bet
-			WHEN outcome <> prediction THEN -1 * wager
-		-- Correct bet, positive odds
-			WHEN odds > 0 THEN (wager / 100) * odds
-		-- Correct bet, negative odds
-			ELSE (wager / (odds * -1)) * 100
-		END AS profit_untruncated
-	FROM odds_of_prediction
-),
-payout AS (
-	SELECT
-		*,
-		wager + profit_untruncated AS payout_untruncated
-	FROM profit
-),
-profit_and_payout AS (
-	SELECT
 		team,
 		seasonStartYear,
 		outcome, 
 		is_favorite,
 		odds,
 		wager,
-		FLOOR(profit_untruncated) AS profit_cents,
-		FLOOR(payout_untruncated) AS payout_cents
-	FROM payout
+		FLOOR(
+			CASE
+			-- Incorrect bet
+				WHEN outcome <> prediction THEN -1 * wager
+			-- Correct bet, positive odds
+				WHEN odds > 0 THEN (wager / 100) * odds
+			-- Correct bet, negative odds
+				ELSE (wager / (odds * -1)) * 100
+			END
+		) AS profit_cents
+	FROM odds_of_prediction
 )
 SELECT
 	team,
@@ -80,7 +69,6 @@ SELECT
 	is_favorite,
 	CAST(wager AS integer) AS wager,
 	CAST(COUNT(*) AS integer) AS num_games,
-	CAST(SUM(profit_cents) AS integer) AS total_profit_cents,
-	CAST(SUM(payout_cents) AS integer) AS total_payout_cents
-FROM profit_and_payout
+	CAST(SUM(profit_cents) AS integer) AS total_profit_cents
+FROM profit_per_game
 GROUP BY team, seasonStartYear, outcome, is_favorite, wager;
