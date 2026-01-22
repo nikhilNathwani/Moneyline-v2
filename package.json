@@ -6,16 +6,15 @@
 	"scripts": {
 		"start": "node server.js",
 		"dev": "NODE_ENV=development nodemon server.js",
+		"sync-env": "vercel env pull .env.development.local",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@vercel/postgres": "^0.9.0",
 		"express": "^4.19.2",
-		"pg": "^8.12.0",
-		"sqlite3": "^5.1.7"
+		"pg": "^8.12.0"
 	},
 	"devDependencies": {
 		"dotenv": "^16.5.0",
