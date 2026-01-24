@@ -5,6 +5,14 @@
 --      $2 = team
 --      $3 = prediction (boolean)
 --      $4 = wager
+--
+-- Sample Output:
+--      team | seasonStartYear | outcome | is_favorite | wager | num_games | total_profit_cents
+--      -----|-----------------|---------|-------------|-------|-----------|--------------------
+--      LAL  |      2023       |  true   |    true     |  100  |    42     |       1850
+--      LAL  |      2023       |  true   |    false    |  100  |    12     |       2400
+--      LAL  |      2023       |  false  |    true     |  100  |    18     |      -1800
+--      LAL  |      2023       |  false  |    false    |  100  |    10     |      -1000
 
 WITH integer_odds AS (
 	SELECT 

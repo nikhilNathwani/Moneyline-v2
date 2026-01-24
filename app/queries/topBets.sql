@@ -5,6 +5,13 @@
 --      $2 = team
 --      $3 = prediction (boolean)
 --      $4 = wager
+--
+-- Sample Output:
+--      game_number | outcome | odds  | wager | profit_cents
+--      ------------|---------|-------|-------|-------------
+--         1247     |  true   | +450  |  100  |     450
+--         1298     |  true   | +380  |  100  |     380
+--         1352     |  true   | +340  |  100  |     340
 
 WITH odds_of_prediction AS (
 	SELECT 
