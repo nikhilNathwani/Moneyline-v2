@@ -15,4 +15,4 @@ __pycache__/
 scrape/*.db
 
 # Sample SQL queries for database inspection
-app/queries/sampleQueries.sql
+app/queries/sampleQueries.sqlINTERVIEW_STORIES.md
