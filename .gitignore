@@ -24,3 +24,6 @@ data/.oddsportal_cache/
 app/queries/sampleQueries.sql
 
 INTERVIEW_STORIES.md
+
+# Local Tableau authoring data export (games.csv) — not app source
+/tableau/

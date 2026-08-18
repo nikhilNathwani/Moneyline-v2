@@ -156,7 +156,7 @@ function makeWinLossSection(
 		totalProfit >= 0 ? "correct" : "incorrect"
 	} bets.`;
 
-	//Make win-loss details
+	//Make win-loss diverging bar chart
 	const chipValues = {
 		"underdog-win-gameCount": numUnderdogWins,
 		"underdog-loss-gameCount": numUnderdogLosses,
@@ -167,27 +167,46 @@ function makeWinLossSection(
 		"favorite-win-profit": profitFavoriteWins,
 		"favorite-loss-profit": profitFavoriteLosses,
 	};
+
+	// Scale every bar relative to the single largest magnitude across
+	// all 4 categories, so bar lengths are honestly comparable to
+	// each other rather than each maxing out its own row.
+	const maxAbsProfit = Math.max(
+		Math.abs(profitUnderdogWins),
+		Math.abs(profitUnderdogLosses),
+		Math.abs(profitFavoriteWins),
+		Math.abs(profitFavoriteLosses)
+	);
+
 	["underdog", "favorite"].forEach((teamState) => {
 		["win", "loss"].forEach((outcome) => {
 			const prefix = teamState + "-" + outcome + "-";
 
-			const gameCount_chip = document.getElementById(
+			const gameCount_label = document.getElementById(
 				prefix + "gameCount"
 			);
 			populateResultElement({
-				element: gameCount_chip,
+				element: gameCount_label,
 				value: chipValues[prefix + "gameCount"] + " games",
 				textFormatFn: null,
 				applySignAndColor: false,
 			});
 
-			const profit_chip = document.getElementById(prefix + "profit");
+			const profitValue = chipValues[prefix + "profit"];
+			const profit_label = document.getElementById(prefix + "profit");
 			populateResultElement({
-				element: profit_chip,
-				value: chipValues[prefix + "profit"],
+				element: profit_label,
+				value: profitValue,
 				textFormatFn: formatCentsToDollars,
 				applySignAndColor: true,
 			});
+
+			const bar = document.getElementById(prefix + "bar");
+			const widthPercent =
+				maxAbsProfit === 0
+					? 0
+					: (Math.abs(profitValue) / maxAbsProfit) * 100;
+			bar.style.width = widthPercent + "%";
 		});
 	});
 }

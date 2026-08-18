@@ -61,13 +61,14 @@ teamNames.forEach((teamName) => {
 	teamSelect.appendChild(option);
 });
 
-// Populate wager dropdown
+// Populate wager dropdown (and default to $100, not the first/lowest option)
 wagers.forEach((amount) => {
 	const option = document.createElement("option");
 	option.value = amount;
 	option.textContent = "$" + amount;
 	wagerSelect.appendChild(option);
 });
+wagerSelect.value = 100;
 
 // Populate outcome dropdown
 outcomes.forEach((outcome) => {

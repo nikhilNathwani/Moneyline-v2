@@ -32,16 +32,20 @@
 		/>
 	</head>
 	<body>
-		<div id="app" class="awaitingFirstSubmit">
-			<div id="filter-container">
-				<div id="filter-content">
-					<div id="filter-header">
-						<h1 id="filter-title">NBA Bet Simulator</h1>
-						<p id="filter-subtitle">
-							Pick a team to win/lose every game of a season.
-							Could this simple strategy pay off?
-						</p>
-					</div>
+		<div id="app">
+			<aside id="filter-panel">
+				<button
+					id="filters-expand-toggle"
+					aria-label="Hide filter details"
+				>
+					&#9662;
+				</button>
+				<h1 id="filter-title">NBA Moneyline</h1>
+				<div id="filter-body">
+					<p id="filter-subtitle">
+						Pick a team to win/lose every game of a season.
+						Could this simple strategy pay off?
+					</p>
 					<div id="filter-paragraph">
 						<div class="filter-row">
 							<div>Team</div>
@@ -65,17 +69,18 @@
 					</div>
 					<button id="submit-button">View Results</button>
 				</div>
-			</div>
-			<div id="result-container">
-				<button id="return-to-filters">
-					&#8679; Return to filters
-				</button>
+			</aside>
+			<main id="result-container">
 				<div class="result disappear" id="total-profit-result">
 					<div class="result-banner" id="total-profit-banner">
 						<p></p>
 						<span></span>
 						<p>at season's end.</p>
 					</div>
+					<div
+						class="profit-chart-container"
+						id="profit-chart-container"
+					></div>
 				</div>
 				<div class="result disappear" id="roi-result">
 					<div class="result-banner" id="roi-banner">
@@ -128,62 +133,90 @@
 						<span></span>
 						<span>incorrect bets.</span>
 					</div>
-					<div class="result-details" id="win-loss-details">
-						<div class="result-detail-row">
-							<div class="result-chip">
-								<div class="result-chip-title">
-									Lost as Underdog
-								</div>
-								<div
-									class="result-chip-value"
+					<div class="diverging-chart" id="win-loss-chart">
+						<div class="diverging-chart-row">
+							<div class="diverging-chart-label">
+								Lost as Underdog
+								<span
+									class="diverging-chart-count"
 									id="underdog-loss-gameCount"
-								></div>
-								<div
-									class="result-chip-value"
-									id="underdog-loss-profit"
-								></div>
+								></span>
 							</div>
-							<div class="result-chip">
-								<div class="result-chip-title">
-									Lost as Favorite
-								</div>
+							<div class="diverging-chart-track">
 								<div
-									class="result-chip-value"
-									id="favorite-loss-gameCount"
+									class="diverging-chart-bar negative"
+									id="underdog-loss-bar"
 								></div>
-								<div
-									class="result-chip-value"
-									id="favorite-loss-profit"
-								></div>
+								<div class="diverging-chart-zero"></div>
+								<div class="diverging-chart-bar positive"></div>
 							</div>
+							<div
+								class="diverging-chart-value"
+								id="underdog-loss-profit"
+							></div>
 						</div>
-						<div class="result-detail-row">
-							<div class="result-chip">
-								<div class="result-chip-title">
-									Won as Underdog
-								</div>
+						<div class="diverging-chart-row">
+							<div class="diverging-chart-label">
+								Lost as Favorite
+								<span
+									class="diverging-chart-count"
+									id="favorite-loss-gameCount"
+								></span>
+							</div>
+							<div class="diverging-chart-track">
 								<div
-									class="result-chip-value"
+									class="diverging-chart-bar negative"
+									id="favorite-loss-bar"
+								></div>
+								<div class="diverging-chart-zero"></div>
+								<div class="diverging-chart-bar positive"></div>
+							</div>
+							<div
+								class="diverging-chart-value"
+								id="favorite-loss-profit"
+							></div>
+						</div>
+						<div class="diverging-chart-row">
+							<div class="diverging-chart-label">
+								Won as Underdog
+								<span
+									class="diverging-chart-count"
 									id="underdog-win-gameCount"
-								></div>
+								></span>
+							</div>
+							<div class="diverging-chart-track">
+								<div class="diverging-chart-bar negative"></div>
+								<div class="diverging-chart-zero"></div>
 								<div
-									class="result-chip-value"
-									id="underdog-win-profit"
+									class="diverging-chart-bar positive"
+									id="underdog-win-bar"
 								></div>
 							</div>
-							<div class="result-chip">
-								<div class="result-chip-title">
-									Won as Favorite
-								</div>
-								<div
-									class="result-chip-value"
+							<div
+								class="diverging-chart-value"
+								id="underdog-win-profit"
+							></div>
+						</div>
+						<div class="diverging-chart-row">
+							<div class="diverging-chart-label">
+								Won as Favorite
+								<span
+									class="diverging-chart-count"
 									id="favorite-win-gameCount"
-								></div>
+								></span>
+							</div>
+							<div class="diverging-chart-track">
+								<div class="diverging-chart-bar negative"></div>
+								<div class="diverging-chart-zero"></div>
 								<div
-									class="result-chip-value"
-									id="favorite-win-profit"
+									class="diverging-chart-bar positive"
+									id="favorite-win-bar"
 								></div>
 							</div>
+							<div
+								class="diverging-chart-value"
+								id="favorite-win-profit"
+							></div>
 						</div>
 					</div>
 				</div>
@@ -270,10 +303,9 @@
 				<div id="data-source" class="disappear">
 					Data from oddsportal.com
 				</div>
-			</div>
+			</main>
 		</div>
 		<!-- 1. Utilities (low-level helpers used app-wide) -->
-		<script src="js/view/utils/getScreenSize.js"></script>
 		<script src="js/view/utils/getTransitionDuration.js"></script>
 		<script src="js/view/utils/formatResultValue.js"></script>
 
@@ -287,15 +319,14 @@
 
 		<!-- 4. Results UI setup -->
 		<script src="js/view/transitions/fade.js"></script>
-		<script src="js/view/transitions/initResults.js"></script>
-		<script src="js/view/transitions/resetResults.js"></script>
 		<script src="js/view/utils/populateElement.js"></script>
 		<script src="js/view/renderResultSummary.js"></script>
 		<script src="js/view/renderTopBets.js"></script>
+		<script src="js/view/renderProfitChart.js"></script>
 
 		<!-- 5. Event Handlers (last, since they use UI + API functions) -->
-		<script src="js/events/handleReturnToFilters.js"></script>
+		<script src="js/events/handleFiltersExpandToggle.js"></script>
 		<script src="js/events/handleSubmit.js"></script>
-		<script src="js/events/manageScroll.js"></script>
+		<script src="js/events/handleSeasonChange.js"></script>
 	</body>
 </html>

@@ -1,15 +1,34 @@
+/* Light/modern palette — every text/background pairing here was checked
+   against WCAG contrast (not eyeballed): all >= 4.5:1 (AA-normal) except
+   pure decorative fills/borders, which don't carry text. See git history
+   for the computed values if this ever needs re-deriving. */
+/* Rethought after the mint/teal version still felt off: the filter
+   panel and results area now share ONE neutral surface color instead
+   of two different tinted zones that had to be color-matched against
+   each other — separation comes from a border/shadow alone (see
+   #filter-panel's border-right on wide, box-shadow on narrow). The
+   accent color is used sparingly (button, small text, focus rings)
+   rather than as a background wash anywhere, and moved from green to
+   blue so it's never visually confusable with the positive/negative
+   green/red used for actual bet outcomes. */
 :root {
-	--minHeight-app: 600px;
-	--width-filterContent: 400px;
-	/* --color-accent: hsl(212, 26%, 29%); */
-	--color-accent: hsl(160, 15%, 32%); /* fenway green */
-	--color-white: white;
-	--color-light: hsl(0, 0%, 89%);
-	--color-bg: hsl(0, 0%, 93%);
-	--color-positive: hsl(147, 44%, 35%);
-	--color-positive-light: hsl(147, 44%, 90%);
-	--color-negative: hsl(0, 95%, 35%);
-	--color-negative-light: hsl(0, 95%, 95%);
+	--width-filterPanel: 380px;
+
+	--color-brand: #1e293b; /* near-black (same as --color-ink) — buttons, small
+		accents, focus rings, never a background fill. Blue was a third hue on
+		top of the red/green already carrying real meaning (win/loss); the
+		app's own chrome doesn't need a hue at all, just ink. */
+	--color-brand-dark: #0f172a; /* one step darker, for pressed-button edges */
+	--color-page-bg: #f8fafc; /* the one shared neutral — filter panel AND results area */
+	--color-white: #ffffff;
+	--color-light: #eef2f6; /* light neutral fill (table header row) */
+	--color-border: #d7dee6; /* hairline borders */
+	--color-ink: #1e293b; /* primary text */
+	--color-muted: #64748b; /* secondary/muted text */
+	--color-positive: #15803d;
+	--color-positive-light: #dcfce7;
+	--color-negative: #b91c1c;
+	--color-negative-light: #fee2e2;
 }
 
 *,
@@ -21,69 +40,94 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     APP LAYOUT                                           */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Filters and results are always visible together, at every screen
+   size. On wide screens the filter panel is a sticky sidebar; on
+   narrow screens it collapses into a small pill bar pinned to the
+   top instead of taking over the screen — no full-screen takeover
+   state, no drawer, no JS-driven layout switching, just a responsive
+   grid. The whole page scrolls as one normal document (no split
+   internal scroll panes), so there's nothing to keep in sync between
+   layouts. */
 #app {
-	/* --width-filterContainer: 100%; */
-	--width-filterContainer: 400px;
-
-	min-height: var(--minHeight-app);
-	overflow-y: scroll;
-
 	display: grid;
-	grid-template-columns: var(--width-filterContainer) 1fr;
-	/* ^Note: --width-filterContainer is set within 
-	    the 'initial mode' and 'adjacent mode' classes */
-	transition: grid-template-columns 0.6s ease;
-
-	/* background-color: var(--color-accent); */
+	grid-template-columns: var(--width-filterPanel) 1fr;
+	min-height: 100vh;
+	min-height: 100svh;
 }
 
-@media (max-height: 599px) {
+@media (max-width: 999px) {
 	#app {
-		overflow-y: hidden;
+		grid-template-columns: 1fr;
 	}
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /*                                                          */
-/*     FILTER AREA                                          */
+/*     FILTER PANEL                                         */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#filter-container {
-	height: 100vh;
-	height: 100svh;
-	/* height: 100dvh; */
-	/* ^I use dvh in initial mode only, because it causes
-	    jitteriness on mobile when URL bar minimizes */
-	min-height: var(--minHeight-app);
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	background-color: var(--color-accent);
+/* White, not the shared page-bg — white already means "discrete,
+   interactive surface" everywhere else (cards, dropdown pills, the
+   button); the filter panel holds all the actual controls, so it
+   should read that way too, not blend into the passive results
+   backdrop. Dropdowns flip to page-bg in exchange (see
+   #filter-paragraph select below), so each zone's container and
+   contents stay opposite tones of each other: white panel / gray
+   controls vs. gray results page / white cards. */
+#filter-panel {
+	color: var(--color-ink);
+	background-color: var(--color-white);
 }
 
-#filter-content {
-	width: var(--width-filterContent);
-	padding-inline: 3rem;
-
-	display: flex;
-	flex-direction: column;
-	gap: 2.25rem;
-}
-
-#filter-header {
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	gap: 0.5rem;
-
-	color: var(--color-bg);
-}
-
-#filter-header h1 {
+#filter-title {
+	padding: 1.5rem 3rem 0 3rem;
 	font-family: "Paytone One", sans-serif;
-	font-size: 2.5rem;
+	font-size: 1.5rem;
+	/* Muted, not near-black — the display font already carries the
+	   personality via its shape; full ink on top of that read as
+	   shouting. */
+	color: var(--color-muted);
+}
+
+#filter-body {
+	padding: 1.5rem 3rem 2.5rem 3rem;
+
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+/* Narrow-only (hidden on wide — see the min-width:1000px block below)
+   — manually re-expands the tall onboarding view after it's been
+   collapsed. Positioned/shown only within the narrow media query;
+   this is just its visual styling. */
+#filters-expand-toggle {
+	width: 2rem;
+	height: 2rem;
+
+	border: none;
+	border-radius: 999px;
+	background: transparent;
+
+	color: var(--color-muted);
+	font-size: 0.9rem;
+	line-height: 1;
+
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+#app.filters-collapsed #filters-expand-toggle {
+	transform: rotate(180deg);
+}
+
+#filter-subtitle {
+	margin-top: -1rem;
 }
 
 #filter-paragraph {
@@ -91,44 +135,206 @@
 	flex-flow: column nowrap;
 	justify-content: center;
 	gap: 1.25rem;
-
-	color: var(--color-bg);
 }
 
+/* Same pill treatment on both breakpoints (rounded, bordered, white,
+   with real hover/focus feedback) — only size/layout differ between
+   the stacked wide sidebar and the compact narrow chip row, via the
+   breakpoint-specific overrides further down. */
 #filter-paragraph select {
 	width: 100%;
-	height: 2rem;
+	height: 2.5rem;
 	margin-top: 3px;
+	padding-inline: 1rem;
+
+	border: 1.5px solid var(--color-border);
+	border-radius: 999px;
 
 	font-size: 1rem;
-	font-weight: bold;
+	font-weight: 500; /* was bold — a form's current value doesn't need emphasis, just legibility */
 
-	color: var(--color-accent);
-	background-color: var(--color-bg);
+	color: var(--color-ink);
+	background-color: var(--color-page-bg);
+
+	transition:
+		border-color 0.15s ease,
+		box-shadow 0.15s ease;
 }
 
+#filter-paragraph select:hover {
+	border-color: var(--color-brand);
+}
+
+#filter-paragraph select:focus-visible {
+	outline: none;
+	border-color: var(--color-brand);
+	/* Gap ring matches the PANEL's white, not the select's own
+	   page-bg fill — the gap sits outside the select's border, where
+	   the panel surface actually is. */
+	box-shadow: 0 0 0 3px var(--color-white), 0 0 0 4.5px var(--color-brand);
+}
+
+/* Flat, not the old chunky embossed/3D-press button (thick
+   mismatched border widths simulating a physical button edge) — that
+   was left over from the original app's playful-but-heavy look and
+   didn't match the flatter, quieter language the rest of the app has
+   since converged on. Solid fill still marks it as the primary
+   action; a subtle opacity/scale change on interaction is enough
+   feedback without the extra visual weight. */
 button#submit-button {
 	width: fit-content;
 	height: 3rem;
 	padding-inline: 1.5ch;
-	margin: auto;
+	margin-inline: auto;
 
-	border-radius: 6px;
-	border: 2px solid var(--color-bg);
-	border-bottom: 4px solid var(--color-bg);
+	border-radius: 999px;
+	border: none;
 
 	font-size: 1rem;
-	font-weight: bold;
+	font-weight: 600;
 
-	color: var(--color-bg);
-	background-color: var(--color-accent);
+	color: var(--color-white);
+	background-color: var(--color-brand);
 
 	cursor: pointer;
+	transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+button#submit-button:hover {
+	opacity: 0.88;
 }
 
 button#submit-button:active {
-	transform: translateY(2px);
-	border-bottom-width: 2px;
+	transform: scale(0.97);
+}
+
+/* Wide: sticky sidebar pinned at exactly the viewport's height (not
+   stretched to match #result-container's much taller content), with
+   its content vertically centered within that one screen's worth of
+   space. Sticky's containing block is still the full grid row
+   (matching results), so it stays pinned throughout the whole
+   scroll. */
+@media (min-width: 1000px) {
+	#filter-panel {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		height: 100svh;
+
+		/* The old dark sidebar didn't need a border to read as its own
+		   surface — stark dark-vs-light contrast did that for free.
+		   Two light surfaces this close in lightness (panel-bg vs
+		   page-bg) need an explicit edge instead. */
+		border-right: 1px solid var(--color-border);
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	/* Never collapses on wide — filters are always fully visible in
+	   the sidebar there, so there's nothing for this toggle to do. */
+	#filters-expand-toggle {
+		display: none;
+	}
+}
+
+/* Narrow: two states.
+   EXPANDED (default — first load, or after manually reopening) reuses
+   the SAME stacked/labeled layout the wide sidebar already uses
+   (title, subtitle, full labeled dropdowns — see the unconditional
+   #filter-title/#filter-body/#filter-paragraph rules above), just
+   bottom-anchored and ~70% of the viewport tall instead of a left
+   sidebar. This is what a first-time visitor on a narrow screen sees
+   before doing anything — without it, landing straight on a bare
+   value strip with no title/subtitle gives no clue what the app even
+   is or what the values mean.
+   COLLAPSED (after submitting, or manually collapsed) shrinks to a
+   small pill bar — title/subtitle hidden, every field flattened via
+   display:contents into one flex-wrap row of pills sized to their own
+   content. Native <select> keeps its default appearance (not
+   appearance:none) — the OS's own dropdown affordance is a clearer
+   "tap to change this" signal than any custom icon would be. */
+@media (max-width: 999px) {
+	#filter-panel {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 20;
+
+		min-height: 70vh;
+		min-height: 70svh;
+		padding-bottom: env(safe-area-inset-bottom, 0px);
+
+		border-radius: 16px 16px 0 0;
+		box-shadow: 0 -2px 6px rgba(15, 23, 42, 0.1);
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	#filters-expand-toggle {
+		position: absolute;
+		top: 0.75rem;
+		right: 1rem;
+		z-index: 1;
+	}
+
+	#app.filters-collapsed #filter-panel {
+		min-height: 0;
+		padding: 0.75rem 1rem
+			calc(0.75rem + env(safe-area-inset-bottom, 0px)) 1rem;
+
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 0.5rem;
+	}
+
+	#app.filters-collapsed #filter-title,
+	#app.filters-collapsed #filter-subtitle {
+		display: none;
+	}
+
+	#app.filters-collapsed #filter-body,
+	#app.filters-collapsed #filter-paragraph,
+	#app.filters-collapsed .filter-row {
+		display: contents;
+	}
+
+	#app.filters-collapsed .filter-row > div:first-child {
+		display: none;
+	}
+
+	#app.filters-collapsed #filter-paragraph select {
+		width: auto;
+		height: auto;
+		margin-top: 0;
+		padding: 0.4rem 0.9rem;
+
+		font-size: 0.85rem;
+	}
+
+	#app.filters-collapsed button#submit-button {
+		height: auto;
+		margin-inline: 0;
+		padding: 0.4rem 0.9rem;
+
+		font-size: 0.85rem;
+	}
+
+	/* In the tall expanded panel this is absolutely positioned in the
+	   corner (plenty of room). In the short collapsed bar that same
+	   absolute position overlapped the pills next to it — here it's a
+	   normal flex item instead, pushed to the end of the row with
+	   order so it doesn't disturb the pills' own order. */
+	#app.filters-collapsed #filters-expand-toggle {
+		position: static;
+		order: 1;
+	}
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -137,21 +343,28 @@ button#submit-button:active {
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #result-container {
-	display: none;
+	padding-block: 3rem;
+	background-color: var(--color-page-bg);
+}
 
-	height: fit-content;
-	min-height: var(--minHeight-app);
-	/* padding-block: 3rem; */
-
-	background-color: var(--color-bg);
+/* The narrow filter bar is position:fixed at the bottom (see
+   #filter-panel above), which — unlike the old sticky-in-flow bar —
+   takes it out of document flow entirely, so nothing reserves space
+   for it automatically. Reserve a generous estimate here instead of
+   measuring the bar's actual height with JS: it wraps to at most 2
+   rows of pills, so this comfortably covers it with room to spare
+   rather than risking the bar covering the last bit of content. */
+@media (max-width: 999px) {
+	#result-container {
+		padding-bottom: calc(9rem + env(safe-area-inset-bottom, 0px));
+	}
 }
 
 #data-source {
 	text-align: center;
-	/* padding: 2rem 0 3rem 0; */
-	color: hsl(0, 0%, 50%);
+	color: var(--color-muted);
 	font-size: 0.85rem;
-	margin-bottom: 5.25rem;
+	margin-bottom: 1.5rem;
 	transition: opacity 0.5s ease;
 }
 
@@ -159,20 +372,34 @@ button#submit-button:active {
 	opacity: 0;
 }
 
+/* Each section's headline banner + its supporting chart/chips/bars
+   now share ONE white card instead of a boxed banner with bare
+   metadata floating below it on the page background — they're a
+   headline and its evidence, not two separate things, and the visual
+   treatment should say so (this is also what the dataviz skill's
+   "chart container" component describes: one container owns its
+   title AND its content). .result is already the common parent of
+   both in every section, so this only needed to move up one level,
+   not restructure any HTML. */
 .result {
 	--paddingBottom-resultChip: 1.5rem;
-	--marginBottom-result: 4.5rem;
+	--marginBottom-result: 5.5rem; /* was 4.5rem — a bit more room between sections now that each is a visible card, not just floating text */
 	--marginTop-result: calc(
 		var(--marginBottom-result) - var(--paddingBottom-resultChip)
 	);
 
 	width: min(80vw, 64ch);
 	margin: var(--marginTop-result) auto var(--marginBottom-result) auto;
+	padding: 2rem 1.5rem;
+
+	border: 1px solid var(--color-border);
+	border-radius: 16px;
+	background-color: var(--color-white);
 
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
-	gap: 1.5rem;
+	gap: 1.25rem;
 
 	transition: opacity 0.5s ease;
 }
@@ -184,27 +411,6 @@ button#submit-button:active {
 .result.disappear {
 	opacity: 0;
 	transition: opacity 0.5s ease;
-}
-
-button#return-to-filters {
-	width: 80%;
-	margin-inline: 10%;
-	height: 3rem;
-	border-width: 1px;
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
-
-	position: fixed;
-	bottom: 1rem;
-	z-index: 999;
-
-	color: var(--color-bg);
-	background-color: var(--color-accent);
-
-	font-size: 1rem;
-	font-weight: bold;
-
-	cursor: pointer;
 }
 
 /* Mobile adjustments*/
@@ -219,34 +425,33 @@ button#return-to-filters {
 /*     RESULT BANNER                                        */
 /*                                                          */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Box styling (background/border/radius/padding) now lives on .result
+   — the shared card wrapping this banner AND its supporting
+   chart/chips/bars below. This is just the text treatment now. */
 .result-banner {
-	--paddingX-banner: 1.5rem;
-	--paddingY-banner: 2rem;
 	--paddingY-profitBanner: 3rem;
 	--gap-banner: 2rem;
 	--fs-banner: 2.5rem;
 	--fs-totalProfit: 4.5rem;
 
 	width: 100%;
-	padding: var(--paddingY-banner) var(--paddingX-banner);
-
-	/* border: 3px solid var(--color-light); */
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
 	font-size: var(--fs-banner);
 	text-align: center;
 
-	color: var(--color-accent);
-	background-color: var(--color-white);
+	color: var(--color-ink);
 }
 
+/* Semibold, not bold — at the banner's own large font-size, full
+   bold stacked on top of the color was double-emphasis; the color
+   alone already does the job of marking these as the point. */
 .result-banner .positive {
-	font-weight: bold;
+	font-weight: 600;
 	color: var(--color-positive);
 }
 
 .result-banner .negative {
-	font-weight: bold;
+	font-weight: 600;
 	color: var(--color-negative);
 }
 
@@ -260,21 +465,140 @@ button#return-to-filters {
 	margin-block: 3rem 1.5rem;
 }
 
-#total-profit-banner span {
+/* Direct-child combinator, not a bare descendant selector — the
+   dollar-amount span is a direct child of the banner, but the new
+   profit chart's "Game 1"/"Game 82" labels are also <span>s nested
+   inside it (via .profit-chart-labels) and must NOT inherit this
+   size. A descendant selector caught both; this catches only the one
+   it was meant for. */
+#total-profit-banner > span {
 	font-size: var(--fs-totalProfit);
 }
 
 /* Mobile adjustments*/
 @media (max-width: 519px) {
+	/* Card padding now lives on .result (see above) — reduced here to
+	   match the original --paddingX/Y-banner mobile values, which
+	   this replaces now that the box itself moved up a level. */
+	.result {
+		padding: 2rem 1rem;
+	}
+
 	.result-banner {
-		--paddingX-banner: 1rem;
-		--paddingY-banner: 2rem;
 		--paddingY-profitBanner: 2rem;
-		--marginBottom-banner: 3.5rem;
 		--gap-banner: 1rem;
 		--fs-banner: 1.625rem;
 		--fs-totalProfit: 2.75rem;
 	}
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     PROFIT CHART (cumulative profit across the season)   */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* The visual proof of the hero banner's headline number —
+   shows the trajectory the final number hides, not just the
+   destination. Diverging area wash (green above zero, red
+   below) marks which stretches of the season were up vs down;
+   the line itself stays neutral ink so it reads clearly against
+   either wash. HTML-wise this is still a sibling of the banner
+   text, not nested inside it — but both now sit inside the same
+   shared white .result card (see .result above), so visually
+   they read as one section regardless of the DOM nesting. */
+.profit-chart-container {
+	width: 100%;
+	max-width: 32rem;
+	margin-inline: auto;
+}
+
+/* Y-axis label — a caption above the chart rather than rotated axis
+   text alongside it, which would add real complexity for a chart
+   this compact. */
+.profit-chart-title {
+	margin-bottom: 0.5rem;
+
+	font-size: 0.8rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: var(--color-muted);
+	text-align: center;
+}
+
+/* aspect-ratio (not a fixed pixel height) keeps width:height scaling
+   identical at any container width — with preserveAspectRatio="none"
+   on the SVG, a fixed height against a responsive width made the x
+   and y scale factors diverge, stretching every mark (text most
+   visibly) non-uniformly. This guarantees they never can. */
+.profit-chart-svg {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 600 / 140;
+}
+
+.profit-chart-zero-line {
+	stroke: var(--color-border);
+	stroke-width: 1;
+}
+
+.profit-chart-line {
+	fill: none;
+	stroke: var(--color-ink);
+	stroke-width: 2;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+
+.profit-chart-area {
+	stroke: none;
+}
+
+.profit-chart-area.positive {
+	fill: var(--color-positive);
+	opacity: 0.1;
+}
+
+.profit-chart-area.negative {
+	fill: var(--color-negative);
+	opacity: 0.1;
+}
+
+/* Data-point markers — shared by the peak, the trough, and the end
+   (Game N) marker; the end marker is drawn bigger (r=5 vs r=3) so it
+   reads as the "headline" point the hero banner above is stating,
+   with peak/trough as smaller supporting context. Per the dataviz
+   skill: label the endpoint and the extremes, never every point —
+   the end marker always labels its value; a peak/trough that happens
+   to land on the same final game skips its own duplicate marker (see
+   renderProfitChart.js) rather than drawing two overlapping dots. */
+/* White ring, not page-bg — the chart now sits inside the same white
+   .result card as its banner (see .result above), not bare on the
+   page background. */
+.profit-chart-dot {
+	stroke: var(--color-white);
+	stroke-width: 2;
+}
+
+.profit-chart-dot.positive {
+	fill: var(--color-positive);
+}
+
+.profit-chart-dot.negative {
+	fill: var(--color-negative);
+}
+
+.profit-chart-value-label {
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.profit-chart-value-label.positive {
+	fill: var(--color-positive);
+}
+
+.profit-chart-value-label.negative {
+	fill: var(--color-negative);
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -288,8 +612,6 @@ button#return-to-filters {
 	flex-flow: row wrap;
 	align-items: center;
 	justify-content: center;
-	/* grid-template-columns: repeat(auto-fit, minmax(50%, 1fr)); */
-	/* gap: 1rem; */
 }
 
 .result-detail-row {
@@ -304,40 +626,140 @@ button#return-to-filters {
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
-	/* gap: 0.375rem; */
-	/* justify-content: center; */
 
-	color: var(--color-accent);
-	/* color: hsl(212, 26%, 29%); */
+	color: var(--color-ink);
 }
 
+/* Small muted caption instead of an underline — underlined non-link
+   text reads a little dated, and this is the more standard modern
+   "eyebrow label above a value" stat-tile pattern. */
 .result-chip-title {
 	margin-bottom: 0.375rem;
-	text-decoration: underline;
-	text-underline-offset: 2px;
+
+	font-size: 0.8rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	color: var(--color-muted);
 }
 
 .result-chip-value {
 	padding: 0.75ch 1ch;
-	border-radius: 6px;
+	border-radius: 999px;
+
+	font-size: 1.05rem;
+	font-weight: 600; /* semibold, not bold — matches the stat-tile "value" spec */
 }
 
 .result-chip-value.positive {
 	background-color: var(--color-positive-light);
 	color: var(--color-positive);
-	/* background-color: hsl(150, 28%, 90%);
-	color: hsl(150, 42%, 32%); */
 }
 
 .result-chip-value.negative {
 	background-color: var(--color-negative-light);
 	color: var(--color-negative);
-	/* background-color: hsl(0, 28%, 90%);
-	color: hsl(0, 52%, 40%); */
 }
 
 #top-bets-result .result-details {
 	flex-flow: column nowrap;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*                                                          */
+/*     DIVERGING BAR CHART (win/loss breakdown)             */
+/*                                                          */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* 4 categories, each a signed dollar amount around a zero
+   baseline — losses always render left of center (red), wins
+   always right (green), by construction (a "lost" bet can't have
+   positive profit). Bar length is set per-row via inline style
+   (width: N%) in JS, scaled relative to the largest |value| across
+   all 4 rows so bars are comparable at a glance. */
+.diverging-chart {
+	width: 100%;
+	max-width: 32rem;
+	margin-inline: auto;
+
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.diverging-chart-row {
+	display: grid;
+	grid-template-columns: 8rem 1fr 4.5rem;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.diverging-chart-label {
+	font-size: 0.85rem;
+	color: var(--color-ink);
+	text-align: right;
+}
+
+.diverging-chart-count {
+	display: block;
+	font-size: 0.75rem;
+	color: var(--color-muted);
+}
+
+.diverging-chart-track {
+	display: grid;
+	grid-template-columns: 1fr 2px 1fr;
+	align-items: center;
+	height: 20px;
+}
+
+.diverging-chart-zero {
+	grid-column: 2;
+	width: 2px;
+	height: 100%;
+	background-color: var(--color-border);
+}
+
+.diverging-chart-bar {
+	height: 20px;
+	width: 0%; /* JS sets the real width; 0 until populated */
+}
+
+.diverging-chart-bar.negative {
+	grid-column: 1;
+	justify-self: end;
+	background-color: var(--color-negative);
+	border-radius: 4px 0 0 4px; /* rounded outer end, square at the zero line */
+}
+
+.diverging-chart-bar.positive {
+	grid-column: 3;
+	justify-self: start;
+	background-color: var(--color-positive);
+	border-radius: 0 4px 4px 0;
+}
+
+.diverging-chart-value {
+	font-size: 0.85rem;
+	font-weight: 600;
+}
+
+.diverging-chart-value.positive {
+	color: var(--color-positive);
+}
+
+.diverging-chart-value.negative {
+	color: var(--color-negative);
+}
+
+/* Mobile: labels don't have room to sit beside the track */
+@media (max-width: 519px) {
+	.diverging-chart-row {
+		grid-template-columns: 5.5rem 1fr 4rem;
+		gap: 0.5rem;
+	}
+
+	.diverging-chart-label {
+		font-size: 0.75rem;
+	}
 }
 
 table {
@@ -347,81 +769,13 @@ table {
 
 th,
 td {
-	border: 1px solid var(--color-accent);
+	border: 1px solid var(--color-border);
 	padding: 0.5rem 0.625rem;
-	text-align: left; /* Align text to the left */
+	text-align: left;
+	color: var(--color-ink);
 }
 
 th {
 	font-weight: normal;
 	background-color: var(--color-light);
-}
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/*                                                          */
-/*     STACKED LAYOUT (narrow screen)                       */
-/*                                                          */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-@media (max-width: 999px), (max-height: 599px) {
-	#app {
-		display: flex;
-		flex-flow: column nowrap;
-		overflow-y: hidden;
-	}
-
-	#result-container {
-		display: block;
-		height: fit-content;
-	}
-
-	/* Prevent jarring fadeout as screen scrolls down */
-	.result.disappear {
-		transition: none;
-	}
-}
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/*                                                          */
-/*     ADJACENT LAYOUT (wide screen)                        */
-/*                                                          */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-@media (min-width: 1000px) and (min-height: 600px) {
-	#app {
-		--width-filterContainer: 400px;
-		overflow-y: hidden;
-	}
-
-	#filter-container {
-		z-index: 2;
-		box-shadow: 10px 0px 6px rgba(0, 0, 0, 0.2);
-	}
-
-	#result-container {
-		display: block;
-
-		height: 100vh;
-		height: 100dvh;
-		overflow-y: scroll;
-	}
-}
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/*                                                          */
-/*     INITIAL VIEW (before first submit)                   */
-/*                                                          */
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-/* Filter view is full screen when you first land on app */
-#app.awaitingFirstSubmit {
-	--width-filterContainer: 100%;
-	overflow-y: scroll;
-}
-
-#app.animatedCollapse {
-	transition: grid-template-columns 0.6s ease;
-}
-
-.awaitingFirstSubmit #result-container {
-	display: none;
 }

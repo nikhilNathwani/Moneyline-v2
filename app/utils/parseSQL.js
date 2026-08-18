@@ -12,4 +12,19 @@ const topBetsQuery = fs.readFileSync(
 	"utf8"
 );
 
-module.exports = { resultSummaryQuery, topBetsQuery };
+const teamRecordsQuery = fs.readFileSync(
+	path.join(__dirname, "../queries", "teamRecords.sql"),
+	"utf8"
+);
+
+const perGameProfitQuery = fs.readFileSync(
+	path.join(__dirname, "../queries", "perGameProfit.sql"),
+	"utf8"
+);
+
+module.exports = {
+	resultSummaryQuery,
+	topBetsQuery,
+	teamRecordsQuery,
+	perGameProfitQuery,
+};
