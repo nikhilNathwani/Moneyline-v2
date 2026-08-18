@@ -1,0 +1,28 @@
+name: Verify Vercel Preview (temporary)
+
+on:
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: "Vercel preview base URL (no trailing slash)"
+        required: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl root path
+        run: |
+          echo "=== GET / ==="
+          curl -sS -i "${{ github.event.inputs.preview_url }}/" | head -c 2000
+          echo
+      - name: Curl /api/top-bets
+        run: |
+          echo "=== GET /api/top-bets ==="
+          curl -sS -i "${{ github.event.inputs.preview_url }}/api/top-bets" | head -c 2000
+          echo
+      - name: Curl /api/result-summary
+        run: |
+          echo "=== GET /api/result-summary ==="
+          curl -sS -i "${{ github.event.inputs.preview_url }}/api/result-summary" | head -c 2000
+          echo
