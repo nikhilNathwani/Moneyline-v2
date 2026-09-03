@@ -1,10 +1,19 @@
 # NBA Moneyline
 
-Web app that simulates a simple NBA betting strategy against historical moneyline odds.
+Simulates a simple NBA betting strategy against historical moneyline odds: pick a team, season, prediction direction (bet on win vs. bet on loss), and wager size, and see what the season result would have been.
+
+Shipped two ways:
+
+| | Link | Stack |
+|---|---|---|
+| **Tableau dashboard** | [public.tableau.com/…/NBAMoneyline](https://public.tableau.com/views/NBAMoneyline/NBAMoneyline) | Tableau Public — parameter-driven calculated fields, a running-total table calc, a favorite/underdog breakdown |
+| **Web app** | [nba-moneyline.vercel.app](https://nba-moneyline.vercel.app) | Node/Express + PostgreSQL + vanilla JS, deployed on Vercel |
+
+Both are fed by the same Python/Selenium data pipeline (`data/`). The rest of this README covers the web app; see [Tableau dashboard](#tableau-dashboard) below for that version.
 
 ## Overview
 
-NBA Moneyline lets a user choose a team, season, prediction direction (bet on win vs bet on loss), and wager size, then computes what the season result would have been. The app combines:
+The **web app** lets a user choose a team, season, prediction direction (bet on win vs bet on loss), and wager size, then computes what the season result would have been. It combines:
 
 - A Node/Express API for querying outcomes
 - PostgreSQL for game and odds data
@@ -26,6 +35,7 @@ NBA Moneyline lets a user choose a team, season, prediction direction (bet on wi
 - Vanilla JavaScript, HTML, CSS
 - Python (Selenium, BeautifulSoup, psycopg2) for scraping/migration
 - Vercel deployment
+- Tableau Public (for the dashboard version — see below)
 
 ## Project Structure
 
@@ -55,6 +65,10 @@ data/
   publish/                    # Migrate verified games to production, update frontend
   util/                       # Shared data model, constants, and output formatting
   YEARLY_WORKFLOW.md          # Operational yearly procedure
+
+tableau/
+  NBA Moneyline.twbx          # Published Tableau Public workbook
+  games.csv                   # Data export the workbook reads
 ```
 
 ## API Endpoints
@@ -109,6 +123,18 @@ The `data/` directory contains the yearly ingestion flow:
 
 See `data/README.md` and `data/YEARLY_WORKFLOW.md` for full operational details.
 
+## Tableau dashboard
+
+`tableau/NBA Moneyline.twbx` is the published workbook
+([Tableau Public](https://public.tableau.com/views/NBAMoneyline/NBAMoneyline)) —
+a data-analyst-portfolio rebuild of the same simulator.
+
+- Reads `tableau/games.csv`, an export of the pipeline's PostgreSQL data (30 teams, seasons 2016–2025, ~24k team-games with odds).
+- The payout and ROI math the web app does in `resultSummary.sql` is reimplemented as Tableau calculated fields, driven by Team / Season / Prediction / Wager parameters.
+- Adds a cumulative-profit line and a favorite/underdog diverging-bar breakdown — neither exists in the web app.
+
+To edit: open the `.twbx` from this folder (not Tableau's default Workbooks folder) so the repo stays the source of truth. Custom team-logo shapes live in `~/Documents/My Tableau Repository/Shapes/NBA/` (Tableau requires shape sources there); the published `.twbx` bundles them.
+
 ## Testing and Validation
 
 For manual verification steps (API checks, local server checks, scraper-safe checks), see `TESTING.md`.
@@ -116,3 +142,5 @@ For manual verification steps (API checks, local server checks, scraper-safe che
 ## Why This Project
 
 This project demonstrates full-stack ownership across data engineering, backend API design, and UI performance. It reflects practical engineering tradeoffs (query simplification, route abstraction, and data integrity verification) in a production-style workflow.
+
+The Tableau rebuild takes the same analysis to a data-analyst audience: the same pipeline and validation, with the modeling in calculated fields and parameters instead of SQL, and visualizations the web app never had.
