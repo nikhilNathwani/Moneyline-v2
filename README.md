@@ -133,7 +133,9 @@ a data-analyst-portfolio rebuild of the same simulator.
 - The payout and ROI math the web app does in `resultSummary.sql` is reimplemented as Tableau calculated fields, driven by Team / Season / Prediction / Wager parameters.
 - Adds a cumulative-profit line and a favorite/underdog diverging-bar breakdown — neither exists in the web app.
 
-To edit: open the `.twbx` from this folder (not Tableau's default Workbooks folder) so the repo stays the source of truth. Custom team-logo shapes live in `~/Documents/My Tableau Repository/Shapes/NBA/` (Tableau requires shape sources there); the published `.twbx` bundles them.
+To edit: open the `.twbx` from this folder (not Tableau's default Workbooks folder) so the repo stays the source of truth, and re-publish to Tableau Public from here (same workbook name → replaces the existing viz, URL preserved). Custom team-logo shapes live in `~/Documents/My Tableau Repository/Shapes/NBA/` (Tableau requires shape sources there); the published `.twbx` bundles them.
+
+Annual data refresh: `python3 data/publish/export_tableau_csv.py` regenerates `games.csv` from Postgres — see [`data/YEARLY_WORKFLOW.md`](data/YEARLY_WORKFLOW.md#refresh-the-tableau-dashboard).
 
 ## Testing and Validation
 

@@ -119,6 +119,28 @@ the note at the top of `main.py` for why.
 2. **Test the web app** - Visit your site and verify the new season works correctly
 3. **Check database** - Use the SQL scripts in `app/queries/sampleQueries.sql` if needed
 
+### Refresh the Tableau dashboard
+
+The Tableau version (`tableau/NBA Moneyline.twbx`) reads `tableau/games.csv`, a
+flat export of the `games` table. The migration above does **not** touch it, so
+it goes stale unless you do this:
+
+```bash
+python3 data/publish/export_tableau_csv.py   # regenerate tableau/games.csv from Postgres
+git add tableau/games.csv && git commit -m "Add <season> to Tableau data export"
+```
+
+Then in Tableau:
+
+1. Open `tableau/NBA Moneyline.twbx` (the live connection reads the new CSV automatically).
+2. Add the new season to the **Season Start Year Parameter** list (Data pane -> right-click -> Edit).
+   Once dynamic parameters are pointing at the field this should update on open, but confirm.
+3. Verify a worked example still checks out (e.g. Boston Celtics 2023-24, win every game, $100
+   -> +$122.39, +1.51% ROI, 64-17).
+4. **File -> Save to Tableau Public**, same workbook name, replace the existing viz - the URL
+   (`public.tableau.com/views/NBAMoneyline/NBAMoneyline`) is preserved.
+5. Commit the updated `.twbx`.
+
 ## Troubleshooting
 
 ### Total doesn't match the expected count, or the distribution check fails
