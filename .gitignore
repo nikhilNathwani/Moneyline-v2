@@ -20,6 +20,10 @@ data/.oddsportal_cache/
 # pytest
 .pytest_cache/
 
+# Tableau lock / auto-recovery files (created while a workbook is open)
+*.twbr
+.~*.tw*
+
 # Sample SQL queries for database inspection
 app/queries/sampleQueries.sql
 
